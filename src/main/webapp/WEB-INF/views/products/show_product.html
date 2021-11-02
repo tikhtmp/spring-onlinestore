@@ -11,6 +11,14 @@
     <p th:text="${product.getShortDescription()}"></p>
     <p th:text="${product.getDetailDescription()}"></p>
     <p th:text="${product.getPrice()}"></p>
+    <a th:href="@{/products/{id}/edit(id=${product.getId()})}">
+<!--        <button>Edit product</button>-->
+        <input type="submit" name="Edit product"/>
+    </a>
+<form th:method="DELETE" th:action="@{/products/{id}(id=${product.getId()})}">
+    <input type="submit" name="Delete"/>
+</form>
+
 
 </body>
 </html>

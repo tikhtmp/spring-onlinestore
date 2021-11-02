@@ -44,4 +44,16 @@ public class ProductDAO {
         products.add(product);
     }
 
+    public void update(Long id, Product product){
+        Product productToBeUpdated = getProductById(id);
+        productToBeUpdated.setName(product.getName());
+        productToBeUpdated.setShortDescription(product.getShortDescription());
+        productToBeUpdated.setDetailDescription(product.getDetailDescription());
+        productToBeUpdated.setPrice(product.getPrice());
+    }
+
+    public void delete(Long id){
+        products.removeIf(p -> p.getId() == id);
+
+    }
 }

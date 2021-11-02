@@ -41,4 +41,22 @@ public class ProductsController {
         productDAO.save(product);
         return "redirect:/products";
     }
+
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") Long id){
+        model.addAttribute("product", productDAO.getProductById(id));
+        return "products/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@PathVariable("id") Long id, @ModelAttribute("product") Product product){
+        productDAO.update(id, product);
+        return "redirect:/products";
+    }
+
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        productDAO.delete(id);
+        return "redirect:/products";
+    }
 }
