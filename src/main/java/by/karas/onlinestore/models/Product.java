@@ -1,18 +1,29 @@
 package by.karas.onlinestore.models;
 import java.math.BigDecimal;
 
+
 public class Product {
-    private int id;
+    private Long id;
     private String name;
     private String shortDescription;
     private String detailDescription;
     private BigDecimal price;
 
-    public int getId() {
+    public Product() {}
+
+    public Product(Long id, String name, String shortDescription, String detailDescription, BigDecimal price) {
+        this.id = id;
+        this.name = name;
+        this.shortDescription = shortDescription;
+        this.detailDescription = detailDescription;
+        this.price = price;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,11 +59,4 @@ public class Product {
         this.price = price;
     }
 
-    public Product(int id, String name, String shortDescription, String detailDescription, BigDecimal price) {
-        this.id = id;
-        this.name = name;
-        this.shortDescription = shortDescription;
-        this.detailDescription = detailDescription;
-        this.price = price;
-    }
 }

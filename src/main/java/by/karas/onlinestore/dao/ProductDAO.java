@@ -10,20 +10,21 @@ import java.util.List;
 @Component
 public class ProductDAO {
     private List<Product> products;
+    private static Long PEOPLE_COUNT = 3L;
 
     {
         products = new ArrayList<>();
-        products.add(new Product(1,
+        products.add(new Product(1L,
                         "Product1",
                 "short description for Product1",
                 "detail description for Product1",
                  new BigDecimal(1.11)));
-        products.add(new Product(2,
+        products.add(new Product(2L,
                         "Product2",
                 "short description for Product2",
                 "detail description for Product2",
                 new BigDecimal(2.22)));
-        products.add(new Product(3,
+        products.add(new Product(3L,
                         "Product3",
                 "short description for Product3",
                 "detail description for Product3",
@@ -34,8 +35,13 @@ public class ProductDAO {
         return products;
     }
 
-    public Product getProductById(int id){
+    public Product getProductById(Long id){
         return products.stream().filter(product -> product.getId() == id).findAny().orElse(null);
+    }
+
+    public void save(Product product){
+        product.setId(++PEOPLE_COUNT);
+        products.add(product);
     }
 
 }
