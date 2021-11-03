@@ -1,12 +1,28 @@
 package by.karas.onlinestore.models;
+
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import java.math.BigDecimal;
 
 
 public class Product {
     private Long id;
+
+    @NotEmpty(message ="Name must not be empty")
+    @Size(min = 3, max = 50, message ="Name must be from 3 to 50 characters")
     private String name;
+
+    @NotEmpty(message ="Description must not be empty")
+    @Size(min = 5, max = 50, message ="Description must be from 5 to 50 characters")
     private String shortDescription;
+
+    @NotEmpty(message ="Description must not be empty")
+    @Size(min = 5, max = 1000, message ="Description must be from 5 to 1000 characters")
     private String detailDescription;
+
+    @DecimalMin(value = "0.01", message ="Price must greater than 0")
     private BigDecimal price;
 
     public Product() {}

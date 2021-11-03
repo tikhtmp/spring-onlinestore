@@ -2,10 +2,14 @@ package by.karas.onlinestore.controllers;
 
 import by.karas.onlinestore.dao.ProductDAO;
 import by.karas.onlinestore.models.Product;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/products")
@@ -37,7 +41,11 @@ public class ProductsController {
     }
 
     @PostMapping
-    public String createProduct(@ModelAttribute("product") Product product, Model model){
+    public String create(@ModelAttribute("product") @Valid Product product,
+                         BindingResult bindingResult){
+        if(bindingResult.hasErrors())
+            return "products/new";
+
         productDAO.save(product);
         return "redirect:/products";
     }
@@ -49,7 +57,11 @@ public class ProductsController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@PathVariable("id") Long id, @ModelAttribute("product") Product product){
+    public String update(@PathVariable("id") Long id, @ModelAttribute("product") @Valid Product product,
+                         BindingResult bindingResult){
+        if(bindingResult.hasErrors())
+            return "products/edit";
+
         productDAO.update(id, product);
         return "redirect:/products";
     }
