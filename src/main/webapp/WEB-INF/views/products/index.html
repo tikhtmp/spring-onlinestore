@@ -5,17 +5,28 @@
     <title>All products</title>
 </head>
 <body>
-<a href="/products/new">
-    <button>Add product</button>
+
+<a th:href="@{/products/new}">
+    <input type="submit" value="Add product"/>
 </a>
 <hr/>
-<div th:each="product : ${products}">
-    <p th:text="${product.getName()}">
-    <a th:href="@{/products/{id}(id=${product.getId()})}">
-        <button>See details</button>
-    </a>
-    </p>
-</div>
-
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th></th>
+    </tr>
+    <th:block th:each="product : ${products}">
+        <tr>
+            <td th:text="${product.getId()}"></td>
+            <td th:text="${product.getName()}"></td>
+            <td>
+                <a th:href="@{/products/{id}(id=${product.getId()})}">
+                    <input type="submit" value="See details"/>
+                </a>
+            </td>
+        </tr>
+    </th:block>
+</table>
 </body>
 </html>
