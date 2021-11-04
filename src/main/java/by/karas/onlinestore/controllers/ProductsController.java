@@ -25,13 +25,13 @@ public class ProductsController {
 
     @GetMapping
     public String productIndex(Model model){
-        model.addAttribute("products", productDAO.productIndex());
+        model.addAttribute("products", productDAO.index());
         return "products/index";
     }
 
     @GetMapping("/{id}")
     public String showProduct(@PathVariable("id") Long id, Model model){
-        model.addAttribute("product", productDAO.getProductById(id));
+//        model.addAttribute("product", productDAO.getProductById(id));
         return "products/show_product";
     }
 
@@ -47,12 +47,13 @@ public class ProductsController {
             return "products/new";
 
         productDAO.save(product);
+
         return "redirect:/products";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id){
-        model.addAttribute("product", productDAO.getProductById(id));
+ //       model.addAttribute("product", productDAO.getProductById(id));
         return "products/edit";
     }
 
@@ -62,7 +63,7 @@ public class ProductsController {
         if(bindingResult.hasErrors())
             return "products/edit";
 
-        productDAO.update(id, product);
+//        productDAO.update(id, product);
         return "redirect:/products";
     }
 
