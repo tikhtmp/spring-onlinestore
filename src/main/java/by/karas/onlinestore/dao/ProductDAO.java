@@ -11,6 +11,7 @@ import java.util.List;
 @Component
 public class ProductDAO {
     private List<Product> products;
+    private static long PEOPLE_COUNT = 3;
 
     private static final String URL = "jdbc:mysql://localhost:3306/onlinestore_db";
     private static final String USERNAME = "root";
@@ -58,35 +59,76 @@ public class ProductDAO {
         return products;
     }
 
-//    public Product getProductById(Long id){
-//        return products.stream().filter(product -> product.getId() == id).findAny().orElse(null);
-//    }
-
-    public void save(Product product) {
-
-        //product.setId(++PEOPLE_COUNT);
+    public Product show(Long id) {
+        Product product = null;
         try {
-            Statement statement = connection.createStatement();
-            String SQL = "insert into products values (" + Long.toString(88L) + ",'" + product.getName() + "','" +
-                    product.getShortDescription() + "','" + product.getDetailDescription() + "'," + product.getPrice().doubleValue() + ")";
-            statement.executeUpdate(SQL);
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "select * from products where id=?");
+
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+
+            product = new Product();
+
+            product.setId(resultSet.getLong("id"));
+            product.setName(resultSet.getString("name"));
+            product.setShortDescription(resultSet.getString("short_description"));
+            product.setDetailDescription(resultSet.getString("detail_description"));
+            product.setPrice(resultSet.getBigDecimal("price"));
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        products.add(product);
+        return product;
     }
 
-//    public void update(Long id, Product product){
-//        Product productToBeUpdated = getProductById(id);
-//        productToBeUpdated.setName(product.getName());
-//        productToBeUpdated.setShortDescription(product.getShortDescription());
-//        productToBeUpdated.setDetailDescription(product.getDetailDescription());
-//        productToBeUpdated.setPrice(product.getPrice());
-//    }
+    public void save(Product product) {
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "insert into products values(?, ?, ?, ?, ?)");
+
+            preparedStatement.setLong(1, product.getId());
+            preparedStatement.setString(2, product.getName());
+            preparedStatement.setString(3, product.getShortDescription());
+            preparedStatement.setString(4, product.getDetailDescription());
+            preparedStatement.setBigDecimal(5, product.getPrice());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(Long id, Product updatedProduct) {
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement("update products set name=?, short_description=?, detail_description=?, price=? where id=?");
+
+            preparedStatement.setString(1, updatedProduct.getName());
+            preparedStatement.setString(2, updatedProduct.getShortDescription());
+            preparedStatement.setString(3, updatedProduct.getDetailDescription());
+            preparedStatement.setBigDecimal(4, updatedProduct.getPrice());
+            preparedStatement.setLong(5, id);
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void delete(Long id) {
-        products.removeIf(p -> p.getId() == id);
+        try {
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement("delete from products where id=?");
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
 
     }
 }

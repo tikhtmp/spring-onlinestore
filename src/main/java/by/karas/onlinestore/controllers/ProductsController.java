@@ -23,47 +23,50 @@ public class ProductsController {
         this.productDAO = productDAO;
     }
 
-    @GetMapping
-    public String productIndex(Model model){
+    @GetMapping()
+    public String index(Model model) {
         model.addAttribute("products", productDAO.index());
         return "products/index";
     }
 
     @GetMapping("/{id}")
-    public String showProduct(@PathVariable("id") Long id, Model model){
-//        model.addAttribute("product", productDAO.getProductById(id));
-        return "products/show_product";
+    public String show(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("product", productDAO.show(id));
+        return "products/show";
     }
 
     @GetMapping("/new")
-    public String newProduct(@ModelAttribute("product") Product product){
+    public String newProduct(@ModelAttribute("product") Product product) {
         return "products/new";
     }
 
-    @PostMapping
+    @PostMapping()
     public String create(@ModelAttribute("product") @Valid Product product,
-                         BindingResult bindingResult){
-        if(bindingResult.hasErrors())
-            return "products/new";
+                         BindingResult bindingResult) {
 
+        if (bindingResult.hasErrors())
+            return "products/new";
+        product.setId(5588L);
         productDAO.save(product);
 
         return "redirect:/products";
+//        return "products/index";
     }
 
+
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") Long id){
- //       model.addAttribute("product", productDAO.getProductById(id));
+    public String edit(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("product", productDAO.show(id));
         return "products/edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@PathVariable("id") Long id, @ModelAttribute("product") @Valid Product product,
-                         BindingResult bindingResult){
-        if(bindingResult.hasErrors())
+    public String update(@ModelAttribute("product") @Valid Product product,
+                         BindingResult bindingResult, @PathVariable("id") Long id) {
+        if (bindingResult.hasErrors())
             return "products/edit";
 
-//        productDAO.update(id, product);
+        productDAO.update(id, product);
         return "redirect:/products";
     }
 

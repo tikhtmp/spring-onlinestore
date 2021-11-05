@@ -26,18 +26,19 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="ce7fd99b-69f5-47c7-9aaa-73a93147ee1c">
-        <schema name="mysql" object-types="table, function" />
-        <schema name="onlinestore_db" object-types="table, view, procedure, function, constraint, index, column, dataset trigger" />
+        <schema name="onlinestore_db" object-types="table, view, column" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="ce7fd99b-69f5-47c7-9aaa-73a93147ee1c">
-      <console name="onlinestore_db" type="STANDARD" schema="onlinestore_db" session="Main"><![CDATA[insert into products values (99, '99xxx', '99dfasd', 'y99yyyyyyy', 99.99)]]></console>
+      <console name="onlinestore_db" type="STANDARD" schema="onlinestore_db" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="ce7fd99b-69f5-47c7-9aaa-73a93147ee1c" object-ref="consoles/onlinestore_db" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="ce7fd99b-69f5-47c7-9aaa-73a93147ee1c" />
