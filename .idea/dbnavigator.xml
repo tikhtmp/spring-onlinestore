@@ -26,17 +26,19 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="ce7fd99b-69f5-47c7-9aaa-73a93147ee1c">
-        <schema name="onlinestore_db" object-types="table, view" />
+        <schema name="onlinestore_db" object-types="table, view, function, column" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="ce7fd99b-69f5-47c7-9aaa-73a93147ee1c">
-      <console name="onlinestore_db" type="STANDARD" schema="onlinestore_db" session="Main" />
+      <console name="onlinestore_db" type="STANDARD" schema="onlinestore_db" session="Main"><![CDATA[select * from products where id=1]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="ce7fd99b-69f5-47c7-9aaa-73a93147ee1c" object-ref="consoles/onlinestore_db" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="ce7fd99b-69f5-47c7-9aaa-73a93147ee1c" />
