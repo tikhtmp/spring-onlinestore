@@ -28,7 +28,7 @@ public class SpringOnlineStoreMvcDispatcherInitializer extends AbstractAnnotatio
         registerHiddenFieldFilter(aServletContext);
     }
 
-    private void registerHiddenFieldFilter(ServletContext aContext){
+    private void registerHiddenFieldFilter(ServletContext aContext) {
         aContext.addFilter("HiddenHttpMethodFilter",
                 new HiddenHttpMethodFilter()).addMappingForUrlPatterns(null, true, "/*");
     }

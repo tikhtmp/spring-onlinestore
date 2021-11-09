@@ -46,7 +46,7 @@ public class ProductsController {
 
         if (bindingResult.hasErrors())
             return "products/new";
-        product.setId(5588L);
+//        product.setId(5588L);
         productDAO.save(product);
 
         return "redirect:/products";

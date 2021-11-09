@@ -1,5 +1,7 @@
 package by.karas.onlinestore.models;
 
+import com.sun.javafx.beans.IDProperty;
+
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -8,6 +10,7 @@ import java.math.BigDecimal;
 
 
 public class Product {
+
     private Long id;
 
     @NotEmpty(message ="Name must not be empty")
