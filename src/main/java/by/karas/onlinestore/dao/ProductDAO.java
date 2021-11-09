@@ -1,14 +1,19 @@
 package by.karas.onlinestore.dao;
 
 import by.karas.onlinestore.models.Product;
+import by.karas.onlinestore.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class ProductDAO {
@@ -26,15 +31,40 @@ public class ProductDAO {
     public Product show(Long id) {
         return jdbcTemplate.query("select * from products where id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Product.class))
                 .stream().findAny().orElse(null);
+
     }
 
     public void save(Product product) {
-        jdbcTemplate.update("insert into products values(?, ?, ?, ?, ?)", product.getId(), product.getName(),
-                product.getShortDescription(), product.getDetailDescription(), product.getPrice());
+        User testUser = new User();
+        testUser.setName("TestUser name");
+        product.setAuthor(testUser);
+        String sql = "insert into products (name, short_description, detail_description, price, creation_date, update_date, author) values(?, ?, ?, ?, now(), now(), ?)";
+        jdbcTemplate.update(sql
+                , product.getName()
+                , product.getShortDescription()
+                , product.getDetailDescription()
+                , product.getPrice()
+                , null);
+
+//        KeyHolder keyHolder = new GeneratedKeyHolder();
+//        jdbcTemplate.update(new PreparedStatementCreator() {
+//            @Override
+//            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+//                PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+//                ps.setString(1, product.getName());
+//                ps.setString(2, product.getShortDescription());
+//                ps.setString(3, product.getDetailDescription());
+//                ps.setBigDecimal(4, product.getPrice());
+//                return ps;
+//            }
+//        }, keyHolder);
+//
+//        System.out.println(keyHolder.getKeys());
+//        System.out.println("keyHolder " + keyHolder.getKey());
     }
 
     public void update(Long id, Product updatedProduct) {
-        jdbcTemplate.update("update products set name=?, short_description=?, detail_description=?, price=? where id=?"
+        jdbcTemplate.update("update products set name=?, short_description=?, detail_description=?, price=?, update_date=now() where id=?"
                 , updatedProduct.getName()
                 , updatedProduct.getShortDescription()
                 , updatedProduct.getDetailDescription()

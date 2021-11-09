@@ -1,6 +1,7 @@
 package by.karas.onlinestore.dao;
 
 import by.karas.onlinestore.models.Product;
+import by.karas.onlinestore.models.User;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -18,6 +19,9 @@ public class ProductMapper implements RowMapper<Product> {
         product.setShortDescription(resultSet.getString("short_description"));
         product.setDetailDescription(resultSet.getString("detail_description"));
         product.setPrice(resultSet.getBigDecimal("price"));
+        product.setCreationDate(resultSet.getDate("creation_date"));
+        product.setUpdateDate(resultSet.getDate("update_date"));
+        product.setAuthor((User) resultSet.getObject("author"));
         return null;
     }
 }

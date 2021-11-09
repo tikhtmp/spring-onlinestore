@@ -3,6 +3,7 @@ package by.karas.onlinestore.controllers;
 import by.karas.onlinestore.dao.ProductDAO;
 import by.karas.onlinestore.models.Product;
 
+import by.karas.onlinestore.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,13 +45,12 @@ public class ProductsController {
     public String create(@ModelAttribute("product") @Valid Product product,
                          BindingResult bindingResult) {
 
+
         if (bindingResult.hasErrors())
             return "products/new";
-        product.setId(5588L);
         productDAO.save(product);
 
         return "redirect:/products";
-//        return "products/index";
     }
 
 
