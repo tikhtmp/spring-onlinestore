@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -28,10 +29,17 @@ public class ProductDAO {
         return jdbcTemplate.query("select * from products", new BeanPropertyRowMapper<>(Product.class));
     }
 
-    public Product show(Long id) {
-        return jdbcTemplate.query("select * from products where id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Product.class))
-                .stream().findAny().orElse(null);
+    public Product getProduct(Long id) {
+        final String sql = "select * from products where id=?";
+        List <Product> products = jdbcTemplate.query(
+                sql, new PreparedStatementSetter() {
 
+                    public void setValues(PreparedStatement preparedStatement) throws SQLException {
+                        preparedStatement.setLong(1, id);
+                    }
+                },
+                new BeanPropertyRowMapper<>(Product.class));
+        return products.get(0);
     }
 
     public void save(Product product) {

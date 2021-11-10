@@ -3,7 +3,6 @@ package by.karas.onlinestore.controllers;
 import by.karas.onlinestore.dao.ProductDAO;
 import by.karas.onlinestore.models.Product;
 
-import by.karas.onlinestore.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +31,7 @@ public class ProductsController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("product", productDAO.show(id));
+        model.addAttribute("product", productDAO.getProduct(id));
         return "products/show";
     }
 
@@ -56,7 +55,7 @@ public class ProductsController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("product", productDAO.show(id));
+        model.addAttribute("product", productDAO.getProduct(id));
         return "products/edit";
     }
 
