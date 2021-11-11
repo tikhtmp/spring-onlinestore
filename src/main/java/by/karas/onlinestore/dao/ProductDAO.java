@@ -5,12 +5,7 @@ import by.karas.onlinestore.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
@@ -25,7 +20,7 @@ public class ProductDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public List<Product> index() {
+    public List<Product> getAllProducts() {
         return jdbcTemplate.query("select * from products", new BeanPropertyRowMapper<>(Product.class));
     }
 
@@ -40,6 +35,16 @@ public class ProductDAO {
                 },
                 new BeanPropertyRowMapper<>(Product.class));
         return products.get(0);
+    }
+
+    public List<Product> getProducts(String request) {
+        List<Product> products = new ArrayList<>();
+        for(Product item : getAllProducts()){
+            if(item.getName().contains(request)){
+                products.add(item);
+            }
+        }
+        return products;
     }
 
     public void save(Product product) {

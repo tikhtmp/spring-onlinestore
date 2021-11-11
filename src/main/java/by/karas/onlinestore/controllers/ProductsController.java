@@ -24,10 +24,16 @@ public class ProductsController {
     }
 
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("products", productDAO.index());
+    public String index(@RequestParam(value = "filter", required = false, defaultValue = "") String filter, Model model) {
+        model.addAttribute("filter", filter);
+
+        if(filter == null){
+            model.addAttribute("products", productDAO.getAllProducts());
+        } else model.addAttribute("products", productDAO.getProducts(filter));
+
         return "products/index";
     }
+
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model) {
@@ -44,14 +50,12 @@ public class ProductsController {
     public String create(@ModelAttribute("product") @Valid Product product,
                          BindingResult bindingResult) {
 
-
         if (bindingResult.hasErrors())
             return "products/new";
         productDAO.save(product);
 
         return "redirect:/products";
     }
-
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
