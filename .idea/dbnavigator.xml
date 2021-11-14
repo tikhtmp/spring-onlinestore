@@ -32,7 +32,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="ce7fd99b-69f5-47c7-9aaa-73a93147ee1c">
-      <console name="onlinestore_db" type="STANDARD" schema="onlinestore_db" session="Main"><![CDATA["insert into products (name, short_description, detail_description, price, creation_date, update_date, author) values('newName', 'newShDes', 'newDetDes', 8.88, now(), now(), null)";]]></console>
+      <console name="onlinestore_db" type="STANDARD" schema="onlinestore_db" session="Main"><![CDATA[select * from users;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">

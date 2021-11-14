@@ -2,7 +2,6 @@ package by.karas.onlinestore.dao;
 
 import by.karas.onlinestore.models.Product;
 import by.karas.onlinestore.models.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
@@ -15,7 +14,7 @@ import java.util.*;
 public class ProductDAO {
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
+//    @Autowired
     public ProductDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

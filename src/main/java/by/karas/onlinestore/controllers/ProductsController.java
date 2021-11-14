@@ -15,13 +15,12 @@ import javax.validation.Valid;
 @RequestMapping("/products")
 public class ProductsController {
 
-
     private final ProductDAO productDAO;
 
-    @Autowired
     public ProductsController(ProductDAO productDAO) {
         this.productDAO = productDAO;
     }
+
 
     @GetMapping()
     public String index(@RequestParam(value = "filter", required = false, defaultValue = "") String filter, Model model) {
