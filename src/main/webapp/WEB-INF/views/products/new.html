@@ -23,7 +23,10 @@
     <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
     <br/>
     <input type="submit" value="Save"/>
-    <input type="submit" value="Cancel"/>
+<!--    <input type="submit" value="Cancel"/>-->
 </form>
+<a th:href="@{/products}">
+    <input type="submit" value="Cancel">
+</a>
 </body>
 </html>

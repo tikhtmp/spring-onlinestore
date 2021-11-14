@@ -8,18 +8,21 @@
 <form th:method="POST" th:action="@{/users}" th:object="${user}">
     <label for="name">Name: </label>
     <input type="text" th:field="*{name}" id="name"/>
-<!--    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>-->
+    <!--    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>-->
     <br/>
     <label for="login">Login: </label>
     <input type="text" th:field="*{login}" id="login"/>
-<!--    <div style="color:red" th:if="${#fields.hasErrors('shortDescription')}" th:errors="*{shortDescription}"></div>-->
+    <!--    <div style="color:red" th:if="${#fields.hasErrors('shortDescription')}" th:errors="*{shortDescription}"></div>-->
     <br/>
     <label for="password">Password: </label>
     <input type="text" th:field="*{password}" id="password"/>
-<!--    <div style="color:red" th:if="${#fields.hasErrors('detailDescription')}" th:errors="*{detailDescription}"></div>-->
+    <!--    <div style="color:red" th:if="${#fields.hasErrors('detailDescription')}" th:errors="*{detailDescription}"></div>-->
     <br/>
     <input type="submit" value="Save"/>
-    <input type="submit" value="Cancel"/>
+<!--    <input type="submit" value="Cancel"/>-->
 </form>
+<a th:href="@{/users}">
+    <input type="submit" value="Cancel">
+</a>
 </body>
 </html>
