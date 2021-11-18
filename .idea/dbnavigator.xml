@@ -25,24 +25,21 @@
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
     <loaded-nodes>
-      <connection connection-id="ce7fd99b-69f5-47c7-9aaa-73a93147ee1c">
-        <schema name="onlinestore_db" object-types="table, view" />
+      <connection connection-id="cbd570cf-ae38-4af8-8e8b-56c2aebf0447">
+        <schema name="onlinestore_db" object-types="table, view, procedure, function" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="ce7fd99b-69f5-47c7-9aaa-73a93147ee1c">
-      <console name="onlinestore_db" type="STANDARD" schema="onlinestore_db" session="Main"><![CDATA[select * from users;]]></console>
+    <connection id="cbd570cf-ae38-4af8-8e8b-56c2aebf0447">
+      <console name="OnlineStroreDBConnection" type="STANDARD" schema="onlinestore_db" session="Main"><![CDATA[select * from products]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="ce7fd99b-69f5-47c7-9aaa-73a93147ee1c" />
-  </component>
-  <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="ce7fd99b-69f5-47c7-9aaa-73a93147ee1c" dataset="onlinestore_db.products" active-filter-id="EMPTY_FILTER" />
+    <connection id="cbd570cf-ae38-4af8-8e8b-56c2aebf0447" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -72,9 +69,9 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="ce7fd99b-69f5-47c7-9aaa-73a93147ee1c" active="true">
+      <connection id="cbd570cf-ae38-4af8-8e8b-56c2aebf0447" active="true">
         <database>
-          <name value="onlinestore" />
+          <name value="OnlineStroreDBConnection" />
           <description value="" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
@@ -91,7 +88,7 @@
           <deprecated-pwd value="UnliYW5rYUAwOA==" />
         </database>
         <properties>
-          <auto-commit value="true" />
+          <auto-commit value="false" />
         </properties>
         <ssh-settings>
           <active value="false" />

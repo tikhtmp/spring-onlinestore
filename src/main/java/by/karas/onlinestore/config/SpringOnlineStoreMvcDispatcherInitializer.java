@@ -8,12 +8,12 @@ import javax.servlet.ServletException;
 
 public class SpringOnlineStoreMvcDispatcherInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
-    protected Class<?>[] getRootConfigClasses() {
+    protected Class<?>[] getRootConfigClasses(){
         return null;
     }
 
     @Override
-    protected Class<?>[] getServletConfigClasses() {
+    protected Class<?>[] getServletConfigClasses(){
         return new Class[]{OnlineStoreConfig.class};
     }
 

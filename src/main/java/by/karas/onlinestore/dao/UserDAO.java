@@ -1,5 +1,6 @@
 package by.karas.onlinestore.dao;
 
+import by.karas.onlinestore.models.Product;
 import by.karas.onlinestore.models.User;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,13 +20,14 @@ public class UserDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+
     public List<User> getAllUsers(){
         return jdbcTemplate.query("select * from users", new BeanPropertyRowMapper<>(User.class));
     }
 
     public User getUser(String login) {
         final String sql = "select * from users where login=?";
-        List <User> products = jdbcTemplate.query(
+        List <User> users = jdbcTemplate.query(
                 sql, new PreparedStatementSetter() {
 
                     public void setValues(PreparedStatement preparedStatement) throws SQLException {
@@ -33,13 +35,15 @@ public class UserDAO {
                     }
                 },
                 new BeanPropertyRowMapper<>(User.class));
-        return products.get(0);
+
+        return users.get(0);
+
     }
 
-    public List<User> getUsers(String request) {
+    public List<User> getUsers(String filter) {
         List<User> users = new ArrayList<>();
         for(User item : getAllUsers()){
-            if(item.getName().contains(request)){
+            if(item.getName().contains(filter)){
                 users.add(item);
             }
         }
@@ -52,7 +56,7 @@ public class UserDAO {
                 , user.getName()
                 , user.getLogin()
                 , user.getPassword()
-                , null);
+                , "ROLE_USER");
     }
 
     public void update(String login, User updatedUser){

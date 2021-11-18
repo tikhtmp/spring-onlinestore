@@ -1,7 +1,6 @@
 package by.karas.onlinestore.controllers;
 
 import by.karas.onlinestore.dao.UserDAO;
-import by.karas.onlinestore.models.Product;
 import by.karas.onlinestore.models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,17 +23,11 @@ public class UsersController {
     public String index(@RequestParam(value = "filter", required = false, defaultValue = "") String filter, Model model) {
         model.addAttribute("filter", filter);
 
-        if(filter == null){
+        if(filter.equals("")){
             model.addAttribute("users", userDAO.getAllUsers());
         } else model.addAttribute("users", userDAO.getUsers(filter));
 
         return "users/user_index";
-    }
-
-    @GetMapping("/{login}")
-    public String show(@PathVariable("login") String login, Model model) {
-        model.addAttribute("user", userDAO.getUser(login));
-        return "users/show";
     }
 
     @GetMapping("/new")
@@ -75,6 +68,4 @@ public class UsersController {
         userDAO.delete(login);
         return "redirect:/users";
     }
-
-
 }

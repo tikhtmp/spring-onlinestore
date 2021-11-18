@@ -18,8 +18,8 @@ import org.thymeleaf.templatemode.TemplateMode;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan("by.karas.onlinestore")
 @EnableWebMvc
+@ComponentScan("by.karas.onlinestore")
 public class OnlineStoreConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;
 
