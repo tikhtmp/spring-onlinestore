@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/products")
@@ -20,11 +21,17 @@ public class ProductsController {
         this.productDAO = productDAO;
     }
 
+    @GetMapping("/admin")
+    public String adminGreeting() {
+
+        return "products/admin/helloAdmin";
+    }
 
     @GetMapping()
-    public String index(@RequestParam(value = "filter", required = false, defaultValue = "") String filter, Model model) {
-        model.addAttribute("filter", filter);
+    public String index(@RequestParam(value = "filter", required = false, defaultValue = "") String filter
+            , Model model) {
 
+        model.addAttribute("filter", filter);
         if(filter == null){
             model.addAttribute("products", productDAO.getAllProducts());
         } else model.addAttribute("products", productDAO.getProducts(filter));

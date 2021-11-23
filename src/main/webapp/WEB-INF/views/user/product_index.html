@@ -10,6 +10,7 @@
             display: inline-block;
         }
 
+
 </style>
 
 <head>
@@ -17,28 +18,28 @@
     <title>All products</title>
     <div class="menu">
         <h3 class="menu">ONLINE STORE pic</h3>
-        <h3 class="menu">Hello,</h3>
-        <a th:href="@{/users/login}">
-            <input type="submit" value="Log in"/>
-        </a>
-        <a th:href="@{/users/new}">
-            <input type="submit" value="Register"/>
-        </a>
-        <a th:href="@{/users}">
-            <input type="submit" value="Users"/>
-        </a>
+        <h3 class="menu">
+            Hello,
+            <td th:text="${principalName}"></td>
+            !
+        </h3>
     </div>
 </head>
 
 <body>
 <br>
-<a th:href="@{/products/new}">
-    <input type="submit" value="Add product"/>
+<a th:href="@{'/user/' + ${principalName} + '/edit'}">
+    <input type="submit" value="Edit account"/>
 </a>
+<br>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Log out"/>
+</form>
+<br>
 <hr/>
-<form th:action="@{'/products?filter=' + ${filter}}">
+<form th:action="@{'/user?filter=' + ${filter}}">
     Filter: <input type="text" name="filter" size="50"/>
-    <a th:href="@{'/products?filter=' + ${filter}}">
+    <a th:href="@{'/user?filter=' + ${filter}}">
         <input type="submit" value="Search"/>
     </a>
 </form>
@@ -64,10 +65,16 @@
             <td th:text="${product.getCreationDate()}"></td>
             <td th:text="${product.getUpdateDate()}"></td>
             <td>
-                <a th:href="@{/products/{id}(id=${product.getId()})}">
+                <a th:href="@{/user/{id}(id=${product.getId()})}">
                     <input type="submit" value="See details"/>
                 </a>
             </td>
+            <!--            <td>-->
+            <!--                <a th:href="">-->
+            <!--                    <input type="submit" value="Add to cart"/>-->
+            <!--                </a>-->
+            <!--            </td>-->
+
         </tr>
     </th:block>
 </table>

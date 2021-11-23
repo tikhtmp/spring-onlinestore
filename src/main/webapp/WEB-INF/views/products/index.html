@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
-<head>
-    <!--    <link href="views/styles/product_style.css" rel="stylesheet">-->
-    <meta charset="UTF-8">
-    <title>All products</title>
-    <style>
+<style>
         .menu {
             background: #004f8b; /* Цвет фона */
             color: white; /* Цвет текста */
@@ -14,56 +10,41 @@
             display: inline-block;
         }
 
+</style>
 
-
-    </style>
-    <style>
-        .layer2 {
-            margin-bottom: 17px; /* Отступ снизу */
-        }
-
-
-
-    </style>
-
+<head>
+    <meta charset="UTF-8">
+    <title>All products</title>
     <div class="menu">
         <h3 class="menu">ONLINE STORE pic</h3>
-        <h3 class="menu">Hello, visitor! Log in to start or register</h3>
-
+        <h3 class="menu">Hello,</h3>
         <a th:href="@{/users/login}">
             <input type="submit" value="Log in"/>
         </a>
-
         <a th:href="@{/users/new}">
             <input type="submit" value="Register"/>
         </a>
-
         <a th:href="@{/users}">
             <input type="submit" value="Users"/>
         </a>
-
-
     </div>
-
-    <!--    <a href="/onlinestore/users/login">to login</a>-->
 </head>
-<br>
-<body>
 
+<body>
+<br>
 <a th:href="@{/products/new}">
     <input type="submit" value="Add product"/>
 </a>
-<br>
 <hr/>
-
 <form th:action="@{'/products?filter=' + ${filter}}">
-    Filter: <input type="text" name="filter" id="filter" size="50"/>
+    Filter: <input type="text" name="filter" size="50"/>
     <a th:href="@{'/products?filter=' + ${filter}}">
         <input type="submit" value="Search"/>
     </a>
 </form>
 <hr/>
-<h4 th:if="${filter.length()}"> Search results for:
+<h4 th:if="${filter.length()}">
+    Search results for:
     <data th:text="${filter}"/>
 </h4>
 <table>

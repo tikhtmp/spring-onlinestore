@@ -9,7 +9,6 @@
             margin-bottom: 5px; /* Отступ снизу */
             display: inline-block;
         }
-
 </style>
 
 <head>
@@ -17,28 +16,22 @@
     <title>All products</title>
     <div class="menu">
         <h3 class="menu">ONLINE STORE pic</h3>
-        <h3 class="menu">Hello,</h3>
-        <a th:href="@{/users/login}">
+        <h3 class="menu">Hello, visitor! Log in or register to start shopping: </h3>
+        <a th:href="@{/user}">
             <input type="submit" value="Log in"/>
         </a>
-        <a th:href="@{/users/new}">
+        <a th:href="@{/home/new}">
             <input type="submit" value="Register"/>
         </a>
-        <a th:href="@{/users}">
-            <input type="submit" value="Users"/>
-        </a>
+        <br>
     </div>
 </head>
 
 <body>
 <br>
-<a th:href="@{/products/new}">
-    <input type="submit" value="Add product"/>
-</a>
-<hr/>
-<form th:action="@{'/products?filter=' + ${filter}}">
+<form th:action="@{'/home?filter=' + ${filter}}">
     Filter: <input type="text" name="filter" size="50"/>
-    <a th:href="@{'/products?filter=' + ${filter}}">
+    <a th:href="@{'/home?filter=' + ${filter}}">
         <input type="submit" value="Search"/>
     </a>
 </form>
@@ -64,12 +57,18 @@
             <td th:text="${product.getCreationDate()}"></td>
             <td th:text="${product.getUpdateDate()}"></td>
             <td>
-                <a th:href="@{/products/{id}(id=${product.getId()})}">
+                <a th:href="@{/home/{id}(id=${product.getId()})}">
                     <input type="submit" value="See details"/>
                 </a>
             </td>
         </tr>
     </th:block>
 </table>
+
+<!--<h3>Current :-->
+<!--    <span th:utext="${#request.userPrincipal.name}"></span>-->
+<!--    <span th:utext="${#request.userPrincipal.authorities}"></span>-->
+
+<!--</h3>-->
 </body>
 </html>

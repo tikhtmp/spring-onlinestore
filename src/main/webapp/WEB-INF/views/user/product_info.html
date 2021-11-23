@@ -11,12 +11,12 @@
     <p th:text="${product.getShortDescription()}"></p>
     <p th:text="${product.getDetailDescription()}"></p>
     <p th:text="${product.getPrice()}"></p>
-    <a th:href="@{/products/{id}/edit(id=${product.getId()})}">
-        <input type="submit" value="Edit product"/>
-    </a>
-<form th:method="DELETE" th:action="@{/products/{id}(id=${product.getId()})}">
-    <input type="submit" value="Delete"/>
-</form>
+<br>
+<!--    <td>-->
+<!--        <a th:href="">-->
+<!--            <input type="submit" value="Add to cart"/>-->
+<!--        </a>-->
+<!--    </td>-->
 
     <a href="javascript:history.back()">
         <input type="submit" value="Go back"/>
