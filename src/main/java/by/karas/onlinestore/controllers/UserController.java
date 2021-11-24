@@ -1,5 +1,6 @@
 package by.karas.onlinestore.controllers;
 
+import by.karas.onlinestore.dao.CartDAO;
 import by.karas.onlinestore.dao.ProductDAO;
 import by.karas.onlinestore.dao.UserDAO;
 import by.karas.onlinestore.models.User;
@@ -17,10 +18,12 @@ import java.security.Principal;
 public class UserController {
     private final ProductDAO productDAO;
     private final UserDAO userDAO;
+    private final CartDAO cartDAO;
 
-    public UserController(ProductDAO productDAO, UserDAO userDAO) {
+    public UserController(ProductDAO productDAO, UserDAO userDAO, CartDAO cartDAO) {
         this.productDAO = productDAO;
         this.userDAO = userDAO;
+        this.cartDAO = cartDAO;
     }
 
     @GetMapping()
@@ -45,6 +48,23 @@ public class UserController {
     }
     @GetMapping("/{id}")
     public String showProductDetails(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("product", productDAO.getProduct(id));
+        return "user/product_info";
+    }
+
+    @GetMapping("/{login}/cart")
+    public String showCart(Model model, Principal principal) {
+        String login = principal.getName();
+        model.addAttribute("login", login);
+//        model.addAttribute("products", cartDAO.getCartProducts(login));
+
+//        model.addAttribute("cartProducts", productDAO.getCartProducts(cartDAO.getAllCartProducts()));
+        model.addAttribute("cartProducts", productDAO.getCartProducts(login));
+        return "user/cart";
+    }
+
+    @GetMapping("/addProductToCart/{id}")
+    public String addProductToCart(@PathVariable("id") Long id, Model model, Principal principal) {
         model.addAttribute("product", productDAO.getProduct(id));
         return "user/product_info";
     }

@@ -28,6 +28,10 @@
 
 <body>
 <br>
+<a th:href="@{'/user/' + ${principalName} + '/cart'}">
+    <input type="submit" value="Cart"/>
+</a>
+<br>
 <a th:href="@{'/user/' + ${principalName} + '/edit'}">
     <input type="submit" value="Edit account"/>
 </a>
@@ -52,6 +56,7 @@
     <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>Price</th>
         <th>ShortDescription</th>
         <th>CreationDate</th>
         <th>UpdateDate</th>
@@ -61,6 +66,7 @@
         <tr>
             <td th:text="${product.getId()}"></td>
             <td th:text="${product.getName()}"></td>
+            <td th:text="${product.getPrice()}"></td>
             <td th:text="${product.getShortDescription()}"></td>
             <td th:text="${product.getCreationDate()}"></td>
             <td th:text="${product.getUpdateDate()}"></td>
@@ -69,6 +75,7 @@
                     <input type="submit" value="See details"/>
                 </a>
             </td>
+
             <!--            <td>-->
             <!--                <a th:href="">-->
             <!--                    <input type="submit" value="Add to cart"/>-->

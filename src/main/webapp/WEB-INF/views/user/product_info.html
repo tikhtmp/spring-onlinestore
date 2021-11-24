@@ -12,7 +12,13 @@
     <p th:text="${product.getDetailDescription()}"></p>
     <p th:text="${product.getPrice()}"></p>
 <br>
-<!--    <td>-->
+
+<!--        <form th:method="DELETE" th:action="@{/products/{id}(id=${product.getId()})}">-->
+        <form th:action="@{/user/addProductToCart/{id}(id=${product.getId()})}">
+            <input type="submit" value="Add to cart"/>
+        </form>
+
+    <!--    <td>-->
 <!--        <a th:href="">-->
 <!--            <input type="submit" value="Add to cart"/>-->
 <!--        </a>-->

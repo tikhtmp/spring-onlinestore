@@ -39,7 +39,6 @@ public class ProductsController {
         return "products/index";
     }
 
-
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Long id, Model model) {
         model.addAttribute("product", productDAO.getProduct(id));

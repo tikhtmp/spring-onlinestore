@@ -1,5 +1,6 @@
 package by.karas.onlinestore.dao;
 
+import by.karas.onlinestore.models.CartRecord;
 import by.karas.onlinestore.models.Product;
 import by.karas.onlinestore.models.User;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -36,14 +37,23 @@ public class ProductDAO {
         return products.get(0);
     }
 
-    public List<Product> getProducts(String request) {
-        List<Product> products = new ArrayList<>();
-        for(Product item : getAllProducts()){
-            if(item.getName().contains(request)){
-                products.add(item);
-            }
-        }
+    public List<Product> getCartProducts(String userLogin) {
+
+        final String sql = "select * from products where id in (select product from cart where user=?)";
+
+        List <Product> products = jdbcTemplate.query(
+                sql, new PreparedStatementSetter() {
+                    public void setValues(PreparedStatement preparedStatement) throws SQLException {
+                        preparedStatement.setString(1, userLogin);
+                    }
+                },
+        new BeanPropertyRowMapper<>(Product.class));
         return products;
+    }
+
+    public List<Product> getProducts(String filter) {
+        final String sql = "select * from products where name like \'%" + filter + "%\'";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Product.class));
     }
 
     public void save(Product product) {
