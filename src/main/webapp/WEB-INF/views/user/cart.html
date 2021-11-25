@@ -15,15 +15,18 @@ Cart of user <td th:text="${login}"></td>
         <th>Name</th>
         <th>Price</th>
         <th>ShortDescription</th>
+        <th>Quantity</th>
     </tr>
-    <th:block th:each="cartProduct : ${cartProducts}">
+    <th:block th:each="product : ${cart}">
         <tr>
-            <td th:text="${cartProduct.getId()}"></td>
-            <td th:text="${cartProduct.getName()}"></td>
-            <td th:text="${cartProduct.getPrice()}"></td>
-            <td th:text="${cartProduct.getShortDescription()}"></td>
+            <td th:text="${product.key.getId()}"></td>
+            <td th:text="${product.key.getName()}"></td>
+            <td th:text="${product.key.getPrice()}"></td>
+            <td th:text="${product.key.getShortDescription()}"></td>
+            <td th:text="${product.value}"></td>
         </tr>
     </th:block>
+
 </table>
 <br>
 

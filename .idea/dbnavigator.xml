@@ -24,11 +24,7 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes>
-      <connection connection-id="cbd570cf-ae38-4af8-8e8b-56c2aebf0447">
-        <schema name="onlinestore_db" object-types="table, view, function, column" />
-      </connection>
-    </loaded-nodes>
+    <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="cbd570cf-ae38-4af8-8e8b-56c2aebf0447">
@@ -39,7 +35,9 @@ select * from products where id=(select product from cart where user='u3');
 select (select product from cart where user='u3') from products;
 
 select * from products where id in (select product from cart where user='u3');
-select * from products where name like '%some%';]]></console>
+select * from products where name like '%some%';
+alter table cart add quantity int;
+select * from products;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">

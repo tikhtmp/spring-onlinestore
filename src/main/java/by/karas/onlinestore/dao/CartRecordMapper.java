@@ -11,6 +11,7 @@ public class CartRecordMapper implements RowMapper<CartRecord> {
         CartRecord cartRecord = new CartRecord();
         cartRecord.setUser(resultSet.getString("user"));
         cartRecord.setProduct(resultSet.getLong("product"));
+        cartRecord.setQuantity(resultSet.getLong("quantity"));
         return null;
     }
 }

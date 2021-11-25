@@ -59,20 +59,23 @@ public class UserController {
 //        model.addAttribute("products", cartDAO.getCartProducts(login));
 
 //        model.addAttribute("cartProducts", productDAO.getCartProducts(cartDAO.getAllCartProducts()));
-        model.addAttribute("cartProducts", productDAO.getCartProducts(login));
+//        model.addAttribute("cartProducts", productDAO.getCartProducts(login));
+        model.addAttribute("cart", cartDAO.getCartByUserLogin(login));
         return "user/cart";
     }
 
     @GetMapping("/addProductToCart/{id}")
-    public String addProductToCart(@PathVariable("id") Long id, Model model, Principal principal) {
+    public String addProductToCart(@PathVariable("id") Long id, @PathVariable("quantity") Long quantity, Model model, Principal principal) {
         model.addAttribute("product", productDAO.getProduct(id));
+        model.addAttribute("quantity", quantity);
+        cartDAO.addProductToCart(principal.getName(), id, quantity);
         return "user/product_info";
     }
 
     @GetMapping("/{login}/edit")
     public String editUser(Model model, @PathVariable("login") String login) {
         model.addAttribute("user", userDAO.getUser(login));
-        System.out.println("user " + userDAO.getUser(login).getLogin());
+//        System.out.println("user " + userDAO.getUser(login).getLogin());
         return "user/edit_user";
     }
 
