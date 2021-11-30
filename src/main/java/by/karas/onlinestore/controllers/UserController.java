@@ -78,7 +78,7 @@ public class UserController {
             , @PathVariable("product_id") Long product_id
             , Model model
             , Principal principal) {
-        System.out.println("get add to cart");
+
         model.addAttribute("product", productDAO.getProduct(product_id));
         model.addAttribute("userId", user_id);
         model.addAttribute("productId", product_id);
@@ -100,7 +100,6 @@ public class UserController {
     ) {
 
         Long user_id = userDAO.getUserByLogin(principal.getName()).getId();
-        System.out.println("post add to cart quantity " + quantity);
         model.addAttribute("quantity", quantity);
         CartRecord newCartRecord = new CartRecord(user_id, product_id, quantity);
         cartDAO.save(newCartRecord);

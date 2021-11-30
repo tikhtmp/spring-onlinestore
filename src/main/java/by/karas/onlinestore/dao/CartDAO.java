@@ -59,10 +59,6 @@ public class CartDAO {
                 new BeanPropertyRowMapper<>(CartRecord.class));
 
         for (CartRecord cartRecord : cartRecords) {
-            System.out.println("cart rec = " + cartRecord.getProduct_id());
-        }
-
-        for (CartRecord cartRecord : cartRecords) {
             cart.put(productDAO.getProduct(cartRecord.getProduct_id()), cartRecord.getQuantity());
         }
 
@@ -104,7 +100,7 @@ public class CartDAO {
 //    }
 
     public void update(CartRecord cartRecordToUpdate, Long quantity) {
-        final String sql = "update cart set quantity=? where user=? and product=?";
+        final String sql = "update cart set quantity=? where user_id=? and product_id=?";
         jdbcTemplate.update(sql
                 , quantity
                 , cartRecordToUpdate.getUser_id()
@@ -119,6 +115,8 @@ public class CartDAO {
                     , newCartRecord.getUser_id()
                     , newCartRecord.getProduct_id()
                     , newCartRecord.getQuantity());
+        } else {
+            update(newCartRecord, newCartRecord.getQuantity());
         }
     }
 
