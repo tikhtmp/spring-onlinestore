@@ -30,8 +30,12 @@ Cart of user <td th:text="${login}"></td>
 </table>
 <br>
 
-<a href="javascript:history.back()">
-    <input type="submit" value="Go back"/>
+<a th:href="@{/users/products}">
+    <input type="submit" value="Go to products"/>
 </a>
+
+<!--<a th:href="@{'/users/' + ${userId} + '/products/' + ${product.key.getId()} }">-->
+<!--    <input type="submit" value="Add to cart"/>-->
+<!--</a>-->
 </body>
 </html>

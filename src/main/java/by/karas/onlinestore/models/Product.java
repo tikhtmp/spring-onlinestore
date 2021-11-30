@@ -31,12 +31,12 @@ public class Product {
 
     private Date creationDate;
     private Date updateDate;
-    private User author;
+    private Long author;
 
     public Product() {
     }
 
-    public Product(Long id, String name, String shortDescription, String detailDescription, BigDecimal price, Date creationDate, Date updateDate, User author) {
+    public Product(Long id, String name, String shortDescription, String detailDescription, BigDecimal price, Date creationDate, Date updateDate, Long author) {
         this.id = id;
         this.name = name;
         this.shortDescription = shortDescription;
@@ -103,11 +103,11 @@ public class Product {
         this.updateDate = updateDate;
     }
 
-    public User getAuthor() {
+    public Long getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(Long author) {
         this.author = author;
     }
 }

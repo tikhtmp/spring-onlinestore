@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/users1")
 public class UsersController {
 
     private final UserDAO userDAO;
@@ -49,7 +49,7 @@ public class UsersController {
 
     @GetMapping("/{login}/edit")
     public String edit(Model model, @PathVariable("login") String login) {
-        model.addAttribute("user", userDAO.getUser(login));
+        model.addAttribute("user", userDAO.getUserByLogin(login));
         return "users/edit";
     }
 

@@ -1,17 +1,27 @@
 package by.karas.onlinestore.models;
 
 public class CartRecord {
-    private String user;
-    private Long product;
+    private Long id;
+    private Long user_id;
+    private Long product_id;
     private Long quantity;
 
     public CartRecord() {
     }
 
-    public CartRecord(String user, Long product, Long quantity) {
-        this.user = user;
-        this.product = product;
+    public CartRecord(/*Long id,*/ Long user_id, Long product_id, Long quantity) {
+//        this.id = id;
+        this.user_id = user_id;
+        this.product_id = product_id;
         this.quantity = quantity;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getQuantity() {
@@ -22,19 +32,19 @@ public class CartRecord {
         this.quantity = quantity;
     }
 
-    public String getUser() {
-        return user;
+    public Long getUser_id() {
+        return user_id;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 
-    public Long getProduct() {
-        return product;
+    public Long getProduct_id() {
+        return product_id;
     }
 
-    public void setProduct(Long product) {
-        this.product = product;
+    public void setProduct_id(Long product_id) {
+        this.product_id = product_id;
     }
 }

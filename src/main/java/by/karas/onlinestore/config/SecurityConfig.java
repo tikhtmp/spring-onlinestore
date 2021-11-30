@@ -38,11 +38,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
 //                .antMatchers("/home/**").permitAll()
-                .antMatchers("/user/**").access("hasRole('ROLE_USER')")
-                .antMatchers("/products/admin/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/users/**").access("hasRole('ROLE_USER')")
+                .antMatchers("/admins/**").access("hasRole('ROLE_ADMIN')")
+//                .antMatchers("/products/admin/**").access("hasRole('ROLE_ADMIN')")
 //                .antMatchers("/superadmin/**").access("hasRole('ROLE_SUPERADMIN')")
                 .and().formLogin().defaultSuccessUrl("/", false)
-                .and().logout().permitAll().logoutSuccessUrl("/home");
+                .and().logout().permitAll().logoutSuccessUrl("/home/products");
 
 
     }

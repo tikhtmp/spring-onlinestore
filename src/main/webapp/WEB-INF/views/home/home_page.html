@@ -17,10 +17,10 @@
     <div class="menu">
         <h3 class="menu">ONLINE STORE pic</h3>
         <h3 class="menu">Hello, visitor! Log in or register to start shopping: </h3>
-        <a th:href="@{/user}">
+        <a th:href="@{/users/products}">
             <input type="submit" value="Log in"/>
         </a>
-        <a th:href="@{/home/new}">
+        <a th:href="@{/home/users/new}">
             <input type="submit" value="Register"/>
         </a>
         <br>
@@ -29,9 +29,9 @@
 
 <body>
 <br>
-<form th:action="@{'/home?filter=' + ${filter}}">
+<form th:action="@{'/home/products?filter=' + ${filter}}">
     Filter: <input type="text" name="filter" size="50"/>
-    <a th:href="@{'/home?filter=' + ${filter}}">
+    <a th:href="@{'/home/products?filter=' + ${filter}}">
         <input type="submit" value="Search"/>
     </a>
 </form>
@@ -57,7 +57,7 @@
             <td th:text="${product.getCreationDate()}"></td>
             <td th:text="${product.getUpdateDate()}"></td>
             <td>
-                <a th:href="@{/home/{id}(id=${product.getId()})}">
+                <a th:href="@{/home/products/{id}(id=${product.getId()})}">
                     <input type="submit" value="See details"/>
                 </a>
             </td>

@@ -28,11 +28,11 @@
 
 <body>
 <br>
-<a th:href="@{'/user/' + ${principalName} + '/cart'}">
+<a th:href="@{'/users/' + ${userId} + '/cart'}">
     <input type="submit" value="Cart"/>
 </a>
 <br>
-<a th:href="@{'/user/' + ${principalName} + '/edit'}">
+<a th:href="@{'/users/' + ${userId} + '/edit'}">
     <input type="submit" value="Edit account"/>
 </a>
 <br>
@@ -41,9 +41,9 @@
 </form>
 <br>
 <hr/>
-<form th:action="@{'/user?filter=' + ${filter}}">
+<form th:action="@{'/users/' + ${userId} + '/products?filter=' + ${filter}}">
     Filter: <input type="text" name="filter" size="50"/>
-    <a th:href="@{'/user?filter=' + ${filter}}">
+    <a th:href="@{'/users/' + ${userId} + '/products?filter=' + ${filter}}">
         <input type="submit" value="Search"/>
     </a>
 </form>
@@ -71,7 +71,8 @@
             <td th:text="${product.getCreationDate()}"></td>
             <td th:text="${product.getUpdateDate()}"></td>
             <td>
-                <a th:href="@{/user/{id}(id=${product.getId()})}">
+<!--                <a th:href="@{/user/{id}(id=${product.getId()})}">-->
+                <a th:href="@{/users/products/{id}(id=${product.getId()})}">
                     <input type="submit" value="See details"/>
                 </a>
             </td>

@@ -6,22 +6,25 @@
     <title>Product</title>
 </head>
 <body>
-    <p th:text="${product.getId()}"></p>
-    <p th:text="${product.getName()}"></p>
-    <p th:text="${product.getShortDescription()}"></p>
-    <p th:text="${product.getDetailDescription()}"></p>
-    <p th:text="${product.getPrice()}"></p>
-<br>
-    <label for="quantity">Quantity: </label>
-    <input type="text" th:field="*{quantity}" id="quantity">
-<!--    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>-->
+    id: <p th:text="${product.getId()}"></p>
+    name: <p th:text="${product.getName()}"></p>
+    shortDescription: <p th:text="${product.getShortDescription()}"></p>
+    DetailDescription: <p th:text="${product.getDetailDescription()}"></p>
+    price: <p th:text="${product.getPrice()}"></p>
 
-        <form th:action="@{/user/addProductToCart/{id}(id=${product.getId()})}">
-            <input type="submit" value="Add to cart"/>
-        </form>
-
-    <a th:href="@{/user}">
+    <a th:href="@{/users/products}">
         <input type="submit" value="Go to products"/>
     </a>
+
+    <!--        <form th:action="@{/user/addProductToCart/{id}(id=${product.getId()})}">-->
+    <!--            <input type="submit" value="Add to cart"/>-->
+    <!--        </form>-->
+
+    <a th:href="@{'/users/' + ${userId} + '/products/' + ${product.getId()}}">
+        <input type="submit" value="Add to cart"/>
+    </a>
+
 </body>
+
+
 </html>

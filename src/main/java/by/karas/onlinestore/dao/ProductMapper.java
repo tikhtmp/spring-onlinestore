@@ -21,7 +21,7 @@ public class ProductMapper implements RowMapper<Product> {
         product.setPrice(resultSet.getBigDecimal("price"));
         product.setCreationDate(resultSet.getDate("creation_date"));
         product.setUpdateDate(resultSet.getDate("update_date"));
-        product.setAuthor((User) resultSet.getObject("author"));
+        product.setAuthor(resultSet.getLong("author"));
         return null;
     }
 }

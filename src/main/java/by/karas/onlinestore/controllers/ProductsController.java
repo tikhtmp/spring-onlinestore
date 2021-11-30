@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/products")
+@RequestMapping("/products1")
 public class ProductsController {
 
     private final ProductDAO productDAO;
@@ -32,7 +32,7 @@ public class ProductsController {
             , Model model) {
 
         model.addAttribute("filter", filter);
-        if(filter == null){
+        if (filter == null) {
             model.addAttribute("products", productDAO.getAllProducts());
         } else model.addAttribute("products", productDAO.getProducts(filter));
 
@@ -56,6 +56,7 @@ public class ProductsController {
 
         if (bindingResult.hasErrors())
             return "products/new";
+
         productDAO.save(product);
 
         return "redirect:/products";

@@ -3,7 +3,7 @@ package by.karas.onlinestore.models;
 import by.karas.onlinestore.dao.Role;
 
 public class User {
-    private String name;
+    private Long id;
     private String login;
     private String password;
     private Role role;
@@ -11,19 +11,19 @@ public class User {
     public User() {
     }
 
-    public User(String name, String login, String password, Role role) {
-        this.name = name;
+    public User(Long id, String login, String password, Role role) {
+        this.id = id;
         this.login = login;
         this.password = password;
         this.role = role;
     }
 
-    public String getName() {
-        return name;
+    public Long getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getLogin() {

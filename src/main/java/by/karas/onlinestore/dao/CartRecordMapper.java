@@ -9,8 +9,9 @@ public class CartRecordMapper implements RowMapper<CartRecord> {
     @Override
     public CartRecord mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         CartRecord cartRecord = new CartRecord();
-        cartRecord.setUser(resultSet.getString("user"));
-        cartRecord.setProduct(resultSet.getLong("product"));
+//        cartRecord.setId(resultSet.getLong("id"));
+        cartRecord.setUser_id(resultSet.getLong("user_id"));
+        cartRecord.setProduct_id(resultSet.getLong("product_id"));
         cartRecord.setQuantity(resultSet.getLong("quantity"));
         return null;
     }

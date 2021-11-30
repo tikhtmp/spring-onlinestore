@@ -22,7 +22,7 @@ public class HomeController {
         this.userDAO = userDAO;
     }
 
-    @GetMapping()
+    @GetMapping("/products")
     public String home(@RequestParam(value = "filter", required = false, defaultValue = "") String filter
             , Model model) {
 
@@ -35,24 +35,23 @@ public class HomeController {
         return "home/home_page";
     }
 
-    @GetMapping("/new")
+    @GetMapping("/users/new")
     public String createUser(@ModelAttribute("user") User user) {
         return "home/add_user";
     }
 
-    @PostMapping("/new")
+    @PostMapping("/users/new")
     public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors())
-            return "home/new";
+            return "home/users/new";
 
         userDAO.save(user);
 
-//        return "redirect:/products/index";
-        return "redirect:/home";
+        return "redirect:/home/products";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/products/{id}")
     public String seeProductDetails(@PathVariable("id") Long id, Model model){
         model.addAttribute("product", productDAO.getProduct(id));
         return "home/product_info";

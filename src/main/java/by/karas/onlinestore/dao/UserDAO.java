@@ -25,7 +25,7 @@ public class UserDAO {
         return jdbcTemplate.query("select * from users", new BeanPropertyRowMapper<>(User.class));
     }
 
-    public User getUser(String login) {
+    public User getUserByLogin(String login) {
         final String sql = "select * from users where login=?";
         List <User> users = jdbcTemplate.query(
                 sql, new PreparedStatementSetter() {
@@ -40,10 +40,25 @@ public class UserDAO {
 
     }
 
+    public User getUserById(Long id) {
+        final String sql = "select * from users where id=?";
+        List <User> users = jdbcTemplate.query(
+                sql, new PreparedStatementSetter() {
+
+                    public void setValues(PreparedStatement preparedStatement) throws SQLException {
+                        preparedStatement.setLong(1, id);
+                    }
+                },
+                new BeanPropertyRowMapper<>(User.class));
+
+        return users.get(0);
+
+    }
+
     public List<User> getUsers(String filter) {
         List<User> users = new ArrayList<>();
         for(User item : getAllUsers()){
-            if(item.getName().contains(filter)){
+            if(item.getLogin().contains(filter)){
                 users.add(item);
             }
         }
@@ -51,18 +66,16 @@ public class UserDAO {
     }
 
     public void save (User user){
-        String sql = "insert into users (name, login, password, role) values(?, ?, ?, ?)";
+        String sql = "insert into users (login, password, role) values(?, ?, ?)";
         jdbcTemplate.update(sql
-                , user.getName()
                 , user.getLogin()
                 , user.getPassword()
                 , "ROLE_USER");
     }
 
     public void update(String login, User updatedUser){
-        String sql = "update users set name=?, login=?, password=? where login=?";
+        String sql = "update users set login=?, password=? where login=?";
         jdbcTemplate.update(sql
-                , updatedUser.getName()
                 , updatedUser.getLogin()
                 , updatedUser.getPassword()
                 , login);
