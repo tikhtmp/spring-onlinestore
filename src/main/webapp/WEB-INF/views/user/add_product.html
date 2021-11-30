@@ -26,13 +26,11 @@ Adding product to cart
 <form th:method="POST" th:action="@{/cart/${user}/cart}" th:object="${cartRecord}">
     <p type="text" id="user" th:value="${principalName}"/>
     <p type="text" id="product" th:value="${product.getId()}"/>
-<!--<form th:method="POST" th:action="@{/cart/${user}/cart}" >-->
+
     <label for="quantity">Quantity: </label>
-<!--    <input type="text" th:field="*{quantity}" id="quantity" th:value="${quantity}">-->
     <input type="text" id="quantity" th:value="${quantity}">
     <!--    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>-->
     <br/>
-<!--    Quantity: <p class="inline" th:text="${quantity}"></p>-->
     <br/>
     <br/>
     <input type="submit" value="Add to cart"/>
@@ -40,10 +38,6 @@ Adding product to cart
 
 <br/>
 
-<!--<form th:action="@{/user/addProductToCart/{id}(id=${product.getId()})}">-->
-<!--    <input type="submit" value="Add to cart"/>-->
-<!--</form>-->
-<!--<br/>-->
 <a th:href="@{/user}">
     <input type="submit" value="Go to products"/>
 </a>

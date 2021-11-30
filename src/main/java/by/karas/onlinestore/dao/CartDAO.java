@@ -125,6 +125,7 @@ public class CartDAO {
 
         List<CartRecord> cartRecords = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(CartRecord.class));
 
+
 //        if (cartRecords.size() > 1){
 //            try {
 //                throw new Exception("Duplicate cart records for user " + login);
@@ -136,6 +137,11 @@ public class CartDAO {
         return cartRecords.size() == 0 ? false : true;
     }
 
+    public void delete(Long userId, Long productId){
+        jdbcTemplate.update("delete from cart where user_id=? and product_id=?"
+        , userId
+        , productId);
+    }
 
 //    ------------------------------------------------------
 //        public List<CartRecord> getCartProducts(String userLogin){

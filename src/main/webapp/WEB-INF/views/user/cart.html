@@ -24,7 +24,13 @@ Cart of user <td th:text="${login}"></td>
             <td th:text="${product.key.getPrice()}"></td>
             <td th:text="${product.key.getShortDescription()}"></td>
             <td th:text="${product.value}"></td>
+            <td>
+                <form th:method="DELETE" th:action="@{'/users/' + ${product.key.getId()}}">
+                    <input type="submit" value="Delete"/>
+                </form>
+            </td>
         </tr>
+
     </th:block>
 
 </table>

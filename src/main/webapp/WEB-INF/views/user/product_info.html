@@ -16,10 +16,6 @@
         <input type="submit" value="Go to products"/>
     </a>
 
-    <!--        <form th:action="@{/user/addProductToCart/{id}(id=${product.getId()})}">-->
-    <!--            <input type="submit" value="Add to cart"/>-->
-    <!--        </form>-->
-
     <a th:href="@{'/users/' + ${userId} + '/products/' + ${product.getId()}}">
         <input type="submit" value="Add to cart"/>
     </a>

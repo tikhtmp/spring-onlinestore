@@ -55,6 +55,12 @@ public class UserController {
         return "user/product_index";
     }
 
+    @GetMapping("/{user_id}/edit")
+    public String editUser(Model model, @PathVariable("user_id") Long userId) {
+        model.addAttribute("user", userDAO.getUserById(userId));
+        return "user/edit_user";
+    }
+
     @GetMapping("/{user_id}/cart")
     public String showCart(@PathVariable("user_id") Long userId, Model model, Principal principal) {
         model.addAttribute("login", principal.getName());
@@ -107,28 +113,31 @@ public class UserController {
         return "redirect:/users/" + user_id + "/cart";
     }
 
-    @PatchMapping("/addProductToCart/{id}")
-    public String updateCartRecord(@ModelAttribute("cartRecord") @Valid CartRecord cartRecord, Principal principal,
-                                   BindingResult bindingResult) {
-        return "redirect:/users/cart";
+    @DeleteMapping("/{product_id}")
+    public String deleteProductFromCart(@PathVariable("product_id") Long productId, Principal principal){
+
+        Long userId = userDAO.getUserByLogin(principal.getName()).getId();
+        cartDAO.delete(userId, productId);
+
+        return "redirect:/users/" + userId + "/cart";
     }
+//    @PatchMapping("/addProductToCart/{id}")
+//    public String updateCartRecord(@ModelAttribute("cartRecord") @Valid CartRecord cartRecord, Principal principal,
+//                                   BindingResult bindingResult) {
+//        return "redirect:/users/cart";
 
-    @GetMapping("/{user_id}/edit")
-    public String editUser(Model model, @PathVariable("user_id") Long userId) {
-        model.addAttribute("user", userDAO.getUserById(userId));
-        return "user/edit_user";
-    }
+//    }
 
-    @PatchMapping("/{user_id}")
-    public String update(@ModelAttribute("user") @Valid User user
-            , Principal principal
-            , @PathVariable("user_id") Long userId
-            , BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors())
-            return "user/edit_user";
-
-        userDAO.update(principal.getName(), user);
-        return "redirect:/users/" + userId + "/products";
-    }
+//    @PatchMapping("/{user_id}")
+//    public String update(@ModelAttribute("user") @Valid User user
+//            , Principal principal
+//            , @PathVariable("user_id") Long userId
+//            , BindingResult bindingResult) {
+//
+//        if (bindingResult.hasErrors())
+//            return "user/edit_user";
+//
+//        userDAO.update(principal.getName(), user);
+//        return "redirect:/users/" + userId + "/products";
+//    }
 }
