@@ -26,7 +26,6 @@ public class CartDAO {
     }
 
     public Long getQuantityFromCart(Long userId, Long productId) {
-//        Long userId = userDAO.getUserByLogin(login).getId();
         final String sql = "select * from cart where user_id=? and product_id=?";
 
         List<CartRecord> cartRecords = jdbcTemplate.query(
@@ -45,15 +44,14 @@ public class CartDAO {
         return cartRecords.get(0).getQuantity();
     }
 
-    public Map<Product, Long> getCartByUserId(Long id) {
-//        Long userId = userDAO.getUserByLogin(login).getId();
+    public Map<Product, Long> getCartByUserId(Long userId) {
         Map<Product, Long> cart = new HashMap<>();
         final String sql = "select * from cart where user_id=?";
 
         List<CartRecord> cartRecords = jdbcTemplate.query(
                 sql, new PreparedStatementSetter() {
                     public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                        preparedStatement.setLong(1, id);
+                        preparedStatement.setLong(1, userId);
                     }
                 },
                 new BeanPropertyRowMapper<>(CartRecord.class));
@@ -84,10 +82,10 @@ public class CartDAO {
         return cart;
     }
 
-    public CartRecord getCartRecord(String login, Long id) {
-        final String sql = "select * from cart where user=? and product=?";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(CartRecord.class)).get(0);
-    }
+//    public CartRecord getCartRecord(String login, Long id) {
+//        final String sql = "select * from cart where user=? and product=?";
+//        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(CartRecord.class)).get(0);
+//    }
 
 //    public void addProductToCart(String login, Long id, Long quantity) {
 //        CartRecord cartRecord = new CartRecord(login, id, quantity);
@@ -142,33 +140,4 @@ public class CartDAO {
         , userId
         , productId);
     }
-
-//    ------------------------------------------------------
-//        public List<CartRecord> getCartProducts(String userLogin){
-//        List<CartRecord> records = new ArrayList<>();
-//        final String sql = "select * from cart where user=?";
-//        records =jdbcTemplate.query(
-//                sql, new PreparedStatementSetter() {
-//                    public void setValues(PreparedStatement preparedStatement) throws SQLException {
-//                        preparedStatement.setString(1, userLogin);
-//                    }
-//                },
-//                new BeanPropertyRowMapper<>(CartRecord.class));
-//
-//        System.out.println("Cart tmp:");
-//
-//        for(CartRecord record : records){
-//            System.out.println(record.getUser() + " : " + record.getProduct());
-//        }
-//
-//        return records;
-//    }
-//    public List<CartRecord> getAllCartProducts(){
-//        List<CartRecord> records = new ArrayList<>();
-//        final String sql = "select * from cart";
-//
-//        records =jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(CartRecord.class));
-//        return records;
-//    }
-
 }

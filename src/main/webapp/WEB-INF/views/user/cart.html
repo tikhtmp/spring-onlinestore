@@ -8,7 +8,8 @@
 <body>
 
 <br>
-Cart of user <td th:text="${login}"></td>
+Cart of user
+<td th:text="${principalName}"></td>
 <table>
     <tr>
         <th>ID</th>
@@ -25,8 +26,13 @@ Cart of user <td th:text="${login}"></td>
             <td th:text="${product.key.getShortDescription()}"></td>
             <td th:text="${product.value}"></td>
             <td>
+                <a th:href="@{/users/products/{id}(id=${product.key.getId()})}">
+                    <input type="submit" value="See details"/>
+                </a>
+            </td>
+            <td>
                 <form th:method="DELETE" th:action="@{'/users/' + ${product.key.getId()}}">
-                    <input type="submit" value="Delete"/>
+                    <input type="submit" value="Delete from cart"/>
                 </form>
             </td>
         </tr>
@@ -39,9 +45,5 @@ Cart of user <td th:text="${login}"></td>
 <a th:href="@{/users/products}">
     <input type="submit" value="Go to products"/>
 </a>
-
-<!--<a th:href="@{'/users/' + ${userId} + '/products/' + ${product.key.getId()} }">-->
-<!--    <input type="submit" value="Add to cart"/>-->
-<!--</a>-->
 </body>
 </html>
