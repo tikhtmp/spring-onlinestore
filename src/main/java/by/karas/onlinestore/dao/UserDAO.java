@@ -73,17 +73,17 @@ public class UserDAO {
                 , "ROLE_USER");
     }
 
-    public void update(String login, User updatedUser){
-        String sql = "update users set login=?, password=? where login=?";
+    public void update(Long id, User updatedUser){
+        String sql = "update users set login=?, password=? where id=?";
         jdbcTemplate.update(sql
                 , updatedUser.getLogin()
                 , updatedUser.getPassword()
-                , login);
+                , id);
     }
 
-    public void delete(String login){
-        String sql = "delete from users where login=?";
-        jdbcTemplate.update(sql, login);
+    public void delete(Long id){
+        String sql = "delete from users where id=?";
+        jdbcTemplate.update(sql, id);
     }
 
 }

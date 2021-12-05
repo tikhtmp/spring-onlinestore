@@ -26,13 +26,14 @@ Cart of user
             <td th:text="${product.key.getShortDescription()}"></td>
             <td th:text="${product.value}"></td>
             <td>
-                <a th:href="@{/users/products/{id}(id=${product.key.getId()})}">
+                <a th:href="@{'/users/' + ${userId} + '/cart/products/' + ${product.key.getId()} +'/edit'}">
                     <input type="submit" value="See details"/>
                 </a>
             </td>
             <td>
-                <form th:method="DELETE" th:action="@{'/users/' + ${product.key.getId()}}">
-                    <input type="submit" value="Delete from cart"/>
+                <form th:method="DELETE"
+                      th:action="@{'/users/' + ${userId} + '/cart/products/' + ${product.key.getId()}}">
+                    <input type="submit" value="Remove from cart"/>
                 </form>
             </td>
         </tr>
@@ -40,6 +41,7 @@ Cart of user
     </th:block>
 
 </table>
+<br>
 <br>
 
 <a th:href="@{/users/products}">

@@ -26,6 +26,31 @@ public class CartDAO {
     }
 
     public Long getQuantityFromCart(Long userId, Long productId) {
+        if (!isRecordExist(userId, productId)) {
+            return 0L;
+        }
+
+        return getCartRecord(userId, productId).getQuantity();
+
+//        final String sql = "select * from cart where user_id=? and product_id=?";
+//
+//        List<CartRecord> cartRecords = jdbcTemplate.query(
+//                sql, new PreparedStatementSetter() {
+//                    public void setValues(PreparedStatement preparedStatement) throws SQLException {
+//                        preparedStatement.setLong(1, userId);
+//                        preparedStatement.setLong(2, productId);
+//                    }
+//                },
+//                new BeanPropertyRowMapper<>(CartRecord.class));
+//
+//        if (cartRecords.size() == 0) {
+//            return 0L;
+//        }
+//
+//        return cartRecords.get(0).getQuantity();
+    }
+
+    public CartRecord getCartRecord (Long userId, Long productId) {
         final String sql = "select * from cart where user_id=? and product_id=?";
 
         List<CartRecord> cartRecords = jdbcTemplate.query(
@@ -37,11 +62,7 @@ public class CartDAO {
                 },
                 new BeanPropertyRowMapper<>(CartRecord.class));
 
-        if (cartRecords.size() == 0) {
-            return 0L;
-        }
-
-        return cartRecords.get(0).getQuantity();
+        return cartRecords.get(0);
     }
 
     public Map<Product, Long> getCartByUserId(Long userId) {
@@ -106,15 +127,15 @@ public class CartDAO {
                 );
     }
 
-    public void save(CartRecord newCartRecord) {
-        if (!isRecordExist(newCartRecord.getUser_id(), newCartRecord.getProduct_id())) {
+    public void save(CartRecord cartRecord) {
+        if (!isRecordExist(cartRecord.getUser_id(), cartRecord.getProduct_id())) {
             final String sql = "insert into cart (user_id, product_id, quantity) values(?, ?, ?)";
             jdbcTemplate.update(sql
-                    , newCartRecord.getUser_id()
-                    , newCartRecord.getProduct_id()
-                    , newCartRecord.getQuantity());
+                    , cartRecord.getUser_id()
+                    , cartRecord.getProduct_id()
+                    , cartRecord.getQuantity());
         } else {
-            update(newCartRecord, newCartRecord.getQuantity());
+            update(cartRecord, cartRecord.getQuantity());
         }
     }
 

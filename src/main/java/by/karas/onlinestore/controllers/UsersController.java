@@ -53,19 +53,20 @@ public class UsersController {
         return "users/edit";
     }
 
-    @PatchMapping("/{login}")
+    @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") @Valid User user,
-                         BindingResult bindingResult, @PathVariable("login") String login) {
+                         BindingResult bindingResult
+                         , @PathVariable("id") Long id) {
         if (bindingResult.hasErrors())
             return "users/edit";
 
-        userDAO.update(login, user);
+        userDAO.update(id, user);
         return "redirect:/users";
     }
 
-    @DeleteMapping("/{login}")
-    public String delete(@PathVariable("login") String login) {
-        userDAO.delete(login);
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        userDAO.delete(id);
         return "redirect:/users";
     }
 }

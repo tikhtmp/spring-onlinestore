@@ -1,8 +1,15 @@
 package by.karas.onlinestore.models;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class CartRecord {
     private Long user_id;
     private Long product_id;
+    @NotNull(message = "The field can not be empty")
+    @Min (value = 1, message = "Quantity must be more than 0")
     private Long quantity;
 
     public CartRecord() {

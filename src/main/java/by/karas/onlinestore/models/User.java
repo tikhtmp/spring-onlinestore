@@ -2,10 +2,20 @@ package by.karas.onlinestore.models;
 
 import by.karas.onlinestore.dao.Role;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class User {
     private Long id;
+
+    @NotEmpty(message = "The field can not be empty")
+    @Size(min = 2, max = 10, message = "Login must contains from 2 to 10 characters.")
     private String login;
+
+    @NotEmpty(message = "The field can not be empty")
+    @Size(min = 1, max = 10, message = "Password must contains from 1 to 10 characters.")
     private String password;
+
     private Role role;
 
     public User() {

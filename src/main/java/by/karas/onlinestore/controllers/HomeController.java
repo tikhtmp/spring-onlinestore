@@ -44,7 +44,7 @@ public class HomeController {
     public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors())
-            return "home/users/new";
+            return "home/add_user";
 
         userDAO.save(user);
 

@@ -20,8 +20,8 @@ edit_cart_record patch
 
 <br/>
 
-<form th:method="POST" th:action="@{'/users/' + ${userId} + '/cart/products/' + ${productId}}" th:object="${cartRecord}">
-<!--    <input type="hidden" name="_method" value="PATCH">-->
+<form th:method="PATCH" th:action="@{'/users/' + ${userId} + '/cart/products/' + ${productId}}" th:object="${cartRecord}">
+    <input type="hidden" name="_method" value="PATCH">
 
     <ul>
         <li><label for="product_id"> Id: </label>
@@ -37,11 +37,11 @@ edit_cart_record patch
             <p class="inline" th:text="${productPrice}" id="product_price"/>
         </li>
     </ul>
-    <br/>
+<br/>
 
-    <label for="quantity">Choose quantity: </label>
+    <label for="quantity">Change quantity: </label>
         <input type="text" th:field="*{quantity}" id="quantity">
-    <div style="color:red" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
+        <div style="color:red" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
     <br/>
 
     <br/>
