@@ -7,6 +7,7 @@ import by.karas.onlinestore.models.CartRecord;
 import by.karas.onlinestore.models.Product;
 import by.karas.onlinestore.models.User;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,12 +22,21 @@ public class UserController {
     private final ProductDAO productDAO;
     private final UserDAO userDAO;
     private final CartDAO cartDAO;
+    private final BCryptPasswordEncoder encoder;
 
-    public UserController(ProductDAO productDAO, UserDAO userDAO, CartDAO cartDAO) {
+
+    public UserController(ProductDAO productDAO, UserDAO userDAO, CartDAO cartDAO, BCryptPasswordEncoder encoder) {
         this.productDAO = productDAO;
         this.userDAO = userDAO;
         this.cartDAO = cartDAO;
+        this.encoder = encoder;
     }
+
+//    public UserController(ProductDAO productDAO, UserDAO userDAO, CartDAO cartDAO) {
+//        this.productDAO = productDAO;
+//        this.userDAO = userDAO;
+//        this.cartDAO = cartDAO;
+//    }
 
 //    @ModelAttribute("principalName")
 //    private String principalName(Principal principal) {
@@ -188,6 +198,8 @@ public class UserController {
         if (bindingResult.hasErrors())
             return "user/edit_user";
 
+
+        user.setPassword(encoder.encode(user.getPassword()));
         userDAO.update(userId, user);
 
         return "redirect:/users/" + userId + "/products";

@@ -4,6 +4,7 @@ import by.karas.onlinestore.dao.ProductDAO;
 import by.karas.onlinestore.dao.UserDAO;
 import by.karas.onlinestore.models.Product;
 import by.karas.onlinestore.models.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,11 +17,18 @@ import javax.validation.Valid;
 public class HomeController {
     private final ProductDAO productDAO;
     private final UserDAO userDAO;
+    private final BCryptPasswordEncoder encoder;
 
-    public HomeController(ProductDAO productDAO, UserDAO userDAO) {
+    public HomeController(ProductDAO productDAO, UserDAO userDAO, BCryptPasswordEncoder encoder) {
         this.productDAO = productDAO;
         this.userDAO = userDAO;
+        this.encoder = encoder;
     }
+
+//    public HomeController(ProductDAO productDAO, UserDAO userDAO) {
+//        this.productDAO = productDAO;
+//        this.userDAO = userDAO;
+//    }
 
     @GetMapping("/products")
     public String home(@RequestParam(value = "filter", required = false, defaultValue = "") String filter
@@ -45,7 +53,7 @@ public class HomeController {
 
         if (bindingResult.hasErrors())
             return "home/add_user";
-
+        user.setPassword(encoder.encode(user.getPassword()));
         userDAO.save(user);
 
         return "redirect:/home/products";
