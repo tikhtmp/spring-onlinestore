@@ -19,18 +19,27 @@
         <h3 class="menu">ONLINE STORE pic</h3>
         <h3 class="menu">
             Hello,
-            <td th:text="${principalName}"></td>
-            !
+            <td th:text="${login} + '!   '"></td>
+        </h3>
+        <h3 class="menu">
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Users"/>
+                </form>
         </h3>
     </div>
 </head>
 
 <body>
-
+<br>
+<br>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Log out"/>
 </form>
+<br>
 
+<!--<a th:href="@{/admin/products/{id}(id=${product.getId()})}">-->
+<!--    <input type="submit" value="Add product"/>-->
+<!--</a>-->
 <br>
 <hr/>
 <form th:action="@{'/user?filter=' + ${filter}}">
@@ -44,6 +53,7 @@
     Search results for:
     <data th:text="${filter}"/>
 </h4>
+
 <table>
     <tr>
         <th>ID</th>
@@ -61,16 +71,21 @@
             <td th:text="${product.getCreationDate()}"></td>
             <td th:text="${product.getUpdateDate()}"></td>
             <td>
-                <a th:href="@{/user/{id}(id=${product.getId()})}">
+                <a th:href="@{/admin/products/{id}(id=${product.getId()})}">
                     <input type="submit" value="See details"/>
                 </a>
-            </td>
-<!--            <td>-->
-<!--                <a th:href="">-->
-<!--                    <input type="submit" value="Add to cart"/>-->
-<!--                </a>-->
-<!--            </td>-->
 
+            <td>
+                <a th:href="@{/admin/products/{id}(id=${product.getId()})}">
+                    <input type="submit" value="Edit"/>
+                </a>
+            </td>
+
+            <td>
+                <a th:href="@{/admin/products/{id}(id=${product.getId()})}">
+                    <input type="submit" value="Delete"/>
+                </a>
+            </td>
         </tr>
     </th:block>
 </table>

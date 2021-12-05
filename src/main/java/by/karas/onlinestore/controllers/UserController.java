@@ -32,25 +32,20 @@ public class UserController {
         this.encoder = encoder;
     }
 
-//    public UserController(ProductDAO productDAO, UserDAO userDAO, CartDAO cartDAO) {
-//        this.productDAO = productDAO;
-//        this.userDAO = userDAO;
-//        this.cartDAO = cartDAO;
-//    }
-
-//    @ModelAttribute("principalName")
-//    private String principalName(Principal principal) {
-//        return principal.getName();
-//    }
-
     private Long getPrincipalId(Principal principal) {
         return userDAO.getUserByLogin(principal.getName()).getId();
     }
 
-    @GetMapping("/products")
-    public String seeProducts(Principal principal, Authentication authentication) {
-        return "redirect:/users/" + getPrincipalId(principal) + "/products";
-    }
+//    @GetMapping("/products")
+//    public String seeProducts(Principal principal) {
+//        Long userId = getPrincipalId(principal);
+//        User currentUser = userDAO.getUserById(userId);
+//
+//        if(currentUser.getRole().equals("ROLE_ADMIN"))
+//            return "redirect:/admins/products";
+//
+//        return "redirect:/users/" + userId + "/products";
+//    }
 
     @GetMapping("/{user_id}/products")
     public String seeProducts(

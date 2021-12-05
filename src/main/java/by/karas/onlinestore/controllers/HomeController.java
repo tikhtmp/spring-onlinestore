@@ -1,8 +1,8 @@
 package by.karas.onlinestore.controllers;
 
 import by.karas.onlinestore.dao.ProductDAO;
+import by.karas.onlinestore.dao.Role;
 import by.karas.onlinestore.dao.UserDAO;
-import by.karas.onlinestore.models.Product;
 import by.karas.onlinestore.models.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/home")
@@ -25,10 +26,16 @@ public class HomeController {
         this.encoder = encoder;
     }
 
-//    public HomeController(ProductDAO productDAO, UserDAO userDAO) {
-//        this.productDAO = productDAO;
-//        this.userDAO = userDAO;
-//    }
+    @GetMapping("/auth")
+    public String authorisation(Principal principal) {
+        Long userId = userDAO.getUserByLogin(principal.getName()).getId();
+        User currentUser = userDAO.getUserById(userId);
+
+        if(currentUser.getRole().equals(Role.ROLE_ADMIN))
+            return "redirect:/admins/" + userId + "/products";
+
+        return "redirect:/users/" + userId + "/products";
+    }
 
     @GetMapping("/products")
     public String home(@RequestParam(value = "filter", required = false, defaultValue = "") String filter

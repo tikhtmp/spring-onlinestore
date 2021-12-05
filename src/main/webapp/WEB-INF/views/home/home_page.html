@@ -17,9 +17,13 @@
     <div class="menu">
         <h3 class="menu">ONLINE STORE pic</h3>
         <h3 class="menu">Hello, visitor! Log in or register to start shopping: </h3>
-        <a th:href="@{/users/products}">
+<!--        <a th:href="@{/users/products}">-->
+<!--            <input type="submit" value="Log in"/>-->
+<!--        </a>-->
+        <a th:href="@{/home/auth}">
             <input type="submit" value="Log in"/>
         </a>
+
         <a th:href="@{/home/users/new}">
             <input type="submit" value="Register"/>
         </a>
