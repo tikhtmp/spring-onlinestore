@@ -22,21 +22,23 @@
             <td th:text="${login} + '!   '"></td>
         </h3>
         <h3 class="menu">
+            <a th:href="@{/admins/products/new}">
+                <input type="submit" value="Add product"/>
+            </a>
+        </h3>
+        <h3 class="menu">
                 <form th:action="@{/logout}" method="post">
                     <input type="submit" value="Users"/>
                 </form>
         </h3>
+        <h3 class="menu">
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Log out"/>
+            </form>
+        </h3>
     </div>
 </head>
-
 <body>
-<br>
-<br>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Log out"/>
-</form>
-<br>
-
 <!--<a th:href="@{/admin/products/{id}(id=${product.getId()})}">-->
 <!--    <input type="submit" value="Add product"/>-->
 <!--</a>-->

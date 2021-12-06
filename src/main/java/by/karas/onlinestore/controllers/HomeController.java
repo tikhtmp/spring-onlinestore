@@ -26,17 +26,6 @@ public class HomeController {
         this.encoder = encoder;
     }
 
-    @GetMapping("/auth")
-    public String authorisation(Principal principal) {
-        Long userId = userDAO.getUserByLogin(principal.getName()).getId();
-        User currentUser = userDAO.getUserById(userId);
-
-        if(currentUser.getRole().equals(Role.ROLE_ADMIN))
-            return "redirect:/admins/" + userId + "/products";
-
-        return "redirect:/users/" + userId + "/products";
-    }
-
     @GetMapping("/products")
     public String home(@RequestParam(value = "filter", required = false, defaultValue = "") String filter
             , Model model) {
@@ -60,6 +49,7 @@ public class HomeController {
 
         if (bindingResult.hasErrors())
             return "home/add_user";
+
         user.setPassword(encoder.encode(user.getPassword()));
         userDAO.save(user);
 
@@ -71,4 +61,16 @@ public class HomeController {
         model.addAttribute("product", productDAO.getProduct(id));
         return "home/product_info";
     }
+
+    @GetMapping("/auth")
+    public String authorisation(Principal principal) {
+        Long userId = userDAO.getUserByLogin(principal.getName()).getId();
+        User currentUser = userDAO.getUserById(userId);
+
+        if(currentUser.getRole().equals(Role.ROLE_ADMIN))
+            return "redirect:/admins/" + userId + "/products";
+
+        return "redirect:/users/" + userId + "/products";
+    }
+
 }

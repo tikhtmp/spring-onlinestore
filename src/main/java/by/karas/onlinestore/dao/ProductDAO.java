@@ -58,14 +58,14 @@ public class ProductDAO {
 
     public void save(Product product) {
         User testUser = new User();
-        product.setAuthor(1L);
+//        product.setAuthor(1L);
         String sql = "insert into products (name, short_description, detail_description, price, creation_date, update_date, author) values(?, ?, ?, ?, now(), now(), ?)";
         jdbcTemplate.update(sql
                 , product.getName()
                 , product.getShortDescription()
                 , product.getDetailDescription()
                 , product.getPrice()
-                , null);
+                , product.getAuthor());
 
 //        KeyHolder keyHolder = new GeneratedKeyHolder();
 //        jdbcTemplate.update(new PreparedStatementCreator() {
