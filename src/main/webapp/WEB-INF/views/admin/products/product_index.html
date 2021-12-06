@@ -10,6 +10,8 @@
             display: inline-block;
         }
 
+
+
 </style>
 
 <head>
@@ -27,9 +29,9 @@
             </a>
         </h3>
         <h3 class="menu">
-                <form th:action="@{/logout}" method="post">
-                    <input type="submit" value="Users"/>
-                </form>
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Users"/>
+            </form>
         </h3>
         <h3 class="menu">
             <form th:action="@{/logout}" method="post">
@@ -39,14 +41,11 @@
     </div>
 </head>
 <body>
-<!--<a th:href="@{/admin/products/{id}(id=${product.getId()})}">-->
-<!--    <input type="submit" value="Add product"/>-->
-<!--</a>-->
 <br>
 <hr/>
-<form th:action="@{'/user?filter=' + ${filter}}">
+<form th:action="@{'/admins/' + ${user_id} + '/products?filter=' + ${filter}}">
     Filter: <input type="text" name="filter" size="50"/>
-    <a th:href="@{'/user?filter=' + ${filter}}">
+    <a th:href="@{'/admins/' + ${user_id} + '/products?filter=' + ${filter}}">
         <input type="submit" value="Search"/>
     </a>
 </form>
@@ -63,7 +62,8 @@
         <th>ShortDescription</th>
         <th>CreationDate</th>
         <th>UpdateDate</th>
-        <th></th>
+        <th>Author</th>
+        <!--        <th>AuthorLogin</th>-->
     </tr>
     <th:block th:each="product : ${products}">
         <tr>
@@ -73,20 +73,26 @@
             <td th:text="${product.getCreationDate()}"></td>
             <td th:text="${product.getUpdateDate()}"></td>
             <td>
-                <a th:href="@{/admin/products/{id}(id=${product.getId()})}">
+                <a th:href="@{'/admins/users/' + ${product.getAuthor()}}">
+                    <div th:text="'See author (id: ' + ${product.getAuthor()} + ')'"></div>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{/admins/products/{id}(id=${product.getId()})}">
                     <input type="submit" value="See details"/>
                 </a>
 
             <td>
-                <a th:href="@{/admin/products/{id}(id=${product.getId()})}">
+                <!--                <a th:href="@{/admins/products/{id}(id=${product.getId()})/edit}" th:method="PATCH">-->
+                <a th:href="@{'/admins/products/' + ${product.getId()} + '/edit'}" th:method="PATCH">
                     <input type="submit" value="Edit"/>
                 </a>
             </td>
 
             <td>
-                <a th:href="@{/admin/products/{id}(id=${product.getId()})}">
+                <form th:action="@{'/admins/products/' + ${product.getId()}}" th:method="DELETE">
                     <input type="submit" value="Delete"/>
-                </a>
+                </form>
             </td>
         </tr>
     </th:block>

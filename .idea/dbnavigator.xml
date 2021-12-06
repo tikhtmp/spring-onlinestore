@@ -42,11 +42,14 @@ select * from products where id in (select product from cart where user='u3');
 select * from products where name like '%some%';
 alter table cart add quantity int;
 select * from products;
-"select * from cart where user='u3' and product=7]]></console>
+"select * from cart where user='u3' and product=7
+select * from products order by name;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="cbd570cf-ae38-4af8-8e8b-56c2aebf0447" object-ref="consoles/OnlineStroreDBConnection" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="cbd570cf-ae38-4af8-8e8b-56c2aebf0447" />

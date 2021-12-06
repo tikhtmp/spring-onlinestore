@@ -68,7 +68,8 @@ public class HomeController {
         User currentUser = userDAO.getUserById(userId);
 
         if(currentUser.getRole().equals(Role.ROLE_ADMIN))
-            return "redirect:/admins/" + userId + "/products";
+//            return "redirect:/admins/" + userId + "/products";
+            return "redirect:/admins/products";
 
         return "redirect:/users/" + userId + "/products";
     }

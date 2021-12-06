@@ -20,26 +20,20 @@ public class ProductsControllerAdmin {
     private final ProductDAO productDAO;
     private final UserDAO userDAO;
     private final CartDAO cartDAO;
-    private final Principal principal;
 
-
-    public ProductsControllerAdmin(ProductDAO productDAO, UserDAO userDAO, CartDAO cartDAO, BCryptPasswordEncoder encoder, Principal principal) {
+    public ProductsControllerAdmin(ProductDAO productDAO, UserDAO userDAO, CartDAO cartDAO, BCryptPasswordEncoder encoder) {
         this.productDAO = productDAO;
         this.userDAO = userDAO;
         this.cartDAO = cartDAO;
-        this.principal = principal;
     }
 
-//    private Long getPrincipalId(Principal principal) {
-//        return userDAO.getUserByLogin(principal.getName()).getId();
-//    }
-    private Long getPrincipalId() {
+    private Long getPrincipalId(Principal principal) {
         return userDAO.getUserByLogin(principal.getName()).getId();
     }
 
-    @GetMapping("/admins/products")
-    public String homeAdmins(){
-        return "/" + getPrincipalId() + "/products";
+    @GetMapping("/products")
+    public String homeAdmins(Principal principal) {
+        return "redirect:" + getPrincipalId(principal) + "/products";
     }
 
     @GetMapping("/{user_id}/products")
@@ -51,12 +45,19 @@ public class ProductsControllerAdmin {
         model.addAttribute("login", userDAO.getUserById(userId).getLogin());
         model.addAttribute("filter", filter);
         model.addAttribute("user_id", userId);
+        model.addAttribute("users", userDAO.getAllUsers());
 
         if (filter == null) {
             model.addAttribute("products", productDAO.getAllProducts());
         } else model.addAttribute("products", productDAO.getProducts(filter));
 
         return "admin/products/product_index";
+    }
+
+    @GetMapping("products/{product_id}")
+    public String show(@PathVariable("product_id") Long productId, Model model) {
+        model.addAttribute("product", productDAO.getProduct(productId));
+        return "admin/products/product_info";
     }
 
     @GetMapping("/products/new")
@@ -68,17 +69,50 @@ public class ProductsControllerAdmin {
     public String createProduct(
             @ModelAttribute("product") @Valid Product product
             , BindingResult bindingResult
-            , Model model) {
+            , Model model
+            , Principal principal) {
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "/admin/products/add_product";
         }
 
-        product.setAuthor(getPrincipalId());
-
+        Long userId = getPrincipalId(principal);
+        product.setAuthor(userId);
         productDAO.save(product);
 
-        return "redirect: /admins/" + getPrincipalId() + "/products";
+        return "redirect:/admins/products";
     }
+
+    @GetMapping("products/{product_id}/edit")
+    public String edit(Model model, @PathVariable("product_id") Long productId) {
+        model.addAttribute("product", productDAO.getProduct(productId));
+        return "admin/products/edit_product";
+    }
+
+    @PatchMapping("/products/{product_id}")
+    public String editProduct(
+            @PathVariable("product_id") Long productId
+            , @ModelAttribute("product") @Valid Product product
+            , BindingResult bindingResult
+            , Model model
+            , Principal principal) {
+
+        if (bindingResult.hasErrors()) {
+            return "/admin/products/edit_product";
+        }
+
+        Long userId = getPrincipalId(principal);
+        product.setAuthor(userId);
+        productDAO.update(productId, product);
+
+        return "redirect:/admins/products";
+    }
+
+    @DeleteMapping("/products/{product_id}")
+    public String deleteProduct(@PathVariable("product_id") Long productId) {
+        productDAO.delete(productId);
+        return "redirect:/admins/products";
+    }
+
 
 }

@@ -21,7 +21,7 @@ public class ProductDAO {
     }
 
     public List<Product> getAllProducts() {
-        return jdbcTemplate.query("select * from products", new BeanPropertyRowMapper<>(Product.class));
+        return jdbcTemplate.query("select * from products order by name", new BeanPropertyRowMapper<>(Product.class));
     }
 
     public Product getProduct(Long id) {
@@ -52,7 +52,7 @@ public class ProductDAO {
     }
 
     public List<Product> getProducts(String filter) {
-        final String sql = "select * from products where name like \'%" + filter + "%\'";
+        final String sql = "select * from products where name like \'%" + filter + "%\' order by name";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Product.class));
     }
 
@@ -85,12 +85,13 @@ public class ProductDAO {
     }
 
     public void update(Long id, Product updatedProduct) {
-        jdbcTemplate.update("update products set name=?, short_description=?, detail_description=?, price=?, update_date=now() where id=?"
+        jdbcTemplate.update("update products set name=?, short_description=?, detail_description=?, price=?, author=?, update_date=now() where id=?"
                 , updatedProduct.getName()
                 , updatedProduct.getShortDescription()
                 , updatedProduct.getDetailDescription()
-                , updatedProduct.getPrice(),
-                id);
+                , updatedProduct.getPrice()
+                , updatedProduct.getAuthor()
+                , id);
     }
 
     public void delete(Long id) {

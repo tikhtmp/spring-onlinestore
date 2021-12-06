@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+</head>
+<body>
+    <p th:text="'Id: ' + ${product.getId()}"></p>
+    <p th:text="'Name: ' + ${product.getName()}"></p>
+    <p th:text="'ShortDescription: ' + ${product.getShortDescription()}"></p>
+    <p th:text="'DetailDescription: ' + ${product.getDetailDescription()}"></p>
+    <p th:text="'Price: ' + ${product.getPrice()}"></p>
+    <p th:text="'Author id: ' + ${product.getAuthor()}"></p>
+<br>
+<!--    <a th:href="@{/home/products}">-->
+<!--        <input type="submit" value="Back home"/>-->
+<!--    </a>-->
+</body>
+</html>

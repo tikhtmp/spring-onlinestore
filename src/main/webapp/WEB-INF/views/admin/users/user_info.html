@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User info</title>
+</head>
+<body>
+<p th:text="'Id: ' + ${user.getId()}"></p>
+<p th:text="'Login: ' + ${user.getLogin()}"></p>
+<p th:text="'Role: ' + ${user.getRole()}"></p>
+<br>
+<!--<a th:href="@{/home/products}">-->
+<!--    <input type="submit" value="Back home"/>-->
+<!--</a>-->
+</body>
+
+<!--<a th:href="@{/users/products}">-->
+<!--    <input type="submit" value="Cancel">-->
+<!--</a>-->
+</body>
+</html>
