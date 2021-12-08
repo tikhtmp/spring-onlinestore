@@ -34,16 +34,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-//                .antMatchers("/home/**").permitAll()
                 .antMatchers("/home/auth/**").authenticated()
                 .antMatchers("/users/**").access("hasRole('ROLE_USER')")
                 .antMatchers("/admins/**").access("hasRole('ROLE_ADMIN')")
-//                .antMatchers("/products/admin/**").access("hasRole('ROLE_ADMIN')")
-//                .antMatchers("/superadmin/**").access("hasRole('ROLE_SUPERADMIN')")
                 .and().formLogin().defaultSuccessUrl("/", false)
                 .and().logout().permitAll().logoutSuccessUrl("/home/products");
-
-
+//                .and().sessionManagement().invalidSessionUrl("/home/products");
     }
 
     @Bean

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<style>
+        .menu {
+            background: #004f8b; /* Цвет фона */
+            color: white; /* Цвет текста */
+            padding: 2px; /* Поля вокруг текста */
+            margin-top: 5px; /* Отступ сверху */
+            margin-bottom: 5px; /* Отступ снизу */
+            display: inline-block;
+        }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <title>All users</title>
+    <div class="menu">
+        <h3 class="menu">ONLINE STORE pic</h3>
+        <h3 class="menu">
+            Hello,
+            <td th:text="${login} + '!   '"></td>
+        </h3>
+        <h3 class="menu">
+
+            <a th:href="@{/admins/products}">
+                <input type="submit" value="Products"/>
+            </a>
+        </h3>
+        <h3 class="menu">
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Log out"/>
+            </form>
+        </h3>
+    </div>
+</head>
+<body>
+<br>
+<hr/>
+<form th:action="@{'/admins/' + ${admin_id} + '/users?filter=' + ${filter}}">
+    Filter: <input type="text" name="filter" size="50"/>
+    <a th:href="@{'/admins/' + + ${admin_id} + '/users?filter=' + ${filter}}">
+        <input type="submit" value="Search"/>
+    </a>
+</form>
+<hr/>
+<h4 th:if="${filter.length()}">
+    Search results for:
+    <data th:text="${filter}"/>
+</h4>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Login</th>
+        <th>Role</th>
+    </tr>
+    <th:block th:each="user : ${users}">
+        <tr>
+            <td th:text="${user.getId()}"></td>
+            <td th:text="${user.getLogin()}"></td>
+            <td th:text="${user.getRole()}"></td>
+            <td>
+                <a th:href="@{'/admins/' + ${admin_id} + '/users/' + ${user.getId()}}">
+                    <input type="submit" value="See details"/>
+                </a>
+
+            <td>
+                <a th:href="@{'/admins/' + ${admin_id} + '/users/' + ${user.getId()} + '/update'}">
+                    <input type="submit" value="Edit"/>
+                </a>
+            </td>
+
+            <td>
+                <form th:action="@{'/admins/' + ${admin_id} + '/users/' + ${user.getId()}}" th:method="DELETE">
+                    <input type="submit" value="Delete"/>
+                </form>
+            </td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>

@@ -6,7 +6,6 @@ import by.karas.onlinestore.dao.UserDAO;
 import by.karas.onlinestore.models.CartRecord;
 import by.karas.onlinestore.models.Product;
 import by.karas.onlinestore.models.User;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,14 +17,14 @@ import java.security.Principal;
 
 @Controller
 @RequestMapping("/users")
-public class UserController {
+public class UsersControllerUser {
     private final ProductDAO productDAO;
     private final UserDAO userDAO;
     private final CartDAO cartDAO;
     private final BCryptPasswordEncoder encoder;
 
 
-    public UserController(ProductDAO productDAO, UserDAO userDAO, CartDAO cartDAO, BCryptPasswordEncoder encoder) {
+    public UsersControllerUser(ProductDAO productDAO, UserDAO userDAO, CartDAO cartDAO, BCryptPasswordEncoder encoder) {
         this.productDAO = productDAO;
         this.userDAO = userDAO;
         this.cartDAO = cartDAO;
@@ -119,8 +118,6 @@ public class UserController {
 
         return "redirect:/users/" + userId + "/cart/products";
     }
-
-
 
     @DeleteMapping("/{user_id}/cart/products/{product_id}")
     public String deleteProductFromCart(@PathVariable("product_id") Long productId, Principal principal) {

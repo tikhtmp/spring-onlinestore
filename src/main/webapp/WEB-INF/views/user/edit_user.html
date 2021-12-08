@@ -5,7 +5,6 @@
     <title>Update user</title>
 </head>
 <body>
-<!--<form th:method="PATCH" th:action="@{/users/{user_id}(user_id=${user.getId()})}" th:object="${user}">-->
 <form th:method="PATCH" th:action="@{'/users/' + ${userId}}" th:object="${user}">
     <input type="hidden" name="_method" value="PATCH">
 
@@ -16,8 +15,6 @@
     <div style="color:red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
     <br/>
     <label for="password">Password: </label>
-<!--    <input type="text" th:field="*{password}" id="password">-->
-<!--    <input type="text" id="password">-->
     <input type="password" th:field="*{password}" id="password" >
         <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
     <br/>

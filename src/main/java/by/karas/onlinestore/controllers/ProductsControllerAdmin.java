@@ -46,7 +46,6 @@ public class ProductsControllerAdmin {
         model.addAttribute("login", userDAO.getUserById(userId).getLogin());
         model.addAttribute("filter", filter);
         model.addAttribute("user_id", userId);
-        model.addAttribute("users", userDAO.getAllUsers());
 
         if (filter == null) {
             model.addAttribute("products", productDAO.getAllProducts());

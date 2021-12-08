@@ -1,5 +1,6 @@
 package by.karas.onlinestore.dao;
 
+import by.karas.onlinestore.models.Role;
 import by.karas.onlinestore.models.User;
 import org.springframework.jdbc.core.RowMapper;
 

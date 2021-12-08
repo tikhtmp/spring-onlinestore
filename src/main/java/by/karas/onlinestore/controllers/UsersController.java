@@ -42,7 +42,7 @@ public class UsersController {
         if (bindingResult.hasErrors())
             return "users/new";
 
-        userDAO.save(user);
+//        userDAO.save(user);
 
         return "redirect:/users";
     }

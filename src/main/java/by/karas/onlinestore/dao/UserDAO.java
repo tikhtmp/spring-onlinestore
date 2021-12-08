@@ -1,6 +1,7 @@
 package by.karas.onlinestore.dao;
 
 import by.karas.onlinestore.models.Product;
+import by.karas.onlinestore.models.Role;
 import by.karas.onlinestore.models.User;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -52,32 +53,28 @@ public class UserDAO {
                 new BeanPropertyRowMapper<>(User.class));
 
         return users.get(0);
-
     }
 
     public List<User> getUsers(String filter) {
-        List<User> users = new ArrayList<>();
-        for(User item : getAllUsers()){
-            if(item.getLogin().contains(filter)){
-                users.add(item);
-            }
-        }
-        return users;
+        final String sql = "select * from users where login like \'%" + filter + "%\' order by login";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(User.class));
     }
 
-    public void save (User user){
+    public void save (User user, Role role){
         String sql = "insert into users (login, password, role) values(?, ?, ?)";
         jdbcTemplate.update(sql
                 , user.getLogin()
                 , user.getPassword()
-                , "ROLE_USER");
+                , role.toString());
+//                , "ROLE_USER");
     }
 
     public void update(Long id, User updatedUser){
-        String sql = "update users set login=?, password=? where id=?";
+        String sql = "update users set password=?, role=? where id=?";
         jdbcTemplate.update(sql
-                , updatedUser.getLogin()
+//                , updatedUser.getLogin()
                 , updatedUser.getPassword()
+                , updatedUser.getRole().toString()
                 , id);
     }
 

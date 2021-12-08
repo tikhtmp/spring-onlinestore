@@ -1,7 +1,7 @@
 package by.karas.onlinestore.controllers;
 
 import by.karas.onlinestore.dao.ProductDAO;
-import by.karas.onlinestore.dao.Role;
+import by.karas.onlinestore.models.Role;
 import by.karas.onlinestore.dao.UserDAO;
 import by.karas.onlinestore.models.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -51,7 +51,7 @@ public class HomeController {
             return "home/add_user";
 
         user.setPassword(encoder.encode(user.getPassword()));
-        userDAO.save(user);
+        userDAO.save(user, Role.ROLE_USER);
 
         return "redirect:/home/products";
     }
@@ -68,7 +68,6 @@ public class HomeController {
         User currentUser = userDAO.getUserById(userId);
 
         if(currentUser.getRole().equals(Role.ROLE_ADMIN))
-//            return "redirect:/admins/" + userId + "/products";
             return "redirect:/admins/products";
 
         return "redirect:/users/" + userId + "/products";

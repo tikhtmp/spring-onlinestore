@@ -34,9 +34,9 @@
             </a>
         </h3>
         <h3 class="menu">
-            <form th:action="@{/logout}" method="post">
+            <a th:href="@{'/admins/' + ${user_id} + '/users'}">
                 <input type="submit" value="Users"/>
-            </form>
+            </a>
         </h3>
         <h3 class="menu">
             <form th:action="@{/logout}" method="post">

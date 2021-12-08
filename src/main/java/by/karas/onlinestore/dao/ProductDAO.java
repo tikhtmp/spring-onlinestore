@@ -57,8 +57,7 @@ public class ProductDAO {
     }
 
     public void save(Product product) {
-        User testUser = new User();
-//        product.setAuthor(1L);
+//        User testUser = new User();
         String sql = "insert into products (name, short_description, detail_description, price, creation_date, update_date, author) values(?, ?, ?, ?, now(), now(), ?)";
         jdbcTemplate.update(sql
                 , product.getName()

@@ -1,7 +1,5 @@
 package by.karas.onlinestore.models;
 
-import by.karas.onlinestore.dao.Role;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
