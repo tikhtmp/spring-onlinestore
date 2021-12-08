@@ -15,14 +15,12 @@ display:inline-block;
 
 </head>
 <body>
-edit_cart_record patch
+add product to cart
 <br/>
 
 <br/>
 
 <form th:method="POST" th:action="@{'/users/' + ${userId} + '/cart/products/' + ${productId}}" th:object="${cartRecord}">
-<!--    <input type="hidden" name="_method" value="PATCH">-->
-
     <ul>
         <li><label for="product_id"> Id: </label>
             <p class="inline" th:text="${productId}" id="product_id"/>

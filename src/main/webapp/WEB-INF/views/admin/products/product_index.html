@@ -24,6 +24,11 @@
             <td th:text="${login} + '!   '"></td>
         </h3>
         <h3 class="menu">
+            <a th:href="@{'/admins/' + ${user_id} + '/cart/products'}">
+                <input type="submit" value="Cart"/>
+            </a>
+        </h3>
+        <h3 class="menu">
             <a th:href="@{/admins/products/new}">
                 <input type="submit" value="Add product"/>
             </a>

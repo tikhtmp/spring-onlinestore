@@ -3,6 +3,7 @@ package by.karas.onlinestore.controllers;
 import by.karas.onlinestore.dao.CartDAO;
 import by.karas.onlinestore.dao.ProductDAO;
 import by.karas.onlinestore.dao.UserDAO;
+import by.karas.onlinestore.models.CartRecord;
 import by.karas.onlinestore.models.Product;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -55,8 +56,9 @@ public class ProductsControllerAdmin {
     }
 
     @GetMapping("products/{product_id}")
-    public String show(@PathVariable("product_id") Long productId, Model model) {
+    public String showProduct(@PathVariable("product_id") Long productId, Model model, Principal principal) {
         model.addAttribute("product", productDAO.getProduct(productId));
+        model.addAttribute("user_id", getPrincipalId(principal));
         return "admin/products/product_info";
     }
 
@@ -83,8 +85,8 @@ public class ProductsControllerAdmin {
         return "redirect:/admins/products";
     }
 
-    @GetMapping("products/{product_id}/edit")
-    public String edit(Model model, @PathVariable("product_id") Long productId) {
+    @GetMapping("/products/{product_id}/edit")
+    public String editProduct(Model model, @PathVariable("product_id") Long productId) {
         model.addAttribute("product", productDAO.getProduct(productId));
         return "admin/products/edit_product";
     }
@@ -114,5 +116,106 @@ public class ProductsControllerAdmin {
         return "redirect:/admins/products";
     }
 
+    //---------------------------------- Cart
+
+    @GetMapping("/{user_id}/cart/products")
+    public String showCart(@PathVariable("user_id") Long userId, Model model) {
+        model.addAttribute("cart", cartDAO.getCartByUserId(userId));
+        model.addAttribute("userId", userId);
+        return "admin/users/cart";
+    }
+
+    @GetMapping("/{user_id}/cart/products/{product_id}/edit")
+    public String editCartRecord(
+            @PathVariable("user_id") Long userId
+            , @PathVariable("product_id") Long productId
+            , Model model
+    ) {
+
+        CartRecord cartRecord = cartDAO.getCartRecord(userId, productId);
+        Product product = productDAO.getProduct(productId);
+        model.addAttribute("userId", userId);
+        model.addAttribute("productId", productId);
+        model.addAttribute("productName", product.getName());
+        model.addAttribute("productDescription", product.getShortDescription());
+        model.addAttribute("productPrice", product.getPrice());
+        model.addAttribute("cartRecord", cartRecord);
+
+        return "admin/users/edit_cart_record";
+    }
+
+    @GetMapping("/{user_id}/cart/products/{product_id}/new")
+    public String createCartRecord(
+            @ModelAttribute("cartRecord") CartRecord cartRecord
+            , @PathVariable("user_id") Long userId
+            , @PathVariable("product_id") Long productId
+            , Model model) {
+
+        Product product = productDAO.getProduct(productId);
+        model.addAttribute("userId", userId);
+        model.addAttribute("productId", productId);
+        model.addAttribute("productName", product.getName());
+        model.addAttribute("productDescription", product.getShortDescription());
+        model.addAttribute("productPrice", product.getPrice());
+        model.addAttribute("cartRecord", cartRecord);
+
+        return "admin/users/add_cart_record";
+    }
+
+    @PostMapping("/{user_id}/cart/products/{product_id}")
+    public String createCartRecord(
+            @ModelAttribute("cartRecord") @Valid CartRecord cartRecord
+            , BindingResult bindingResult
+            , @PathVariable("product_id") Long productId
+            , @PathVariable("user_id") Long userId
+            , Model model) {
+
+        model.addAttribute("userId", userId);
+        model.addAttribute("productId", productId);
+
+        if (bindingResult.hasErrors()) {
+            return "admin/users/add_cart_record";
+        }
+
+        cartRecord.setUser_id(userId);
+        cartRecord.setProduct_id(productId);
+        cartDAO.save(cartRecord);
+
+        return "redirect:/admins/" + userId + "/cart/products";
+    }
+
+    @PatchMapping("/{user_id}/cart/products/{product_id}")
+    public String updateCartRecord(
+            @ModelAttribute("cartRecord") @Valid CartRecord cartRecord
+            , BindingResult bindingResult
+            , @PathVariable("product_id") Long productId
+            , @PathVariable("user_id") Long userId
+            , Model model) {
+
+        model.addAttribute("userId", userId);
+        model.addAttribute("productId", productId);
+        cartRecord.setUser_id(userId);
+        cartRecord.setProduct_id(productId);
+
+        if (bindingResult.hasErrors()) {
+            return "admin/users/edit_cart_record";
+        }
+
+        cartDAO.update(cartRecord, cartRecord.getQuantity());
+
+        return "redirect:/admins/" + userId + "/cart/products";
+    }
+
+    @DeleteMapping("/{user_id}/cart/products/{product_id}")
+    public String deleteProductFromCart(
+            @PathVariable("user_id") Long userId
+            , @PathVariable("product_id") Long productId) {
+
+        cartDAO.delete(userId, productId);
+
+        return "redirect:/admins/" + userId + "/cart/products";
+
+    }
+    //----------------------------------
 
 }

@@ -24,11 +24,7 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes>
-      <connection connection-id="cbd570cf-ae38-4af8-8e8b-56c2aebf0447">
-        <schema name="onlinestore_db" object-types="table, view, function, column" />
-      </connection>
-    </loaded-nodes>
+    <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="cbd570cf-ae38-4af8-8e8b-56c2aebf0447">
@@ -47,9 +43,7 @@ select * from products order by name;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="cbd570cf-ae38-4af8-8e8b-56c2aebf0447" object-ref="consoles/OnlineStroreDBConnection" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="cbd570cf-ae38-4af8-8e8b-56c2aebf0447" />

@@ -36,16 +36,10 @@ public class UserController {
         return userDAO.getUserByLogin(principal.getName()).getId();
     }
 
-//    @GetMapping("/products")
-//    public String seeProducts(Principal principal) {
-//        Long userId = getPrincipalId(principal);
-//        User currentUser = userDAO.getUserById(userId);
-//
-//        if(currentUser.getRole().equals("ROLE_ADMIN"))
-//            return "redirect:/admins/products";
-//
-//        return "redirect:/users/" + userId + "/products";
-//    }
+    @GetMapping("/products")
+    public String seeProducts(Principal principal) {
+        return "redirect:/users/" + getPrincipalId(principal) + "/products";
+    }
 
     @GetMapping("/{user_id}/products")
     public String seeProducts(
@@ -85,6 +79,7 @@ public class UserController {
         return "user/cart";
     }
 
+
     @GetMapping("/{user_id}/cart/products/{product_id}")
     public String addProductToCart(
             @ModelAttribute CartRecord cartRecord
@@ -99,10 +94,33 @@ public class UserController {
         model.addAttribute("productDescription", product.getShortDescription());
         model.addAttribute("productPrice", product.getPrice());
         model.addAttribute("cartRecord", cartRecord);
-        model.addAttribute("quantity", 1L);
 
         return "user/addProductToCart";
     }
+
+    @PostMapping("/{user_id}/cart/products/{product_id}")
+    public String createCartRecord(
+            @ModelAttribute("cartRecord")  @Valid CartRecord cartRecord
+            , BindingResult bindingResult
+            , @PathVariable("product_id") Long productId
+            , @PathVariable("user_id") Long userId
+            , Model model) {
+
+        model.addAttribute("userId", userId);
+        model.addAttribute("productId", productId);
+
+        if (bindingResult.hasErrors()) {
+            return "user/addProductToCart";
+        }
+
+        cartRecord.setUser_id(userId);
+        cartRecord.setProduct_id(productId);
+        cartDAO.save(cartRecord);
+
+        return "redirect:/users/" + userId + "/cart/products";
+    }
+
+
 
     @DeleteMapping("/{user_id}/cart/products/{product_id}")
     public String deleteProductFromCart(@PathVariable("product_id") Long productId, Principal principal) {
@@ -148,27 +166,6 @@ public class UserController {
         }
 
         cartDAO.update(cartRecord, cartRecord.getQuantity());
-
-        return "redirect:/users/" + userId + "/cart/products";
-    }
-
-    @PostMapping("/{user_id}/cart/products/{product_id}")
-    public String createCartRecord(
-              @ModelAttribute("cartRecord")  @Valid CartRecord cartRecord
-            , BindingResult bindingResult
-            , @PathVariable("product_id") Long productId
-            , @PathVariable("user_id") Long userId
-            , Model model) {
-
-        model.addAttribute("userId", userId);
-        model.addAttribute("productId", productId);
-        cartRecord.setUser_id(userId);
-        cartRecord.setProduct_id(productId);
-
-        if (bindingResult.hasErrors())
-            return "user/addProductToCart";
-
-        cartDAO.save(cartRecord);
 
         return "redirect:/users/" + userId + "/cart/products";
     }

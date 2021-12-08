@@ -4,24 +4,20 @@
 .inline {
 display:inline-block;
 }
-
-
-
 </style>
 
 <head>
     <meta charset="UTF-8">
     <title>Add to cart</title>
-
 </head>
+
 <body>
-edit_cart_record patch
+add cart_record post
 <br/>
 
 <br/>
 
-<form th:method="POST" th:action="@{'/users/' + ${userId} + '/cart/products/' + ${productId}}" th:object="${cartRecord}">
-<!--    <input type="hidden" name="_method" value="PATCH">-->
+<form th:method="POST" th:action="@{'/admins/' + ${userId} + '/cart/products/' + ${productId}}" th:object="${cartRecord}">
 
     <ul>
         <li><label for="product_id"> Id: </label>
@@ -51,7 +47,7 @@ edit_cart_record patch
 
 <br/>
 
-<a th:href="@{'/users/' + ${userId} + '/cart/products'}">
+<a th:href="@{'/admins/' + ${userId} + '/cart/products'}">
     <input type="submit" value="Cancel"/>
 </a>
 
