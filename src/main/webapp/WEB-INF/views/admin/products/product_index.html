@@ -65,20 +65,21 @@
         <th>ID</th>
         <th>Name</th>
         <th>ShortDescription</th>
+        <th>Price</th>
         <th>CreationDate</th>
         <th>UpdateDate</th>
         <th>Author</th>
-        <!--        <th>AuthorLogin</th>-->
     </tr>
     <th:block th:each="product : ${products}">
         <tr>
             <td th:text="${product.getId()}"></td>
             <td th:text="${product.getName()}"></td>
             <td th:text="${product.getShortDescription()}"></td>
+            <td th:text="${product.getPrice()}"></td>
             <td th:text="${product.getCreationDate()}"></td>
             <td th:text="${product.getUpdateDate()}"></td>
             <td>
-                <a th:href="@{'/admins/users/' + ${product.getAuthor()}}">
+                <a th:href="@{'/admins/' + ${user_id} + '/users/' + ${product.getAuthor()}}">
                     <div th:text="'See author (id: ' + ${product.getAuthor()} + ')'"></div>
                 </a>
             </td>
@@ -88,7 +89,6 @@
                 </a>
 
             <td>
-                <!--                <a th:href="@{/admins/products/{id}(id=${product.getId()})/edit}" th:method="PATCH">-->
                 <a th:href="@{'/admins/products/' + ${product.getId()} + '/edit'}" th:method="PATCH">
                     <input type="submit" value="Edit"/>
                 </a>
