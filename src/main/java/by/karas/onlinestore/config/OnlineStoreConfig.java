@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -27,6 +28,17 @@ public class OnlineStoreConfig implements WebMvcConfigurer {
         this.applicationContext = applicationContext;
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/static/images/**").addResourceLocations("/resources/static/images/");
+        registry.addResourceHandler("/resources/static/bootstrap/css/**").addResourceLocations("/resources/static/bootstrap/css/");
+        registry.addResourceHandler("/resources/static/bootstrap/js/**").addResourceLocations("/resources/static/bootstrap/js/");
+//                .addResourceLocations("webapp/resources/static/")
+//                .addResourceLocations("/resources/static/**")
+//                .addResourceLocations("/resources/static/bootstrap/js/", "/resources/static/bootstrap/css/", "/resources/static/images/")
+//                .setCachePeriod(0);
+    }
+
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
@@ -34,6 +46,7 @@ public class OnlineStoreConfig implements WebMvcConfigurer {
         //templateResolver.setTemplateMode(TemplateMode.HTML);
         templateResolver.setPrefix("/WEB-INF/views/");
         templateResolver.setSuffix(".html");
+
         return templateResolver;
     }
 
@@ -59,6 +72,7 @@ public class OnlineStoreConfig implements WebMvcConfigurer {
         dataSource.setUrl("jdbc:mysql://localhost:3306/onlinestore_db");
         dataSource.setUsername("root");
         dataSource.setPassword("Rybanka@08");
+
         return dataSource;
     }
 
