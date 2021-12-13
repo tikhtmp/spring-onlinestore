@@ -7,6 +7,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -33,6 +35,7 @@ public class OnlineStoreConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/resources/static/images/**").addResourceLocations("/resources/static/images/");
         registry.addResourceHandler("/resources/static/bootstrap/css/**").addResourceLocations("/resources/static/bootstrap/css/");
         registry.addResourceHandler("/resources/static/bootstrap/js/**").addResourceLocations("/resources/static/bootstrap/js/");
+//        registry.addResourceHandler("/resources/static/images/favicon.ico").addResourceLocations("/favicon.ico");
     }
 
     @Bean
