@@ -33,10 +33,6 @@ public class OnlineStoreConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/resources/static/images/**").addResourceLocations("/resources/static/images/");
         registry.addResourceHandler("/resources/static/bootstrap/css/**").addResourceLocations("/resources/static/bootstrap/css/");
         registry.addResourceHandler("/resources/static/bootstrap/js/**").addResourceLocations("/resources/static/bootstrap/js/");
-//                .addResourceLocations("webapp/resources/static/")
-//                .addResourceLocations("/resources/static/**")
-//                .addResourceLocations("/resources/static/bootstrap/js/", "/resources/static/bootstrap/css/", "/resources/static/images/")
-//                .setCachePeriod(0);
     }
 
     @Bean
