@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update user</title>
+</head>
+<body>
+<form th:method="PATCH" th:action="@{'/users/' + ${userId}}" th:object="${user}">
+    <input type="hidden" name="_method" value="PATCH">
+
+    Id: <p th:text="${userId}"/>
+    <br/>
+    <label for="login">Login: </label>
+        <input type="text" th:field="*{login}" id="login" readonly>
+    <div style="color:red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+    <br/>
+    <label for="password">Password: </label>
+    <input type="password" th:field="*{password}" id="password" >
+        <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+    <br/>
+    <input type="submit" value="Update">
+    <br/>
+</form>
+
+<a th:href="@{/users/products}">
+    <input type="submit" value="Cancel">
+</a>
+</body>
+</html>

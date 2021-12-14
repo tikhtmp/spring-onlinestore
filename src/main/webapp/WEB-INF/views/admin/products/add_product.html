@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New product</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/admins/products/new}" th:object="${product}">
+    <label for="name">Name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <br/>
+    <label for="shortDescription">Short description: </label>
+    <input type="text" th:field="*{shortDescription}" id="shortDescription"/>
+    <div style="color:red" th:if="${#fields.hasErrors('shortDescription')}" th:errors="*{shortDescription}"></div>
+    <br/>
+    <label for="detailDescription">Detail description: </label>
+    <input type="text" th:field="*{detailDescription}" id="detailDescription"/>
+    <div style="color:red" th:if="${#fields.hasErrors('detailDescription')}" th:errors="*{detailDescription}"></div>
+    <br/>
+    <label for="price">Price: </label>
+    <input type="text" th:field="*{price}" id="price"/>
+    <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+    <br/>
+    <input type="submit" value="Save"/>
+</form>
+<a th:href="@{/admins/products}">
+    <input type="submit" value="Cancel">
+</a>
+</body>
+</html>

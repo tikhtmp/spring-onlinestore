@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Product</title>
+</head>
+<body>
+    id: <p th:text="${product.getId()}"></p>
+    name: <p th:text="${product.getName()}"></p>
+    shortDescription: <p th:text="${product.getShortDescription()}"></p>
+    DetailDescription: <p th:text="${product.getDetailDescription()}"></p>
+    price: <p th:text="${product.getPrice()}"></p>
+
+    <a th:href="@{/users/products}">
+        <input type="submit" value="Go to products"/>
+    </a>
+
+    <a th:href="@{'/users/' + ${userId} + '/cart/products/' + ${product.getId()}}">
+        <input type="submit" value="Add to cart"/>
+    </a>
+
+</body>
+
+
+</html>

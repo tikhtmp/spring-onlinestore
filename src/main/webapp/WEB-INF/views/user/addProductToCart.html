@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<style>
+.inline {
+display:inline-block;
+}
+
+
+
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Add to cart</title>
+
+</head>
+<body>
+add product to cart
+<br/>
+
+<br/>
+
+<form th:method="POST" th:action="@{'/users/' + ${userId} + '/cart/products/' + ${productId}}" th:object="${cartRecord}">
+    <ul>
+        <li><label for="product_id"> Id: </label>
+            <p class="inline" th:text="${productId}" id="product_id"/>
+        </li>
+        <li><label for="product_name"> Name: </label>
+            <p class="inline" th:text="${productName}" id="product_name"/>
+        </li>
+        <li><label for="product_description"> Description: </label>
+            <p class="inline" th:text="${productDescription}" id="product_description"/>
+        </li>
+        <li><label for="product_price"> Price: </label>
+            <p class="inline" th:text="${productPrice}" id="product_price"/>
+        </li>
+    </ul>
+    <br/>
+
+    <label for="quantity">Choose quantity: </label>
+        <input type="text" th:field="*{quantity}" id="quantity">
+    <div style="color:red" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
+    <br/>
+
+    <br/>
+    <input type="submit" value="Save"/>
+
+</form>
+
+<br/>
+
+<a th:href="@{'/users/' + ${userId} + '/cart/products'}">
+    <input type="submit" value="Cancel"/>
+</a>
+
+</body>
+</html>
