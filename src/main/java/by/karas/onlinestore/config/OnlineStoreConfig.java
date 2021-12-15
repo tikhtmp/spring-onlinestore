@@ -35,7 +35,6 @@ public class OnlineStoreConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/resources/static/images/**").addResourceLocations("/resources/static/images/");
         registry.addResourceHandler("/resources/static/bootstrap/css/**").addResourceLocations("/resources/static/bootstrap/css/");
         registry.addResourceHandler("/resources/static/bootstrap/js/**").addResourceLocations("/resources/static/bootstrap/js/");
-//        registry.addResourceHandler("/resources/static/images/favicon.ico").addResourceLocations("/favicon.ico");
     }
 
     @Bean

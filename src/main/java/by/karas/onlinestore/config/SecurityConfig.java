@@ -37,8 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home/auth/**").authenticated()
                 .antMatchers("/users/**").access("hasRole('ROLE_USER')")
                 .antMatchers("/admins/**").access("hasRole('ROLE_ADMIN')")
+                .and().formLogin().loginPage("/home/login").permitAll() //
                 .and().formLogin().defaultSuccessUrl("/", false)
-                .and().logout().permitAll().logoutSuccessUrl("/home/products");
+                .and().logout().permitAll().logoutSuccessUrl("/home/products")
+                ;
 //                .and().sessionManagement().invalidSessionUrl("/home/products");
     }
 

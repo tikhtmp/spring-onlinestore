@@ -26,13 +26,21 @@ public class HomeController {
         this.encoder = encoder;
     }
 
+    @GetMapping("/login")
+    public String getLogin(
+              @RequestParam(value = "error", required = false) String error
+            , Model model){
+        model.addAttribute("error", error != null);
+        return "login";
+    }
+
     @GetMapping("/products")
     public String home(@RequestParam(value = "filter", required = false, defaultValue = "") String filter
             , Model model) {
 
         model.addAttribute("filter", filter);
 
-        if(filter == null){
+        if (filter == null) {
             model.addAttribute("products", productDAO.getAllProducts());
         } else model.addAttribute("products", productDAO.getProducts(filter));
 
@@ -57,7 +65,7 @@ public class HomeController {
     }
 
     @GetMapping("/products/{id}")
-    public String seeProductDetails(@PathVariable("id") Long id, Model model){
+    public String seeProductDetails(@PathVariable("id") Long id, Model model) {
         model.addAttribute("product", productDAO.getProduct(id));
         return "home/product_info";
     }
@@ -67,7 +75,7 @@ public class HomeController {
         Long userId = userDAO.getUserByLogin(principal.getName()).getId();
         User currentUser = userDAO.getUserById(userId);
 
-        if(currentUser.getRole().equals(Role.ROLE_ADMIN))
+        if (currentUser.getRole().equals(Role.ROLE_ADMIN))
             return "redirect:/admins/products";
 
         return "redirect:/users/" + userId + "/products";
