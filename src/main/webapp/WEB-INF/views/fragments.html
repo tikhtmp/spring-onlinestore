@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <body>
+
 <div th:fragment="onlinestore_image">
     <img th:src="@{/resources/static/images/onlinestore.svg}" alt="" width="45" height="36"
          style="float:left; margin-right:20px;"/>
 </div>
+
+<div th:fragment="onlinestore_bg">
+    <img th:src="@{/resources/static/images/onlinestore_bg.jpeg}"/>
+</div>
+
 
 <div th:fragment="home_navbar">
     <nav class="navbar navbar-expand-sm navbar-light bg-light p-1">
@@ -41,6 +47,21 @@
                         </a>
                     </li>
                 </ul>
+
+                <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                   th:href="@{'/home/products?filter=' + ${filter} + '&view=list'}" style="margin-right:10px;">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-list"></i>List
+                            </span>
+                </a>
+
+                <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                   th:href="@{'/home/products?filter=' + ${filter} + '&view=grid'}" style="margin-right:30px;">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-grid-3x3-gap"></i> Grid
+                            </span>
+                </a>
+
 
                 <form class="d-flex" th:action="@{'/home/products?filter=' + ${filter}}">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"

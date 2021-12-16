@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<body>
+
+<div th:fragment="filter">
+    <div th:if="${filter.length()}">
+        <div class="alert alert-success" role="alert" style="width: 60rem; margin-top: 10px; theme-colors:teal-300">
+            <data th:text="'Results for: ' + ${filter}"/>
+        </div>
+    </div>
+</div>
+<!--Product index displays list-->
+<div th:fragment="product_index_list">
+    <div th:insert="product_index_fragments :: filter"></div>
+    <th:block th:each="product : ${products}">
+        <tr>
+            <div class="card mb-3 mt-3 mx-3" style="height: 80px; max-width: 1080px">
+                <div class="row g-0  justify-content-center align-items-center">
+                    <div class="col-md-1">
+                        <img th:src="@{/resources/static/images/onlinestore_add_photo.jpg}"
+                             class="img-fluid align-self-center" style="width: 75px;" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <p class="card-text" th:text="'Price: ' + ${product.getPrice()}">Price</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <a class="card-text"
+                                           th:text="${product.getName()} +': ' + ${product.getShortDescription()}"
+                                           th:href="@{/home/products/{id}(id=${product.getId()})}"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </tr>
+    </th:block>
+</div>
+
+<!-- Product index displays grid-->
+<div th:fragment="product_index_grid">
+    <div th:insert="product_index_fragments :: filter"></div>
+
+    <div class="row row-cols-1 row-cols-md-6 g-4">
+        <th:block th:each="product : ${products}">
+            <tr>
+                <div class="col">
+                    <div class="card" style="width: 15rem;">
+                        <img th:src="@{/resources/static/images/onlinestore_add_photo.jpg}" class="card-img-top"
+                             alt="...">
+                        <div class="card-body">
+                            <p class="card-text" th:text="'Price: ' + ${product.getPrice()}">Price</p>
+                            <p class="card-text">
+                                <a class="card-text"
+                                   th:text="${product.getName()} +': ' + ${product.getShortDescription()}"
+                                   th:href="@{/home/products/{id}(id=${product.getId()})}"></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </tr>
+        </th:block>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -30,15 +30,19 @@ public class HomeController {
     public String getLogin(
               @RequestParam(value = "error", required = false) String error
             , Model model){
+
         model.addAttribute("error", error != null);
         return "login";
     }
 
     @GetMapping("/products")
-    public String home(@RequestParam(value = "filter", required = false, defaultValue = "") String filter
+    public String home(
+              @RequestParam(value = "filter", required = false, defaultValue = "") String filter
+            , @RequestParam(value = "view", required = false, defaultValue = "") String view
             , Model model) {
 
         model.addAttribute("filter", filter);
+        model.addAttribute("view", view);
 
         if (filter == null) {
             model.addAttribute("products", productDAO.getAllProducts());

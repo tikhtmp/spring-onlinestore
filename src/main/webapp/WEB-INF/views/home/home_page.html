@@ -13,37 +13,18 @@
 <body>
 <div th:insert="fragments :: home_navbar"></div>
 
-<br>
-<h5 th:if="${filter.length()}">
-    Results for: "
-    <data th:text="${filter}"/>
-    "
-</h5>
-<div class="table-responsive">
-    <table class="table table-striped">
-        <tr class="bg-dark">
-            <th class="text-white">ID</th>
-            <th class="text-white">Name</th>
-            <th class="text-white">ShortDescription</th>
-            <th class="text-white">Price</th>
-            <th></th>
-        </tr>
-        <th:block th:each="product : ${products}">
-            <tr>
-                <td th:text="${product.getId()}"></td>
-                <td th:text="${product.getName()}"></td>
-                <td th:text="${product.getShortDescription()}"></td>
-                <td th:text="${product.getPrice()}"></td>
-                <td>
-                    <a class="btn-sm btn-outline-secondary" th:href="@{/home/products/{id}(id=${product.getId()})}">
-                        <i class="bi-eye"></i>
-                        <span class="d-none d-md-inline">See details</span>
-                    </a>
-                </td>
-            </tr>
-        </th:block>
-    </table>
-</div>
+    <div th:if="${view} eq ''">
+        <div th:insert="product_index_fragments :: product_index_list"></div>
+    </div>
+
+    <div th:if="${view} eq 'list'">
+        <div th:insert="product_index_fragments :: product_index_list"></div>
+    </div>
+
+    <div th:if="${view} eq 'grid'">
+        <div th:insert="product_index_fragments :: product_index_grid"></div>
+    </div>
+
 <script th:src="@{/resources/static/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
