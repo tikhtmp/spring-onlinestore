@@ -66,13 +66,11 @@ public class UserDAO {
                 , user.getLogin()
                 , user.getPassword()
                 , role.toString());
-//                , "ROLE_USER");
     }
 
     public void update(Long id, User updatedUser){
         String sql = "update users set password=?, role=? where id=?";
         jdbcTemplate.update(sql
-//                , updatedUser.getLogin()
                 , updatedUser.getPassword()
                 , updatedUser.getRole().toString()
                 , id);

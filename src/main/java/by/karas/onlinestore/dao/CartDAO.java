@@ -65,6 +65,19 @@ public class CartDAO {
         return cartRecords.get(0);
     }
 
+    public Map<Product, Long> getFilteredCartByUserId(Long userId, String filter) {
+
+        List<Product> products = productDAO.getCartProducts(userId);
+        Map<Product, Long> filteredCart = new HashMap<>();
+
+        for(Product product : products){
+            if(product.getShortDescription().contains(filter)){
+                filteredCart.put(product, getQuantityFromCart(userId, product.getId()));
+            }
+        }
+        return filteredCart;
+    }
+
     public Map<Product, Long> getCartByUserId(Long userId) {
         Map<Product, Long> cart = new HashMap<>();
         final String sql = "select * from cart where user_id=?";

@@ -12,6 +12,7 @@
 <!--Product index displays list-->
 <div th:fragment="product_index_list">
     <div th:insert="product_index_fragments :: filter"></div>
+
     <th:block th:each="product : ${products}">
         <tr>
             <div class="card mb-3 mt-3 mx-3" style="height: 80px; max-width: 1080px">
@@ -28,9 +29,12 @@
                                         <p class="card-text" th:text="'Price: ' + ${product.getPrice()}">Price</p>
                                     </div>
                                     <div class="col-6">
-                                        <a class="card-text"
-                                           th:text="${product.getName()} +': ' + ${product.getShortDescription()}"
-                                           th:href="@{/home/products/{id}(id=${product.getId()})}"></a>
+                                        <p class="card-text">
+                                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                            <a class="card-text btn-sm btn-outline-secondary "
+                                               th:text="${product.getName()} +': ' + ${product.getShortDescription()}"
+                                               th:href="@{/home/products/{id}(id=${product.getId()})}"></a>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -57,9 +61,11 @@
                         <div class="card-body">
                             <p class="card-text" th:text="'Price: ' + ${product.getPrice()}">Price</p>
                             <p class="card-text">
-                                <a class="card-text"
-                                   th:text="${product.getName()} +': ' + ${product.getShortDescription()}"
-                                   th:href="@{/home/products/{id}(id=${product.getId()})}"></a>
+                                 <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                    <a class="card-text btn-sm btn-outline-secondary "
+                                       th:text="${product.getName()} +': ' + ${product.getShortDescription()}"
+                                       th:href="@{/home/products/{id}(id=${product.getId()})}"></a>
+                                </span>
                             </p>
                         </div>
                     </div>

@@ -1,29 +1,63 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Update user</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" th:href="@{/resources/static/images/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/resources/static/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <title>Edit account</title>
 </head>
-<body>
-<form th:method="PATCH" th:action="@{'/users/' + ${userId}}" th:object="${user}">
-    <input type="hidden" name="_method" value="PATCH">
 
-    Id: <p th:text="${userId}"/>
-    <br/>
-    <label for="login">Login: </label>
-        <input type="text" th:field="*{login}" id="login" readonly>
-    <div style="color:red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
-    <br/>
-    <label for="password">Password: </label>
-    <input type="password" th:field="*{password}" id="password" >
-        <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-    <br/>
-    <input type="submit" value="Update">
-    <br/>
+<body>
+
+<div th:insert="/user/user_fragments :: user_navbar_for_card"></div>
+
+<div class="container-fluid p-3">
+<h3>
+        <span class="badge bg-light rounded-pill" style="color:#5e5ec9;">
+            <i class="bi bi-pencil"></i> Change your password
+        </span>
+</h3>
+</div>
+
+<form th:method="PATCH" th:action="@{'/users/' + ${user_id}}" th:object="${user}">
+    <input type="hidden" name="_method" value="PATCH">
+    <div class="container-fluid p-3">
+        <div class="row">
+            <div class="col-2">
+                <input type="text" th:field="*{login}" id="login" class="form-control"
+                       aria-describedby="loginHelpInline"
+                       readonly>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid p-3">
+        <div class="row">
+            <div class="col-2">
+                <input type="password" th:field="*{password}" id="password" class="form-control"
+                       aria-describedby="passwordHelpInline" placeholder="New password">
+                <span id="passwordHelpInline" class="form-text">
+                    Must be 8-20 characters long.
+                </span>
+                <div class="alert alert-danger" role="alert" style="color:red" th:if="${#fields.hasErrors('password')}"
+                     th:errors="*{password}"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid p-3">
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-outline-dark" style="float:left; margin-left:20px;">Update</button>
+                <a th:href="@{/users/products}">
+                    <input class="btn btn-outline-dark" type="button" style="float:left; margin-left:20px;"
+                           value="Cancel"/>
+                </a>
+            </div>
+        </div>
+    </div>
 </form>
 
-<a th:href="@{/users/products}">
-    <input type="submit" value="Cancel">
-</a>
 </body>
 </html>

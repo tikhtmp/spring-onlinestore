@@ -5,6 +5,7 @@ import by.karas.onlinestore.dao.ProductDAO;
 import by.karas.onlinestore.dao.UserDAO;
 import by.karas.onlinestore.models.CartRecord;
 import by.karas.onlinestore.models.Product;
+import by.karas.onlinestore.models.Role;
 import by.karas.onlinestore.models.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,16 @@ public class UsersControllerUser {
         return userDAO.getUserByLogin(principal.getName()).getId();
     }
 
+    @ModelAttribute("login")
+    public String getUserLogin(Principal principal) {
+        return userDAO.getUserById(getPrincipalId(principal)).getLogin();
+    }
+
+    @ModelAttribute("user_id")
+    public String getUserId(Principal principal) {
+        return Long.toString(getPrincipalId(principal));
+    }
+
     @GetMapping("/products")
     public String seeProducts(Principal principal) {
         return "redirect:/users/" + getPrincipalId(principal) + "/products";
@@ -44,11 +55,11 @@ public class UsersControllerUser {
     public String seeProducts(
               @PathVariable("user_id") Long userId
             , @RequestParam(value = "filter", required = false, defaultValue = "") String filter
+            , @RequestParam(value = "view", required = false, defaultValue = "") String view
             , Model model) {
 
-        model.addAttribute("login", userDAO.getUserById(userId).getLogin());
         model.addAttribute("filter", filter);
-        model.addAttribute("user_id", userId);
+        model.addAttribute("view", view);
 
         if (filter == null) {
             model.addAttribute("products", productDAO.getAllProducts());
@@ -60,21 +71,28 @@ public class UsersControllerUser {
     @GetMapping("/products/{product_id}")
     public String showProductDetails(@PathVariable("product_id") Long product_id, Model model, Principal principal) {
         model.addAttribute("product", productDAO.getProduct(product_id));
-        model.addAttribute("userId", getPrincipalId(principal));
         return "user/product_info";
     }
 
     @GetMapping("/cart/products/{product_id}/edit")
     public String showCartProductDetails(@PathVariable("product_id") Long product_id, Model model, Principal principal) {
         model.addAttribute("product", productDAO.getProduct(product_id));
-        model.addAttribute("userId", getPrincipalId(principal));
+        model.addAttribute("quantity", cartDAO.getQuantityFromCart(getPrincipalId(principal), product_id));
         return "user/edit_cart_record";
     }
 
     @GetMapping("/{user_id}/cart/products")
-    public String showCart(@PathVariable("user_id") Long userId, Model model) {
-        model.addAttribute("cart", cartDAO.getCartByUserId(userId));
-        model.addAttribute("userId", userId);
+    public String showCart(
+            @PathVariable("user_id") Long userId
+            , @RequestParam(value = "filter", required = false, defaultValue = "") String filter
+            , Model model) {
+//        model.addAttribute("cart", cartDAO.getCartByUserId(userId));
+        model.addAttribute("filter", filter);
+
+        if (filter == null) {
+            model.addAttribute("cart", cartDAO.getCartByUserId(userId));
+        } else model.addAttribute("cart", cartDAO.getFilteredCartByUserId(userId, filter));
+
         return "user/cart";
     }
 
@@ -87,7 +105,6 @@ public class UsersControllerUser {
             , Model model) {
 
         Product product = productDAO.getProduct(productId);
-        model.addAttribute("userId", userId);
         model.addAttribute("productId", productId);
         model.addAttribute("productName", product.getName());
         model.addAttribute("productDescription", product.getShortDescription());
@@ -105,8 +122,12 @@ public class UsersControllerUser {
             , @PathVariable("user_id") Long userId
             , Model model) {
 
-        model.addAttribute("userId", userId);
+        Product product = productDAO.getProduct(productId);
         model.addAttribute("productId", productId);
+        model.addAttribute("productName", product.getName());
+        model.addAttribute("productDescription", product.getShortDescription());
+        model.addAttribute("productPrice", product.getPrice());
+        model.addAttribute("cartRecord", cartRecord);
 
         if (bindingResult.hasErrors()) {
             return "user/addProductToCart";
@@ -171,7 +192,6 @@ public class UsersControllerUser {
     @GetMapping("/{user_id}/edit")
     public String editUser(Model model, @PathVariable("user_id") Long userId) {
         model.addAttribute("user", userDAO.getUserById(userId));
-        model.addAttribute("userId", userId);
         return "user/edit_user";
     }
 
@@ -182,13 +202,18 @@ public class UsersControllerUser {
             , @PathVariable("user_id") Long userId
             , Model model) {
 
-        model.addAttribute("userId", userId);
+//        System.out.println("patch edit user id " + user.getId());
+//        System.out.println("patch edit user Login " + user.getLogin());
+//        System.out.println("patch edit Password " + user.getPassword());
+//        System.out.println("patch edit role " + user.getRole());
 
         if (bindingResult.hasErrors())
             return "user/edit_user";
 
 
         user.setPassword(encoder.encode(user.getPassword()));
+        user.setRole(Role.ROLE_USER);
+//        System.out.println("patch edit Password encod " + user.getPassword());
         userDAO.update(userId, user);
 
         return "redirect:/users/" + userId + "/products";

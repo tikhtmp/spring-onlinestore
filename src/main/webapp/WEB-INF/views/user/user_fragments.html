@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<body>
+
+<div th:fragment="onlinestore_image">
+    <img th:src="@{/resources/static/images/onlinestore.svg}" alt="" width="45" height="36"
+         style="float:left; margin-right:10px;"/>
+</div>
+
+<!--<div th:fragment="onlinestore_bg">-->
+<!--    <img th:src="@{/resources/static/images/onlinestore_bg.jpeg}"/>-->
+<!--</div>-->
+
+<div th:fragment="user_navbar">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light p-1">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="navbar-brand" th:insert="/user/user_fragments :: onlinestore_image"></li>
+
+                    <li class="nav-link" style="float:left; margin-right:25px;">
+                        <a type="button" class="btn btn-light btn-sm rounded-pill"
+                           style="background-color: #dbe6f7; cursor: default;">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-person" style="font-size: 20px;"></i> <span th:text="${login}"
+                                                                                            style="font-size: 20px;"></span>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                           th:href="@{/users/products}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-house"></i> Home
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                           th:href="@{'/users/' + ${user_id} + '/cart/products'}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                               <i class="bi bi-cart4"></i> Cart
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                           th:href="@{'/users/' + ${user_id} + '/edit'}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-pencil"></i> Edit account
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a id="logout_link" type="button"
+                           class="btn-sm btn-outline-secondary text-decoration-none rounded-pill">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold"
+                                  onclick="document.getElementById('logout-form').submit();">
+                                <i class="bi bi-box-arrow-right"></i> Logout
+                            </span>
+                        </a>
+                    </li>
+                    <form id="logout-form" style="display:none" th:action="@{/logout}" method="POST"></form>
+
+                </ul>
+
+                <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                   th:href="@{'/users/' + ${user_id} + '/products?filter=' + ${filter} + '&view=list'}"
+                   style="margin-right:30px;">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-list"></i>List
+                            </span>
+                </a>
+
+                <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                   th:href="@{'/users/' + ${user_id} + '/products?filter=' + ${filter} + '&view=grid'}"
+                   style="margin-right:30px;">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-grid-3x3-gap"></i> Grid
+                            </span>
+                </a>
+
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                           name="filter" size="40">
+                    <button class="btn btn-outline-dark" type="submit">Search</button>
+                </form>
+
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div th:fragment="user_navbar_for_card">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light p-1">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContentCard">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="navbar-brand" th:insert="/user/user_fragments :: onlinestore_image"></li>
+
+                    <li class="nav-link" style="float:left; margin-right:25px;">
+                        <a type="button" class="btn btn-light btn-sm rounded-pill"
+                           style="background-color: #dbe6f7; cursor: default;">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-person" style="font-size: 20px;"></i> <span th:text="${login}"
+                                                                                            style="font-size: 20px;"></span>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                           th:href="@{/users/products}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-house"></i> Home
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                           th:href="@{'/users/' + ${user_id} + '/cart/products'}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                               <i class="bi bi-cart4"></i> Cart
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                           th:href="@{'/users/' + ${user_id} + '/edit'}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-pencil"></i> Edit account
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a id="logout_link_card" type="button"
+                           class="btn-sm btn-outline-secondary text-decoration-none rounded-pill">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold"
+                                  onclick="document.getElementById('logout-form_card').submit();">
+                                <i class="bi bi-box-arrow-right"></i> Logout
+                            </span>
+                        </a>
+                    </li>
+                    <form id="logout-form_card" style="display:none" th:action="@{/logout}" method="POST"></form>
+
+                </ul>
+
+                <!--                <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"-->
+                <!--                   th:href="@{'/users/' + ${user_id} + '/products?filter=' + ${filter} + '&view=list'}" style="margin-right:30px;">-->
+                <!--                            <span class="d-none d-md-inline fs-5 fw-weight-bold">-->
+                <!--                                <i class="bi bi-list"></i>List-->
+                <!--                            </span>-->
+                <!--                </a>-->
+
+                <!--                <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"-->
+                <!--                   th:href="@{'/users/' + ${user_id} + '/products?filter=' + ${filter} + '&view=grid'}" style="margin-right:30px;">-->
+                <!--                            <span class="d-none d-md-inline fs-5 fw-weight-bold">-->
+                <!--                                <i class="bi bi-grid-3x3-gap"></i> Grid-->
+                <!--                            </span>-->
+                <!--                </a>-->
+
+                <!--                <form class="d-flex">-->
+                <!--                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"-->
+                <!--                           name="filter" size="40">-->
+                <!--                    <button class="btn btn-outline-dark" type="submit">Search</button>-->
+                <!--                </form>-->
+
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div th:fragment="user_navbar_for_cart">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light p-1">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarSupportedContentCart">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="navbar-brand" th:insert="/user/user_fragments :: onlinestore_image"></li>
+
+                    <li class="nav-link" style="float:left; margin-right:25px;">
+                        <a type="button" class="btn btn-light btn-sm rounded-pill"
+                           style="background-color: #dbe6f7; cursor: default;">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-person" style="font-size: 20px;"></i> <span th:text="${login}"
+                                                                                            style="font-size: 20px;"></span>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                           th:href="@{/users/products}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-house"></i> Home
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                           th:href="@{'/users/' + ${user_id} + '/cart/products'}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                               <i class="bi bi-cart4"></i> Cart
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                           th:href="@{'/users/' + ${user_id} + '/edit'}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-pencil"></i> Edit account
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a id="logout_link_cart" type="button"
+                           class="btn-sm btn-outline-secondary text-decoration-none rounded-pill">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold"
+                                  onclick="document.getElementById('logout-form_cart').submit();">
+                                <i class="bi bi-box-arrow-right"></i> Logout
+                            </span>
+                        </a>
+                    </li>
+                    <form id="logout-form_cart" style="display:none" th:action="@{/logout}" method="POST"></form>
+
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                           name="filter" size="40">
+                    <button class="btn btn-outline-dark" type="submit">Search</button>
+                </form>
+
+            </div>
+        </div>
+    </nav>
+</div>
+
+<!-- Product index displays list-->
+<div th:fragment="product_index_list">
+    <div th:insert="product_index_fragments :: filter"></div>
+    <th:block th:each="product : ${products}">
+        <tr>
+            <div class="card mb-3 mt-3 mx-3" style="height: 80px; max-width: 1080px">
+                <div class="row g-0  justify-content-center align-items-center">
+                    <div class="col-md-1">
+                        <img th:src="@{/resources/static/images/onlinestore_add_photo.jpg}"
+                             class="img-fluid align-self-center" style="width: 75px;" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <p class="card-text" th:text="'Price: ' + ${product.getPrice()}">Price</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="card-text">
+                                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                            <a class="card-text btn-sm btn-outline-secondary "
+                                               th:text="${product.getName()} +': ' + ${product.getShortDescription()}"
+                                               th:href="@{/users/products/{id}(id=${product.getId()})}"></a>
+                                        </span>
+                                    </div>
+
+                                    <div class="col-3">
+                                        <p class="card-text">
+                                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                                    <a class="card-text btn-sm btn-outline-secondary rounded-pill"
+                                                       th:href="@{'/users/' + ${user_id} + '/cart/products/' + ${product.getId()}}">
+                                                        <i class="bi bi-cart-plus"></i> Add to cart
+                                                    </a>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </tr>
+    </th:block>
+</div>
+
+<!-- Product index displays grid-->
+<div th:fragment="product_index_grid">
+    <div th:insert="product_index_fragments :: filter"></div>
+
+    <div class="row row-cols-1 row-cols-md-6 g-4">
+        <th:block th:each="product : ${products}">
+            <tr>
+                <div class="col">
+                    <div class="card" style="width: 15rem;">
+                        <img th:src="@{/resources/static/images/onlinestore_add_photo.jpg}" class="card-img-top"
+                             alt="...">
+                        <div class="card-body">
+                            <p class="card-text" th:text="'Price: ' + ${product.getPrice()}">Price</p>
+                            <p class="card-text">
+                                 <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                    <a class="card-text btn-sm btn-outline-secondary "
+                                       th:text="${product.getName()} +': ' + ${product.getShortDescription()}"
+                                       th:href="@{/users/products/{id}(id=${product.getId()})}"></a>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </tr>
+        </th:block>
+
+    </div>
+</div>
+
+<!--&lt;!&ndash; Cart product index displays list&ndash;&gt;-->
+<!--<div th:fragment="cart_index_list">-->
+<!--    &lt;!&ndash;    <div th:insert="product_index_fragments :: filter"></div>&ndash;&gt;-->
+<!--    <th:block th:each="product : ${cart}">-->
+<!--        <tr>-->
+<!--            <div class="card mb-3 mt-3 mx-3" style="height: 80px; max-width: 1080px">-->
+<!--                <div class="row g-0  justify-content-center align-items-center">-->
+<!--                    <div class="col-md-1">-->
+<!--                        <img th:src="@{/resources/static/images/onlinestore_add_photo.jpg}"-->
+<!--                             class="img-fluid align-self-center" style="width: 75px;" alt="...">-->
+<!--                    </div>-->
+<!--                    <div class="col-md-8">-->
+<!--                        <div class="card-body">-->
+<!--                            <div class="container">-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-2">-->
+<!--                                        <p class="card-text" th:text="'Price: ' + ${product.key.getPrice()}">Price</p>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-6">-->
+<!--                                        <p class="card-text">-->
+<!--                                            <span class="d-none d-md-inline fs-5 fw-weight-bold">-->
+<!--                                            <a class="card-text btn-sm btn-outline-secondary "-->
+<!--                                               th:text="${product.key.getName()} +': ' + ${product.key.getShortDescription()}"-->
+<!--                                               th:href="@{'/users/' + ${user_id} + '/cart/products/' + ${product.key.getId()} +'/edit'}">-->
+<!--                                            </a>-->
+<!--                                        </span>-->
+<!--                                    </div>-->
+
+<!--                                    <div class="col-3">-->
+<!--                                        <p class="card-text">-->
+<!--                                            <span class="d-none d-md-inline fs-5 fw-weight-bold">-->
+<!--                                                    <a id="delete_link" type="button"-->
+<!--                                                       class="btn-sm btn-outline-secondary text-decoration-none rounded-pill" onclick="document.getElementById('delete_from_cart_form').submit();">-->
+<!--                                                        <i class="bi bi-trash"></i> Remove from cart-->
+<!--                                                    </a>-->
+<!--                                            </span>-->
+<!--                                    </div>-->
+<!--                                    <form th:method="DELETE" id="delete_from_cart_form" style="display:none" th:action="@{'/users/' + ${user_id} + '/cart/products/' + ${product.key.getId()}}" ></form>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </tr>-->
+<!--    </th:block>-->
+<!--</div>-->
+
+</body>
+</html>
+

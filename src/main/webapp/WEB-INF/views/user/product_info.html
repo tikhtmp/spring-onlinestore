@@ -3,24 +3,31 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" th:href="@{/resources/static/images/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/resources/static/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <title>Product</title>
 </head>
 <body>
-    id: <p th:text="${product.getId()}"></p>
-    name: <p th:text="${product.getName()}"></p>
-    shortDescription: <p th:text="${product.getShortDescription()}"></p>
-    DetailDescription: <p th:text="${product.getDetailDescription()}"></p>
-    price: <p th:text="${product.getPrice()}"></p>
+<div th:insert="/user/user_fragments :: user_navbar_for_card"></div>
 
-    <a th:href="@{/users/products}">
-        <input type="submit" value="Go to products"/>
-    </a>
-
-    <a th:href="@{'/users/' + ${userId} + '/cart/products/' + ${product.getId()}}">
-        <input type="submit" value="Add to cart"/>
-    </a>
+<div class="card mb-3 mt-3 mx-3" style="max-width: 1080px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img th:src="@{/resources/static/images/onlinestore.svg}" class="card-img-top my-3" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${product.getName()}">Card title</h5>
+                <p class="card-text" th:text="'Price: ' + ${product.getPrice()}">Price</p>
+                <p class="card-text" th:text="${product.getDetailDescription()}">DetailDescription</p>
+                <a th:href="@{/users/products}" class="btn btn-outline-secondary">Go home</a>
+                <a th:href="@{'/users/' + ${user_id} + '/cart/products/' + ${product.getId()}}" class="btn btn-outline-secondary">Add to cart</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
-
-
 </html>

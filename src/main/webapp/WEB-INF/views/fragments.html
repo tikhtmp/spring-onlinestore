@@ -11,7 +11,6 @@
     <img th:src="@{/resources/static/images/onlinestore_bg.jpeg}"/>
 </div>
 
-
 <div th:fragment="home_navbar">
     <nav class="navbar navbar-expand-sm navbar-light bg-light p-1">
         <div class="container-fluid">
@@ -63,12 +62,10 @@
                 </a>
 
 
-                <form class="d-flex" th:action="@{'/home/products?filter=' + ${filter}}">
+                <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                            name="filter" size="40">
-                    <a th:href="@{'/home/products?filter=' + ${filter}}">
                         <button class="btn btn-outline-dark" type="submit">Search</button>
-                    </a>
                 </form>
 
             </div>

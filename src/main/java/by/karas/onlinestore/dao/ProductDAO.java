@@ -36,18 +36,17 @@ public class ProductDAO {
                 new BeanPropertyRowMapper<>(Product.class));
         return products.get(0);
     }
+    public List<Product> getCartProducts(Long userId) {
 
-    public List<Product> getCartProducts(String userLogin) {
-
-        final String sql = "select * from products where id in (select product from cart where user=?)";
+        final String sql = "select * from products where id in (select product_id from cart where user_id=?)";
 
         List <Product> products = jdbcTemplate.query(
                 sql, new PreparedStatementSetter() {
                     public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                        preparedStatement.setString(1, userLogin);
+                        preparedStatement.setLong(1, userId);
                     }
                 },
-        new BeanPropertyRowMapper<>(Product.class));
+                new BeanPropertyRowMapper<>(Product.class));
         return products;
     }
 
@@ -57,7 +56,7 @@ public class ProductDAO {
     }
 
     public void save(Product product) {
-//        User testUser = new User();
+
         String sql = "insert into products (name, short_description, detail_description, price, creation_date, update_date, author) values(?, ?, ?, ?, now(), now(), ?)";
         jdbcTemplate.update(sql
                 , product.getName()
