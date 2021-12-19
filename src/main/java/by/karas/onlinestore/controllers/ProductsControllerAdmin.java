@@ -32,6 +32,12 @@ public class ProductsControllerAdmin {
         return userDAO.getUserByLogin(principal.getName()).getId();
     }
 
+    @ModelAttribute("user_id")
+    public String getUserId(Principal principal) {
+        return Long.toString(getPrincipalId(principal));
+    }
+
+
     @GetMapping("/products")
     public String homeAdmins(Principal principal) {
         return "redirect:" + getPrincipalId(principal) + "/products";
@@ -41,11 +47,13 @@ public class ProductsControllerAdmin {
     public String seeProducts(
             @PathVariable("user_id") Long userId
             , @RequestParam(value = "filter", required = false, defaultValue = "") String filter
+            , @RequestParam(value = "view", required = false, defaultValue = "") String view
             , Model model) {
 
         model.addAttribute("login", userDAO.getUserById(userId).getLogin());
         model.addAttribute("filter", filter);
-        model.addAttribute("user_id", userId);
+        model.addAttribute("view", view);
+//        model.addAttribute("user_id", userId);
 
         if (filter == null) {
             model.addAttribute("products", productDAO.getAllProducts());

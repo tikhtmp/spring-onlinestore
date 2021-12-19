@@ -7,10 +7,6 @@
          style="float:left; margin-right:10px;"/>
 </div>
 
-<!--<div th:fragment="onlinestore_bg">-->
-<!--    <img th:src="@{/resources/static/images/onlinestore_bg.jpeg}"/>-->
-<!--</div>-->
-
 <div th:fragment="user_navbar">
     <nav class="navbar navbar-expand-sm navbar-light bg-light p-1">
         <div class="container-fluid">
@@ -319,55 +315,6 @@
 
     </div>
 </div>
-
-<!--&lt;!&ndash; Cart product index displays list&ndash;&gt;-->
-<!--<div th:fragment="cart_index_list">-->
-<!--    &lt;!&ndash;    <div th:insert="product_index_fragments :: filter"></div>&ndash;&gt;-->
-<!--    <th:block th:each="product : ${cart}">-->
-<!--        <tr>-->
-<!--            <div class="card mb-3 mt-3 mx-3" style="height: 80px; max-width: 1080px">-->
-<!--                <div class="row g-0  justify-content-center align-items-center">-->
-<!--                    <div class="col-md-1">-->
-<!--                        <img th:src="@{/resources/static/images/onlinestore_add_photo.jpg}"-->
-<!--                             class="img-fluid align-self-center" style="width: 75px;" alt="...">-->
-<!--                    </div>-->
-<!--                    <div class="col-md-8">-->
-<!--                        <div class="card-body">-->
-<!--                            <div class="container">-->
-<!--                                <div class="row">-->
-<!--                                    <div class="col-2">-->
-<!--                                        <p class="card-text" th:text="'Price: ' + ${product.key.getPrice()}">Price</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-6">-->
-<!--                                        <p class="card-text">-->
-<!--                                            <span class="d-none d-md-inline fs-5 fw-weight-bold">-->
-<!--                                            <a class="card-text btn-sm btn-outline-secondary "-->
-<!--                                               th:text="${product.key.getName()} +': ' + ${product.key.getShortDescription()}"-->
-<!--                                               th:href="@{'/users/' + ${user_id} + '/cart/products/' + ${product.key.getId()} +'/edit'}">-->
-<!--                                            </a>-->
-<!--                                        </span>-->
-<!--                                    </div>-->
-
-<!--                                    <div class="col-3">-->
-<!--                                        <p class="card-text">-->
-<!--                                            <span class="d-none d-md-inline fs-5 fw-weight-bold">-->
-<!--                                                    <a id="delete_link" type="button"-->
-<!--                                                       class="btn-sm btn-outline-secondary text-decoration-none rounded-pill" onclick="document.getElementById('delete_from_cart_form').submit();">-->
-<!--                                                        <i class="bi bi-trash"></i> Remove from cart-->
-<!--                                                    </a>-->
-<!--                                            </span>-->
-<!--                                    </div>-->
-<!--                                    <form th:method="DELETE" id="delete_from_cart_form" style="display:none" th:action="@{'/users/' + ${user_id} + '/cart/products/' + ${product.key.getId()}}" ></form>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--        </tr>-->
-<!--    </th:block>-->
-<!--</div>-->
 
 </body>
 </html>

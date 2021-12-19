@@ -86,7 +86,7 @@ public class UsersControllerUser {
             @PathVariable("user_id") Long userId
             , @RequestParam(value = "filter", required = false, defaultValue = "") String filter
             , Model model) {
-//        model.addAttribute("cart", cartDAO.getCartByUserId(userId));
+
         model.addAttribute("filter", filter);
 
         if (filter == null) {

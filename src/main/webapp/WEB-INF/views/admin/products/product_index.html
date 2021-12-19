@@ -13,94 +13,120 @@
 
 
 </style>
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" th:href="@{/resources/static/images/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/resources/static/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <title>All products</title>
-    <div class="menu">
-        <h3 class="menu">ONLINE STORE pic</h3>
-        <h3 class="menu">
-            Hello,
-            <td th:text="${login} + '!   '"></td>
-        </h3>
-        <h3 class="menu">
-            <a th:href="@{'/admins/' + ${user_id} + '/cart/products'}">
-                <input type="submit" value="Cart"/>
-            </a>
-        </h3>
-        <h3 class="menu">
-            <a th:href="@{/admins/products/new}">
-                <input type="submit" value="Add product"/>
-            </a>
-        </h3>
-        <h3 class="menu">
-            <a th:href="@{'/admins/' + ${user_id} + '/users'}">
-                <input type="submit" value="Users"/>
-            </a>
-        </h3>
-        <h3 class="menu">
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Log out"/>
-            </form>
-        </h3>
-    </div>
 </head>
+
 <body>
-<br>
-<hr/>
-<form th:action="@{'/admins/' + ${user_id} + '/products?filter=' + ${filter}}">
-    Filter: <input type="text" name="filter" size="50"/>
-    <a th:href="@{'/admins/' + ${user_id} + '/products?filter=' + ${filter}}">
-        <input type="submit" value="Search"/>
-    </a>
-</form>
-<hr/>
-<h4 th:if="${filter.length()}">
-    Search results for:
-    <data th:text="${filter}"/>
-</h4>
+<div th:insert="/admin/products/admin_product_fragments :: admin_navbar"></div>
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>ShortDescription</th>
-        <th>Price</th>
-        <th>CreationDate</th>
-        <th>UpdateDate</th>
-        <th>Author</th>
-    </tr>
-    <th:block th:each="product : ${products}">
-        <tr>
-            <td th:text="${product.getId()}"></td>
-            <td th:text="${product.getName()}"></td>
-            <td th:text="${product.getShortDescription()}"></td>
-            <td th:text="${product.getPrice()}"></td>
-            <td th:text="${product.getCreationDate()}"></td>
-            <td th:text="${product.getUpdateDate()}"></td>
-            <td>
-                <a th:href="@{'/admins/' + ${user_id} + '/users/' + ${product.getAuthor()}}">
-                    <div th:text="'See author (id: ' + ${product.getAuthor()} + ')'"></div>
-                </a>
-            </td>
-            <td>
-                <a th:href="@{/admins/products/{id}(id=${product.getId()})}">
-                    <input type="submit" value="See details"/>
-                </a>
+<div th:if="${view} eq ''">
+    <div th:insert="/admin/products/admin_product_fragments :: product_index_list"></div>
+</div>
 
-            <td>
-                <a th:href="@{'/admins/products/' + ${product.getId()} + '/edit'}" th:method="PATCH">
-                    <input type="submit" value="Edit"/>
-                </a>
-            </td>
+<div th:if="${view} eq 'list'">
+    <div th:insert="/admin/products/admin_product_fragments :: product_index_list"></div>
+</div>
 
-            <td>
-                <form th:action="@{'/admins/products/' + ${product.getId()}}" th:method="DELETE">
-                    <input type="submit" value="Delete"/>
-                </form>
-            </td>
-        </tr>
-    </th:block>
-</table>
+<div th:if="${view} eq 'grid'">
+    <div th:insert="/admin/products/admin_product_fragments :: product_index_grid"></div>
+</div>
+
+<script th:src="@{/resources/static/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
+
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>All products</title>-->
+<!--    <div class="menu">-->
+<!--        <h3 class="menu">ONLINE STORE pic</h3>-->
+<!--        <h3 class="menu">-->
+<!--            Hello,-->
+<!--            <td th:text="${login} + '!   '"></td>-->
+<!--        </h3>-->
+<!--        <h3 class="menu">-->
+<!--            <a th:href="@{'/admins/' + ${user_id} + '/cart/products'}">-->
+<!--                <input type="submit" value="Cart"/>-->
+<!--            </a>-->
+<!--        </h3>-->
+<!--        <h3 class="menu">-->
+<!--            <a th:href="@{/admins/products/new}">-->
+<!--                <input type="submit" value="Add product"/>-->
+<!--            </a>-->
+<!--        </h3>-->
+<!--        <h3 class="menu">-->
+<!--            <a th:href="@{'/admins/' + ${user_id} + '/users'}">-->
+<!--                <input type="submit" value="Users"/>-->
+<!--            </a>-->
+<!--        </h3>-->
+<!--        <h3 class="menu">-->
+<!--            <form th:action="@{/logout}" method="post">-->
+<!--                <input type="submit" value="Log out"/>-->
+<!--            </form>-->
+<!--        </h3>-->
+<!--    </div>-->
+<!--</head>-->
+<!--<body>-->
+<!--<br>-->
+<!--<hr/>-->
+<!--<form th:action="@{'/admins/' + ${user_id} + '/products?filter=' + ${filter}}">-->
+<!--    Filter: <input type="text" name="filter" size="50"/>-->
+<!--    <a th:href="@{'/admins/' + ${user_id} + '/products?filter=' + ${filter}}">-->
+<!--        <input type="submit" value="Search"/>-->
+<!--    </a>-->
+<!--</form>-->
+<!--<hr/>-->
+<!--<h4 th:if="${filter.length()}">-->
+<!--    Search results for:-->
+<!--    <data th:text="${filter}"/>-->
+<!--</h4>-->
+
+<!--<table>-->
+<!--    <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>Name</th>-->
+<!--        <th>ShortDescription</th>-->
+<!--        <th>Price</th>-->
+<!--        <th>CreationDate</th>-->
+<!--        <th>UpdateDate</th>-->
+<!--        <th>Author</th>-->
+<!--    </tr>-->
+<!--    <th:block th:each="product : ${products}">-->
+<!--        <tr>-->
+<!--            <td th:text="${product.getId()}"></td>-->
+<!--            <td th:text="${product.getName()}"></td>-->
+<!--            <td th:text="${product.getShortDescription()}"></td>-->
+<!--            <td th:text="${product.getPrice()}"></td>-->
+<!--            <td th:text="${product.getCreationDate()}"></td>-->
+<!--            <td th:text="${product.getUpdateDate()}"></td>-->
+<!--            <td>-->
+<!--                <a th:href="@{'/admins/' + ${user_id} + '/users/' + ${product.getAuthor()}}">-->
+<!--                    <div th:text="'See author (id: ' + ${product.getAuthor()} + ')'"></div>-->
+<!--                </a>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                <a th:href="@{/admins/products/{id}(id=${product.getId()})}">-->
+<!--                    <input type="submit" value="See details"/>-->
+<!--                </a>-->
+
+<!--            <td>-->
+<!--                <a th:href="@{'/admins/products/' + ${product.getId()} + '/edit'}" th:method="PATCH">-->
+<!--                    <input type="submit" value="Edit"/>-->
+<!--                </a>-->
+<!--            </td>-->
+
+<!--            <td>-->
+<!--                <form th:action="@{'/admins/products/' + ${product.getId()}}" th:method="DELETE">-->
+<!--                    <input type="submit" value="Delete"/>-->
+<!--                </form>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--    </th:block>-->
+<!--</table>-->
+<!--</body>-->
 </html>
