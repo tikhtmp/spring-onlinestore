@@ -124,7 +124,7 @@ public class ProductsControllerAdmin {
     @GetMapping("/products/{product_id}/delete")
     public String deleteProduct(@PathVariable("product_id") Long productId) {
          productDAO.delete(productId);
-        return "admins/products";
+        return "redirect:/admins/products";
     }
 
     //---------------------------------- Cart
