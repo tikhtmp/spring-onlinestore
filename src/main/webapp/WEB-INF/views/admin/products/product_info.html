@@ -3,24 +3,31 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" th:href="@{/resources/static/images/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/resources/static/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <title>Product</title>
 </head>
 <body>
-<p th:text="'Id: ' + ${product.getId()}"></p>
-<p th:text="'Name: ' + ${product.getName()}"></p>
-<p th:text="'ShortDescription: ' + ${product.getShortDescription()}"></p>
-<p th:text="'DetailDescription: ' + ${product.getDetailDescription()}"></p>
-<p th:text="'Price: ' + ${product.getPrice()}"></p>
-<p th:text="'Author id: ' + ${product.getAuthor()}"></p>
-<br>
-<a th:href="@{/admins/products}">
-    <input type="submit" value="Back home"/>
-</a>
+<div th:insert="/admin/products/admin_product_fragments :: admin_navbar_for_card"></div>
 
-<br>
-<a th:href="@{'/admins/' + ${user_id} + '/cart/products/' + ${product.getId()} + '/new'}">
-    <input type="submit" value="Add to cart"/>
-</a>
+<div class="card mb-3 mt-3 mx-3" style="max-width: 1080px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img th:src="@{/resources/static/images/onlinestore.svg}" class="card-img-top my-3" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${product.getName()}">Card title</h5>
+                <p class="card-text" th:text="'Price: ' + ${product.getPrice()}">Price</p>
+                <p class="card-text" th:text="${product.getDetailDescription()}">DetailDescription</p>
+                <a th:href="@{/admins/products}" class="btn btn-outline-secondary">Go home</a>
+                <a th:href="@{'/admins/' + ${user_id} + '/cart/products/' + ${product.getId()} + '/new'}" class="btn btn-outline-secondary">Add to cart</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

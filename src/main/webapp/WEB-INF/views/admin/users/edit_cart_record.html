@@ -17,7 +17,7 @@ edit_cart_record users
 
 <br/>
 
-<form th:method="PATCH" th:action="@{'/admins/' + ${userId} + '/cart/products/' + ${productId}}" th:object="${cartRecord}">
+<form th:method="PATCH" th:action="@{'/admins/' + ${user_id} + '/cart/products/' + ${productId}}" th:object="${cartRecord}">
     <input type="hidden" name="_method" value="PATCH">
 
     <ul>
@@ -46,7 +46,7 @@ edit_cart_record users
 
 <br/>
 
-<a th:href="@{'/admins/' + ${userId} + '/cart/products'}">
+<a th:href="@{'/admins/' + ${user_id} + '/cart/products'}">
     <input type="submit" value="Cancel"/>
 </a>
 

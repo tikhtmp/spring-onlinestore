@@ -37,6 +37,10 @@ public class ProductsControllerAdmin {
         return Long.toString(getPrincipalId(principal));
     }
 
+    @ModelAttribute("login")
+    public String getUserLogin(Principal principal) {
+        return userDAO.getUserById(getPrincipalId(principal)).getLogin();
+    }
 
     @GetMapping("/products")
     public String homeAdmins(Principal principal) {
@@ -45,15 +49,15 @@ public class ProductsControllerAdmin {
 
     @GetMapping("/{user_id}/products")
     public String seeProducts(
-            @PathVariable("user_id") Long userId
+              @PathVariable("user_id") Long userId
             , @RequestParam(value = "filter", required = false, defaultValue = "") String filter
             , @RequestParam(value = "view", required = false, defaultValue = "") String view
             , Model model) {
 
-        model.addAttribute("login", userDAO.getUserById(userId).getLogin());
+        model.addAttribute("user_id", userId);
+//        model.addAttribute("login", userDAO.getUserById(userId).getLogin());
         model.addAttribute("filter", filter);
         model.addAttribute("view", view);
-//        model.addAttribute("user_id", userId);
 
         if (filter == null) {
             model.addAttribute("products", productDAO.getAllProducts());
@@ -65,7 +69,7 @@ public class ProductsControllerAdmin {
     @GetMapping("products/{product_id}")
     public String showProduct(@PathVariable("product_id") Long productId, Model model, Principal principal) {
         model.addAttribute("product", productDAO.getProduct(productId));
-        model.addAttribute("user_id", getPrincipalId(principal));
+//        model.addAttribute("user_id", getPrincipalId(principal));
         return "admin/products/product_info";
     }
 
@@ -117,18 +121,28 @@ public class ProductsControllerAdmin {
         return "redirect:/admins/products";
     }
 
-    @DeleteMapping("/products/{product_id}")
+    @GetMapping("/products/{product_id}/delete")
     public String deleteProduct(@PathVariable("product_id") Long productId) {
-        productDAO.delete(productId);
-        return "redirect:/admins/products";
+         productDAO.delete(productId);
+        return "admins/products";
     }
 
     //---------------------------------- Cart
 
     @GetMapping("/{user_id}/cart/products")
-    public String showCart(@PathVariable("user_id") Long userId, Model model) {
-        model.addAttribute("cart", cartDAO.getCartByUserId(userId));
-        model.addAttribute("userId", userId);
+    public String showCart(
+            @PathVariable("user_id") Long userId
+            , @RequestParam(value = "filter", required = false, defaultValue = "") String filter
+            , Model model) {
+        model.addAttribute("filter", filter);
+
+        if (filter == null) {
+            model.addAttribute("cart", cartDAO.getCartByUserId(userId));
+        } else model.addAttribute("cart", cartDAO.getFilteredCartByUserId(userId, filter));
+
+
+//        model.addAttribute("cart", cartDAO.getCartByUserId(userId));
+//        model.addAttribute("userId", userId);
         return "admin/users/cart";
     }
 
@@ -141,7 +155,7 @@ public class ProductsControllerAdmin {
 
         CartRecord cartRecord = cartDAO.getCartRecord(userId, productId);
         Product product = productDAO.getProduct(productId);
-        model.addAttribute("userId", userId);
+//        model.addAttribute("userId", userId);
         model.addAttribute("productId", productId);
         model.addAttribute("productName", product.getName());
         model.addAttribute("productDescription", product.getShortDescription());
@@ -159,7 +173,7 @@ public class ProductsControllerAdmin {
             , Model model) {
 
         Product product = productDAO.getProduct(productId);
-        model.addAttribute("userId", userId);
+//        model.addAttribute("userId", userId);
         model.addAttribute("productId", productId);
         model.addAttribute("productName", product.getName());
         model.addAttribute("productDescription", product.getShortDescription());
@@ -177,7 +191,7 @@ public class ProductsControllerAdmin {
             , @PathVariable("user_id") Long userId
             , Model model) {
 
-        model.addAttribute("userId", userId);
+//        model.addAttribute("userId", userId);
         model.addAttribute("productId", productId);
 
         if (bindingResult.hasErrors()) {
@@ -199,7 +213,7 @@ public class ProductsControllerAdmin {
             , @PathVariable("user_id") Long userId
             , Model model) {
 
-        model.addAttribute("userId", userId);
+//        model.addAttribute("userId", userId);
         model.addAttribute("productId", productId);
         cartRecord.setUser_id(userId);
         cartRecord.setProduct_id(productId);
@@ -213,7 +227,7 @@ public class ProductsControllerAdmin {
         return "redirect:/admins/" + userId + "/cart/products";
     }
 
-    @DeleteMapping("/{user_id}/cart/products/{product_id}")
+    @GetMapping("/{user_id}/cart/products/{product_id}/delete")
     public String deleteProductFromCart(
             @PathVariable("user_id") Long userId
             , @PathVariable("product_id") Long productId) {

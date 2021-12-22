@@ -24,6 +24,7 @@
 
 <form th:method="PATCH" th:action="@{'/users/' + ${user_id}}" th:object="${user}">
     <input type="hidden" name="_method" value="PATCH">
+
     <div class="container-fluid p-3">
         <div class="row">
             <div class="col-2">
@@ -33,6 +34,7 @@
             </div>
         </div>
     </div>
+
     <div class="container-fluid p-3">
         <div class="row">
             <div class="col-2">
@@ -46,6 +48,7 @@
             </div>
         </div>
     </div>
+
     <div class="container-fluid p-3">
         <div class="row">
             <div class="col">

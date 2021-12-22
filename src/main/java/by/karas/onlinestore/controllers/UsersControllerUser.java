@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/users")
@@ -140,7 +141,7 @@ public class UsersControllerUser {
         return "redirect:/users/" + userId + "/cart/products";
     }
 
-    @DeleteMapping("/{user_id}/cart/products/{product_id}")
+    @GetMapping("/{user_id}/cart/products/{product_id}/delete")
     public String deleteProductFromCart(@PathVariable("product_id") Long productId, Principal principal) {
         Long userId = getPrincipalId(principal);
         cartDAO.delete(userId, productId);

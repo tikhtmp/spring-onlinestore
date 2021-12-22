@@ -7,174 +7,10 @@
          style="float:left; margin-right:10px;"/>
 </div>
 
-<div th:fragment="admin_navbar">
-    <nav class="navbar navbar-expand-sm navbar-light bg-light p-1">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="navbar-brand" th:insert="/user/user_fragments :: onlinestore_image"></li>
-
-                    <li class="nav-link" style="float:left; margin-right:25px;">
-                        <a type="button" class="btn btn-light btn-sm rounded-pill"
-                           style="background-color: #e1f5ec; cursor: default;">
-                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
-                                <i class="bi bi-person" style="font-size: 20px;"></i> <span th:text="${login}"
-                                                                                            style="font-size: 20px;"></span>
-                            </span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
-                           th:href="@{/admins/products}">
-                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
-                                <i class="bi bi-house"></i> Home
-                            </span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
-                           th:href="@{'/admins/' + ${user_id} + '/cart/products'}">
-                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
-                               <i class="bi bi-cart4"></i> Cart
-                            </span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
-                           th:href="@{/admins/products/new}">
-                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
-                                <i class="bi bi-plus-square"></i> Add product
-                            </span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
-                           th:href="@{'/admins/' + ${user_id} + '/users'}">
-                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
-                                <i class="bi bi-people"></i> Users
-                            </span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a id="logout_link" type="button"
-                           class="btn-sm btn-outline-secondary text-decoration-none rounded-pill">
-                            <span class="d-none d-md-inline fs-5 fw-weight-bold"
-                                  onclick="document.getElementById('logout-form').submit();">
-                                <i class="bi bi-box-arrow-right"></i> Logout
-                            </span>
-                        </a>
-                    </li>
-                    <form id="logout-form" style="display:none" th:action="@{/logout}" method="POST"></form>
-
-                </ul>
-
-                <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
-                   th:href="@{'/admins/' + ${user_id} + '/products?filter=' + ${filter} + '&view=list'}"
-                   style="margin-right:30px;">
-                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
-                                <i class="bi bi-list"></i>List
-                            </span>
-                </a>
-
-                <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
-                   th:href="@{'/admins/' + ${user_id} + '/products?filter=' + ${filter} + '&view=grid'}"
-                   style="margin-right:30px;">
-                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
-                                <i class="bi bi-grid-3x3-gap"></i> Grid
-                            </span>
-                </a>
-
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                           name="filter" size="40">
-                    <button class="btn btn-outline-dark" type="submit">Search</button>
-                </form>
-
-            </div>
-        </div>
-    </nav>
-</div>
-
-<div th:fragment="admin_navbar_for_card">
+<div th:fragment="admin_navbar_for_cart">
     <nav class="navbar navbar-expand-sm navbar-light bg-light p-1">
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarSupportedContentCard">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="navbar-brand" th:insert="/user/user_fragments :: onlinestore_image"></li>
-
-                    <li class="nav-link" style="float:left; margin-right:25px;">
-                        <a type="button" class="btn btn-light btn-sm rounded-pill"
-                           style="background-color: #e1f5ec; cursor: default;">
-                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
-                                <i class="bi bi-person" style="font-size: 20px;"></i> <span th:text="${login}"
-                                                                                            style="font-size: 20px;"></span>
-                            </span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
-                            th:href="@{/admins/products}">
-                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
-                                <i class="bi bi-house"></i> Home
-                            </span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
-                           th:href="@{/admins/products/new}">
-                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
-                                <i class="bi bi-plus-square"></i> Add product
-                            </span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
-                           th:href="@{'/admins/' + ${user_id} + '/cart/products'}">
-                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
-                               <i class="bi bi-cart4"></i> Cart
-                            </span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
-                           th:href="@{'/admins/' + ${user_id} + '/users/' + ${user_id} +  '/update'}">
-                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
-                                <i class="bi bi-pencil"></i> Edit account
-                            </span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a id="card_logout_link" type="button"
-                           class="btn-sm btn-outline-secondary text-decoration-none rounded-pill">
-                            <span class="d-none d-md-inline fs-5 fw-weight-bold"
-                                  onclick="document.getElementById('card_logout_form').submit();">
-                                <i class="bi bi-box-arrow-right"></i> Logout
-                            </span>
-                        </a>
-                    </li>
-                    <form id="card_logout_form" style="display:none" th:action="@{/logout}" method="POST"></form>
-
-                </ul>
-            </div>
-        </div>
-    </nav>
-</div>
-
-<div th:fragment="admin_navbar_for_cart">
-
-    <nav class="navbar navbar-expand-sm navbar-light bg-light p-1">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="cartNavbarSupportedContent">
 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
@@ -199,20 +35,20 @@
                         </a>
                     </li>
 
-                    <li class="nav-link">
-                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
-                           th:href="@{/admins/products/new}">
-                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
-                                <i class="bi bi-plus-square"></i> Add product
-                            </span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
+                     <li class="nav-link">
                         <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
                            th:href="@{'/admins/' + ${user_id} + '/users'}">
                             <span class="d-none d-md-inline fs-5 fw-weight-bold">
                                 <i class="bi bi-people"></i> Users
+                            </span>
+                        </a>
+                    </li>
+
+                     <li class="nav-link">
+                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                           th:href="@{'/admins/' + ${user_id} + '/users/' + ${user_id} + '/update'}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-pencil"></i> Edit account
                             </span>
                         </a>
                     </li>
@@ -230,39 +66,96 @@
 
                 </ul>
 
-                <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
-                   th:href="@{'/admins/' + ${user_id} + '/products?filter=' + ${filter} + '&view=list'}"
-                   style="margin-right:30px;">
-                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
-                                <i class="bi bi-list"></i>List
-                            </span>
-                </a>
-
-                <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
-                   th:href="@{'/admins/' + ${user_id} + '/products?filter=' + ${filter} + '&view=grid'}"
-                   style="margin-right:30px;">
-                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
-                                <i class="bi bi-grid-3x3-gap"></i> Grid
-                            </span>
-                </a>
-
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                           name="filter" size="40">
-                    <button class="btn btn-outline-dark" type="submit">Search</button>
-                </form>
+            <form class="d-flex">
+                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                            name="filter" size="40">
+                       <button class="btn btn-outline-dark" type="submit">Search</button>
+            </form>
 
             </div>
         </div>
     </nav>
 </div>
 
+<div th:fragment="admin_navbar_for_card">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light p-1">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="cartNavbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="navbar-brand" th:insert="/user/user_fragments :: onlinestore_image"></li>
+
+                    <li class="nav-link" style="float:left; margin-right:25px;">
+                        <a type="button" class="btn btn-light btn-sm rounded-pill"
+                           style="background-color: #e1f5ec; cursor: default;">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-person" style="font-size: 20px;"></i> <span th:text="${login}"
+                                                                                            style="font-size: 20px;"></span>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                           th:href="@{/admins/products}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-house"></i> Home
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                       <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                            th:href="@{'/admins/' + ${user_id} + '/cart/products'}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-cart4"></i> Cart
+                            </span>
+                       </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                           th:href="@{/admins/products/new}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-plus-square"></i> Add product
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                           th:href="@{'/admins/' + ${user_id} + '/users'}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-people"></i> Users
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a id="card_logout_link" type="button"
+                           class="btn-sm btn-outline-secondary text-decoration-none rounded-pill">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold"
+                                  onclick="document.getElementById('card_logout_form').submit();">
+                                <i class="bi bi-box-arrow-right"></i> Logout
+                            </span>
+                        </a>
+                    </li>
+                    <form id="card_logout_form" style="display:none" th:action="@{/logout}" method="POST"></form>
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    </nav>
+</div>
+
 <!-- Product index displays list-->
 <div th:fragment="product_index_list">
+
     <div th:insert="product_index_fragments :: filter"></div>
 
     <th:block th:each="product : ${products}">
-        <br>
         <tbody>
         <div class="container-fluid bg-light">
             <tr>
@@ -281,8 +174,8 @@
                         <div class="col-4 align-self-center">
                             <span class="d-none d-md-inline fs-5 fw-weight-bold">
                                 <a class="card-text btn-sm btn-outline-secondary "
-                                    th:text="${product.getName()} +': ' + ${product.getShortDescription()}"
-                                    th:href="@{/admins/products/{id}(id=${product.getId()})}">
+                                   th:text="${product.getName()} +': ' + ${product.getShortDescription()}"
+                                   th:href="@{/admins/products/{id}(id=${product.getId()})}">
                                 </a>
                             </span>
                         </div>
@@ -300,7 +193,7 @@
                         <div class="col-1 align-self-center">
                             <span class="d-none d-md-inline fs-5 fw-weight-bold">
                                   <a class="card-text btn-sm btn-outline-secondary rounded-pill"
-                                       th:href="@{'/admins/' + ${user_id} + '/cart/products/' + ${product.getId()} + '/new'}">
+                                     th:href="@{'/admins/' + ${user_id} + '/cart/products/' + ${product.getId()} + '/new'}">
                                        <i class="bi bi-cart-plus"></i> Add to cart
                                   </a>
                             </span>
@@ -309,7 +202,7 @@
                         <div class="col-1 align-self-center">
                             <span class="d-none d-md-inline fs-5 fw-weight-bold">
                                   <a class="card-text btn-sm btn-outline-secondary rounded-pill"
-                                        th:href="@{'/admins/products/' + ${product.getId()} + '/edit'}">
+                                     th:href="@{'/admins/products/' + ${product.getId()} + '/edit'}">
                                         <i class="bi bi-pencil"></i> Edit
                                   </a>
                             </span>
@@ -365,11 +258,11 @@
                                 </span>
                             </p>
 
-                                <span class="card-text btn-sm" th:text="' Created:'" style="display: inline-block;"></span>
-                                <span class="card-text btn-sm" th:text="${product.getCreationDate()}" style="display: inline-block;"></span>
+                            <span class="card-text btn-sm" th:text="' Created:'" style="display: inline-block;"></span>
+                            <span class="card-text btn-sm" th:text="${product.getCreationDate()}" style="display: inline-block;"></span>
 
-                                <span class="card-text btn-sm" th:text="'Updated:'" style="display: inline-block;"></span>
-                                <span class="card-text btn-sm" th:text="${product.getUpdateDate()}"></span>
+                            <span class="card-text btn-sm" th:text="'Updated:'" style="display: inline-block;"></span>
+                            <span class="card-text btn-sm" th:text="${product.getUpdateDate()}"></span>
 
                             <p class="card-text">
                                 <span class="d-none d-md-inline fs-5 fw-weight-bold" style="display: inline-block;">

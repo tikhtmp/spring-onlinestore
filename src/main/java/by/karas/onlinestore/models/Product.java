@@ -1,10 +1,6 @@
 package by.karas.onlinestore.models;
 
-import com.sun.javafx.beans.IDProperty;
-
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -26,7 +22,9 @@ public class Product {
     @Size(min = 5, max = 1000, message = "Description must be from 5 to 1000 characters")
     private String detailDescription;
 
-    @DecimalMin(value = "0.01", message = "Price must greater than 0")
+    @NotNull(message = "Price must be greater than 0")
+    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0")
+    @Digits(integer=7, fraction=2, message = "Price must 2 characters of fraction")
     private BigDecimal price;
 
     private Date creationDate;

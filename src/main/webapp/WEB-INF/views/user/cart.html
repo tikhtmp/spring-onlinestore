@@ -32,10 +32,12 @@
                     <div class="card-body">
                         <div class="container">
                             <div class="row">
+
                                 <div class="col-2">
-                                    <p class="card-text" th:text="'Price: ' + ${product.key.getPrice()}">Price</p>
+                                    <p class="card-text btn-sm" th:text="'Price: ' + ${product.key.getPrice()}">Price</p>
                                 </div>
-                                <div class="col-6">
+
+                                <div class="col-5">
                                     <p class="card-text">
                                             <span class="d-none d-md-inline fs-5 fw-weight-bold">
                                             <a class="card-text btn-sm btn-outline-secondary "
@@ -45,16 +47,20 @@
                                         </span>
                                 </div>
 
+                                <div class="col-2">
+                                    <p class="card-text btn-sm" th:text="'Quantity: ' + ${product.value}">
+                                </div>
+
                                 <div class="col-3">
                                     <p class="card-text">
                                             <span class="d-none d-md-inline fs-5 fw-weight-bold">
                                                     <a id="delete_link" type="button"
-                                                       class="btn-sm btn-outline-secondary text-decoration-none rounded-pill" onclick="document.getElementById('delete_from_cart_form').submit();">
+                                                       class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                                                       th:href="@{'/users/' + ${user_id} + '/cart/products/' + ${product.key.getId()} +'/delete'}">
                                                         <i class="bi bi-trash"></i> Remove from cart
                                                     </a>
                                             </span>
                                 </div>
-                                <form th:method="DELETE" id="delete_from_cart_form" style="display:none" th:action="@{'/users/' + ${user_id} + '/cart/products/' + ${product.key.getId()}}" ></form>
                             </div>
                         </div>
                     </div>

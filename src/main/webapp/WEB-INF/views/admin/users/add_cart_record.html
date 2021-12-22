@@ -1,55 +1,94 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
-<style>
-.inline {
-display:inline-block;
-}
-</style>
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" th:href="@{/resources/static/images/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/resources/static/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <title>Add to cart</title>
 </head>
 
 <body>
-add cart_record post
-<br/>
+<div th:insert="/admin/users/admin_user_fragments :: admin_navbar_for_card"></div>
+<br>
+<div>
+    <h3>
+        <span class="badge bg-light rounded-pill" style="color:#5e5ec9;">
+            <i class="bi bi-cart-plus"></i> Input quantity and save the product to the cart
+        </span>
+    </h3>
+</div>
 
-<br/>
+<form th:method="POST" th:action="@{'/admins/' + ${user_id} + '/cart/products/' + ${productId}}" th:object="${cartRecord}">
 
-<form th:method="POST" th:action="@{'/admins/' + ${userId} + '/cart/products/' + ${productId}}" th:object="${cartRecord}">
+    <div class="container-fluid p-3">
+        <div class="row">
+            <div class="col-2">
+                <button type="button" class="btn btn-outline-secondary">
+                    Product Id: <span class="badge bg-light  text-dark" th:text="${productId}"></span>
+                </button>
+            </div>
+        </div>
+    </div>
 
-    <ul>
-        <li><label for="product_id"> Id: </label>
-            <p class="inline" th:text="${productId}" id="product_id"/>
-        </li>
-        <li><label for="product_name"> Name: </label>
-            <p class="inline" th:text="${productName}" id="product_name"/>
-        </li>
-        <li><label for="product_description"> Description: </label>
-            <p class="inline" th:text="${productDescription}" id="product_description"/>
-        </li>
-        <li><label for="product_price"> Price: </label>
-            <p class="inline" th:text="${productPrice}" id="product_price"/>
-        </li>
-    </ul>
-    <br/>
+    <div class="container-fluid p-3">
+        <div class="row">
+            <div class="col-3">
+                <button type="button" class="btn btn-outline-secondary">
+                    Product name: <span class="badge bg-light  text-dark" th:text="${productName}"></span>
+                </button>
+            </div>
+        </div>
+    </div>
 
-    <label for="quantity">Choose quantity: </label>
-        <input type="text" th:field="*{quantity}" id="quantity">
-    <div style="color:red" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
-    <br/>
+    <div class="container-fluid p-3">
+        <div class="row">
+            <div class="col-6">
+                <button type="button" class="btn btn-outline-secondary">
+                    Description: <span class="badge bg-light  text-dark" th:text="${productDescription}"></span>
+                </button>
+            </div>
+        </div>
+    </div>
 
-    <br/>
-    <input type="submit" value="Save"/>
+    <div class="container-fluid p-3">
+        <div class="row">
+            <div class="col-2">
+                <button type="button" class="btn btn-outline-secondary">
+                    Price: <span class="badge bg-light  text-dark" th:text="${productPrice}"></span>
+                </button>
+            </div>
+        </div>
+    </div>
 
+    <div class="container-fluid p-3">
+        <div class="row">
+            <div class="col-sm-1">
+                <input type="number" min="1" th:field="*{quantity}" id="quantity" class="form-control"
+                       aria-describedby="quantityHelpInline">
+                <div class="alert alert-danger" role="alert" style="color:red"
+                     th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid p-3">
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-outline-dark" style="float:left; margin-left:20px;">
+                    Save
+                </button>
+                <a th:href="@{/admins/products}">
+                    <input class="btn btn-outline-dark" type="button" style="float:left; margin-left:20px;"
+                           value="Cancel"/>
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
 </form>
-
-<br/>
-
-<a th:href="@{'/admins/' + ${userId} + '/cart/products'}">
-    <input type="submit" value="Cancel"/>
-</a>
 
 </body>
 </html>
