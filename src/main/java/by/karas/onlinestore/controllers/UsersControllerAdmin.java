@@ -67,6 +67,7 @@ public class UsersControllerAdmin {
             @PathVariable("user_id") Long userId
             , Model model) {
         model.addAttribute("user", userDAO.getUserById(userId));
+
         return "admin/users/edit_user";
     }
 
@@ -76,6 +77,10 @@ public class UsersControllerAdmin {
             , BindingResult bindingResult
             , @PathVariable("user_id") Long userId
             , Model model) {
+
+
+        model.addAttribute("user_id", userId);
+        user.setId(userId);
 
         if (bindingResult.hasErrors())
             return "admin/users/edit_user";

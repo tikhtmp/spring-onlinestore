@@ -19,10 +19,10 @@
 </h3>
 <br>
 <br>
-<!--    <div th:insert="product_index_fragments :: filter"></div>-->
+    <div th:insert="product_index_fragments :: filter"></div>
 <th:block th:each="product : ${cart}">
     <tr>
-        <div class="card mb-3 mt-3 mx-3" style="height: 80px; max-width: 1080px">
+        <div class="card mb-3 mt-3 mx-3" style="height: 80px">
             <div class="row g-0  justify-content-center align-items-center">
                 <div class="col-md-1">
                     <img th:src="@{/resources/static/images/onlinestore_add_photo.jpg}"
@@ -33,8 +33,12 @@
                         <div class="container">
                             <div class="row">
 
-                                <div class="col-2">
+                                <div class="col-1">
                                     <p class="card-text btn-sm" th:text="'Price: ' + ${product.key.getPrice()}">Price</p>
+                                </div>
+
+                                <div class="col-1">
+                                    <p class="card-text btn-sm" th:text="'Quantity: ' + ${product.value}">
                                 </div>
 
                                 <div class="col-5">
@@ -48,14 +52,21 @@
                                 </div>
 
                                 <div class="col-2">
-                                    <p class="card-text btn-sm" th:text="'Quantity: ' + ${product.value}">
+                                    <p class="card-text">
+                                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                                    <a id="edit_link" type="button"
+                                                       class="btn-sm btn-outline-secondary rounded-pill"
+                                                       th:href="@{'/users/' + ${user_id} + '/cart/products/' + ${product.key.getId()} +'/edit'}">
+                                                        <i class="bi bi-pencil"></i></i> Edit
+                                                    </a>
+                                            </span>
                                 </div>
 
                                 <div class="col-3">
                                     <p class="card-text">
                                             <span class="d-none d-md-inline fs-5 fw-weight-bold">
                                                     <a id="delete_link" type="button"
-                                                       class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                                                       class="btn-sm btn-outline-secondary rounded-pill"
                                                        th:href="@{'/users/' + ${user_id} + '/cart/products/' + ${product.key.getId()} +'/delete'}">
                                                         <i class="bi bi-trash"></i> Remove from cart
                                                     </a>

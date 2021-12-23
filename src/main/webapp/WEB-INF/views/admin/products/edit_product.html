@@ -20,7 +20,7 @@
         <div><br>
             <h3>
         <span class="badge bg-light rounded-pill" style="color:#5e5ec9;">
-            <i class="bi bi-cart-plus"></i> Edit the details of the product
+            <i class="bi bi-cart-plus"></i> Edit the product details
         </span>
             </h3>
         </div>
@@ -117,40 +117,3 @@
 
 </body>
 </html>
-
-
-<!--/////////////////////-->
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="http://thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Update product</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<form th:method="PATCH" th:action="@{/admins/products/{id}(id=${product.getId()})}" th:object="${product}">-->
-<!--    <input type="hidden" name="_method" value="PATCH">-->
-
-<!--    <label for="name">Name: </label>-->
-<!--    <input type="text" th:field="*{name}" id="name">-->
-<!--    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>-->
-<!--    <br/>-->
-<!--    <label for="shortDescription">Short description: </label>-->
-<!--    <input type="text" th:field="*{shortDescription}" id="shortDescription">-->
-<!--    <div style="color:red" th:if="${#fields.hasErrors('shortDescription')}" th:errors="*{shortDescription}"></div>-->
-<!--    <br/>-->
-<!--    <label for="detailDescription">Detail description: </label>-->
-<!--    <input type="text" th:field="*{detailDescription}" id="detailDescription">-->
-<!--    <div style="color:red" th:if="${#fields.hasErrors('detailDescription')}" th:errors="*{detailDescription}"></div>-->
-<!--    <br/>-->
-<!--    <label for="price">Price: </label>-->
-<!--    <input type="text" th:field="*{price}" id="price">-->
-<!--    <div style="color:red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>-->
-<!--    <br/>-->
-<!--    <input type="submit" value="Update">-->
-<!--</form>-->
-<!--<br/>-->
-<!--<a th:href="@{/admins/products}">-->
-<!--    <input type="submit" value="Cancel">-->
-<!--</a>-->
-<!--</body>-->
-<!--</html>-->

@@ -61,6 +61,15 @@
                     </li>
 
                     <li class="nav-link">
+                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                           th:href="@{'/admins/' + ${user_id} + '/users/' + ${user_id} + '/update'}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-pencil"></i> Edit account
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
                         <a id="logout_link" type="button"
                            class="btn-sm btn-outline-secondary text-decoration-none rounded-pill">
                             <span class="d-none d-md-inline fs-5 fw-weight-bold"
@@ -213,6 +222,15 @@
                            th:href="@{'/admins/' + ${user_id} + '/users'}">
                             <span class="d-none d-md-inline fs-5 fw-weight-bold">
                                 <i class="bi bi-people"></i> Users
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                           th:href="@{'/admins/' + ${user_id} + '/users/' + ${user_id} + '/update'}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-pencil"></i> Edit account
                             </span>
                         </a>
                     </li>

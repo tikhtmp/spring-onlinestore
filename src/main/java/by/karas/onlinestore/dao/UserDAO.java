@@ -69,8 +69,9 @@ public class UserDAO {
     }
 
     public void update(Long id, User updatedUser){
-        String sql = "update users set password=?, role=? where id=?";
+        String sql = "update users set login=?, password=?, role=? where id=?";
         jdbcTemplate.update(sql
+                , updatedUser.getLogin()
                 , updatedUser.getPassword()
                 , updatedUser.getRole().toString()
                 , id);

@@ -140,9 +140,6 @@ public class ProductsControllerAdmin {
             model.addAttribute("cart", cartDAO.getCartByUserId(userId));
         } else model.addAttribute("cart", cartDAO.getFilteredCartByUserId(userId, filter));
 
-
-//        model.addAttribute("cart", cartDAO.getCartByUserId(userId));
-//        model.addAttribute("userId", userId);
         return "admin/users/cart";
     }
 
@@ -173,7 +170,6 @@ public class ProductsControllerAdmin {
             , Model model) {
 
         Product product = productDAO.getProduct(productId);
-//        model.addAttribute("userId", userId);
         model.addAttribute("productId", productId);
         model.addAttribute("productName", product.getName());
         model.addAttribute("productDescription", product.getShortDescription());
@@ -191,7 +187,6 @@ public class ProductsControllerAdmin {
             , @PathVariable("user_id") Long userId
             , Model model) {
 
-//        model.addAttribute("userId", userId);
         model.addAttribute("productId", productId);
 
         if (bindingResult.hasErrors()) {
@@ -213,7 +208,6 @@ public class ProductsControllerAdmin {
             , @PathVariable("user_id") Long userId
             , Model model) {
 
-//        model.addAttribute("userId", userId);
         model.addAttribute("productId", productId);
         cartRecord.setUser_id(userId);
         cartRecord.setProduct_id(productId);

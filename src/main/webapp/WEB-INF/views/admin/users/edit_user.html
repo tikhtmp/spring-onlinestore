@@ -2,39 +2,108 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Update user</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" th:href="@{/resources/static/images/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/resources/static/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <title>Edit account</title>
 </head>
+
 <body>
+<div th:insert="/admin/users/admin_user_fragments :: admin_navbar_for_card"></div>
+<br>
+<div class="row">
+    <div class="col-md-1">
+    </div>
 
-<form th:method="PATCH" th:action="@{'/admins/' + ${admin_id} + '/users/' + ${user_id}}" th:object="${user}">
-    <input type="hidden" name="_method" value="PATCH">
+    <div class="col-md-11">
+        <div><br>
+            <h3>
+        <span class="badge bg-light rounded-pill" style="color:#5e5ec9;">
+            <i class="bi bi-cart-plus"></i> Edit the user details
+        </span>
+            </h3>
+        </div>
 
-    Id: <p th:text="${user_id}"/>
-    <br/>
-    <label for="login">Login: </label>
-    <input type="text" th:field="*{login}" id="login" readonly>
-    <div style="color:red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
-    <br/>
-    <label for="password">Password: </label>
-    <input type="password" th:field="*{password}" id="password">
-    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-    <br/>
+        <form th:method="PATCH" th:action="@{'/admins/' + ${admin_id} + '/users/' + ${user_id}}" th:object="${user}">
+            <input type="hidden" name="_method" value="PATCH">
 
-    <label for="role">Role: </label>
-    <select name="role" id="role">
-        <option th:each="roleOpt : ${T(by.karas.onlinestore.models.Role).values()}"
-                th:value="${roleOpt}" th:text="${roleOpt}"></option>
-    </select>
+            <div class="form-group">
 
-    <br/>
-    <br/>
-    <input type="submit" value="Update">
-    <br/>
-    <br/>
-</form>
+                <div class="container-fluid p-3">
+                    <div class="row">
+                        <div class="col-2">
+                            <button type="button" class="btn btn-secondary">
+                                User Id: <span class="badge bg-light  text-dark" th:text="${user.getId()}"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
 
-<a th:href="@{'/admins/' + ${admin_id} + '/users'}">
-    <input type="submit" value="Cancel">
-</a>
+                <label for="login" class="col-form-label">Login: </label>
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <input type="text" th:field="*{login}" id="login" class="form-control"
+                               aria-describedby="loginHelp">
+                    </div>
+                    <div class="col-8">
+                  <span id="loginHelp" class="form-text">
+                    Must be 2-10 characters long.
+                  </span>
+                    </div>
+                    <div class="alert alert-danger" role="alert" style="color:red; max-width: 30rem;"
+                         th:if="${#fields.hasErrors('login')}" th:errors="*{login}">
+                    </div>
+                </div>
+
+                <label for="password" class="col-form-label">Password: </label>
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <input type="password" th:field="*{password}" id="password" class="form-control"
+                               aria-describedby="passwordHelp">
+                    </div>
+                    <div class="col-8">
+                  <span id="passwordHelp" class="form-text">
+                    Must be 1-10 characters long.
+                  </span>
+                    </div>
+                    <div class="alert alert-danger" role="alert" style="color:red; max-width: 30rem;"
+                         th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                    </div>
+                </div>
+
+                <div class="row g-3 align-items-center">
+                    <div class="col-auto">
+                        <label for="role" class="col-form-label">Role: </label>
+                        <select class="form-select" name="role" id="role" aria-label="">
+                            <option selected th:text="${user.getRole()}">Open this select menu</option>
+                            <option th:each="roleOpt : ${T(by.karas.onlinestore.models.Role).values()}"
+                                    th:value="${roleOpt}" th:text="${roleOpt}"></option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+<br>
+<br>
+            <div class="container-fluid p-3">
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-outline-dark" style="float:left; margin-left:20px;">
+                            Update
+                        </button>
+                        <a th:href="@{/admins/products}">
+                            <input class="btn btn-outline-dark" type="button" style="float:left; margin-left:20px;"
+                                   value="Cancel"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
 </body>
 </html>
