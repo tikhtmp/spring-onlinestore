@@ -68,8 +68,8 @@ public class OnlineStoreConfig implements WebMvcConfigurer {
         DriverManagerDataSource dataSource =new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/onlinestore_db");
-        dataSource.setUsername("root");
-        dataSource.setPassword("Rybanka@08");
+        dataSource.setUsername("osadmin");
+        dataSource.setPassword("Onlinestore@1");
 
         return dataSource;
     }

@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<div th:insert="fragments :: home_navbar"></div>
+<div th:insert="fragments :: home_add_user_navbar"></div>
 
 <form th:method="POST" th:action="@{/home/users/new}" th:object="${user}">
     <br>

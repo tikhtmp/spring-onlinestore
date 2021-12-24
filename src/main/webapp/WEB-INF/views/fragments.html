@@ -72,6 +72,69 @@
         </div>
     </nav>
 </div>
+
+<div th:fragment="home_add_user_navbar">
+    <nav class="navbar navbar-expand-sm navbar-light bg-light p-1">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="navbarNewUserSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="navbar-brand" th:insert="fragments :: onlinestore_image"></li>
+
+                    <li class="nav-link">
+                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                           th:href="@{/home/products}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                                <i class="bi bi-house"></i> Home
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"
+                           th:href="@{/home/auth}">
+                            <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                               <i class="bi bi-box-arrow-in-right"></i> Log in
+                            </span>
+                        </a>
+                    </li>
+
+<!--                    <li class="nav-link">-->
+<!--                        <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"-->
+<!--                           th:href="@{/home/users/new}">-->
+<!--                            <span class="d-none d-md-inline fs-5 fw-weight-bold">-->
+<!--                                <i class="bi bi-person-plus"></i> Register-->
+<!--                            </span>-->
+<!--                        </a>-->
+<!--                    </li>-->
+                </ul>
+
+<!--                <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"-->
+<!--                   th:href="@{'/home/products?filter=' + ${filter} + '&view=list'}" style="margin-right:10px;">-->
+<!--                            <span class="d-none d-md-inline fs-5 fw-weight-bold">-->
+<!--                                <i class="bi bi-list"></i>List-->
+<!--                            </span>-->
+<!--                </a>-->
+
+<!--                <a type="button" class="btn-sm btn-outline-secondary text-decoration-none rounded-pill"-->
+<!--                   th:href="@{'/home/products?filter=' + ${filter} + '&view=grid'}" style="margin-right:30px;">-->
+<!--                            <span class="d-none d-md-inline fs-5 fw-weight-bold">-->
+<!--                                <i class="bi bi-grid-3x3-gap"></i> Grid-->
+<!--                            </span>-->
+<!--                </a>-->
+
+
+<!--                <form class="d-flex">-->
+<!--                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"-->
+<!--                           name="filter" size="40">-->
+<!--                    <button class="btn btn-outline-dark" type="submit">Search</button>-->
+<!--                </form>-->
+
+            </div>
+        </div>
+    </nav>
+</div>
+
 </body>
 </html>
 

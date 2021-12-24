@@ -91,7 +91,7 @@ public class UsersControllerAdmin {
         return "redirect:/admins/{admin_id}/users";
     }
 
-    @DeleteMapping("/{user_id}")
+    @GetMapping("/{user_id}/delete")
     public String deleteUser(@PathVariable("user_id") Long userId, Principal principal) {
 
         Long principalId = getPrincipalId(principal);

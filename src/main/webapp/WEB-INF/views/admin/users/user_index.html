@@ -1,82 +1,79 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
-<style>
-        .menu {
-            background: #004f8b; /* Цвет фона */
-            color: white; /* Цвет текста */
-            padding: 2px; /* Поля вокруг текста */
-            margin-top: 5px; /* Отступ сверху */
-            margin-bottom: 5px; /* Отступ снизу */
-            display: inline-block;
-        }
-</style>
-
 <head>
     <meta charset="UTF-8">
-    <title>All users</title>
-    <div class="menu">
-        <h3 class="menu">ONLINE STORE pic</h3>
-        <h3 class="menu">
-            Hello,
-            <td th:text="${login} + '!   '"></td>
-        </h3>
-        <h3 class="menu">
-
-            <a th:href="@{/admins/products}">
-                <input type="submit" value="Products"/>
-            </a>
-        </h3>
-        <h3 class="menu">
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Log out"/>
-            </form>
-        </h3>
-    </div>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" th:href="@{/resources/static/images/favicon.ico}">
+    <link rel="stylesheet" th:href="@{/resources/static/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <title>All users<</title>
 </head>
-<body>
-<br>
-<hr/>
-<form th:action="@{'/admins/' + ${admin_id} + '/users?filter=' + ${filter}}">
-    Filter: <input type="text" name="filter" size="50"/>
-    <a th:href="@{'/admins/' + + ${admin_id} + '/users?filter=' + ${filter}}">
-        <input type="submit" value="Search"/>
-    </a>
-</form>
-<hr/>
-<h4 th:if="${filter.length()}">
-    Search results for:
-    <data th:text="${filter}"/>
-</h4>
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Login</th>
-        <th>Role</th>
+<body>
+<div th:insert="/admin/users/admin_user_fragments :: admin_users_navbar"></div>
+<div th:insert="product_index_fragments :: filter"></div>
+<br>
+<table class="table table-hover">
+    <thead>
+    <tr class="table-primary">
+        <th scope="col">ID</th>
+        <th scope="col">Login</th>
+        <th scope="col">Role</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
     </tr>
+    </thead>
+
+    <tbody>
     <th:block th:each="user : ${users}">
         <tr>
-            <td th:text="${user.getId()}"></td>
-            <td th:text="${user.getLogin()}"></td>
-            <td th:text="${user.getRole()}"></td>
-            <td>
-                <a th:href="@{'/admins/' + ${admin_id} + '/users/' + ${user.getId()}}">
-                    <input type="submit" value="See details"/>
-                </a>
+            <div class="row gy-1">
 
-            <td>
-                <a th:href="@{'/admins/' + ${admin_id} + '/users/' + ${user.getId()} + '/update'}">
-                    <input type="submit" value="Edit"/>
-                </a>
-            </td>
+                <td>
+                        <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                            <p class="card-text btn-sm" th:text="${user.getId()}"></p>
+                        </span>
+                </td>
 
-            <td>
-                <form th:action="@{'/admins/' + ${admin_id} + '/users/' + ${user.getId()}}" th:method="DELETE">
-                    <input type="submit" value="Delete"/>
-                </form>
-            </td>
+                <td>
+                         <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                             <a class="card-text btn-sm btn-outline-secondary "
+                                th:text="${user.getLogin()}"
+                                th:href="@{'/admins/' + ${admin_id} + '/users/' + ${user.getId()}}">
+                         </a>
+                        </span>
+                </td>
+
+                <td>
+                        <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                            <p class="card-text btn-sm" th:text="${user.getRole()}"></p>
+                        </span>
+                </td>
+
+                <td>
+                    <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                         <a class="card-text btn-sm btn-outline-secondary rounded-pill"
+                            th:href="@{'/admins/' + ${admin_id} + '/users/' + ${user.getId()} + '/update'}">
+                             <i class="bi bi-pencil"></i> Edit
+                         </a>
+                        </span>
+                </td>
+
+                <td>
+                    <span class="d-none d-md-inline fs-5 fw-weight-bold">
+                         <a class="card-text btn-sm btn-outline-secondary rounded-pill"
+                            th:href="@{'/admins/' + ${admin_id} + '/users/' + ${user.getId()} + '/delete'}">
+                             <i class="bi bi-trash"></i> Remove
+                         </a>
+                    </span>
+                </td>
+
+            </div>
         </tr>
     </th:block>
+    </tbody>
 </table>
+
+<script th:src="@{/resources/static/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
